@@ -74,6 +74,26 @@ router.get("/edit-client", async (req: ExtendedRequest, res) => {
     res.status(500);
   }
 });
+router.get("/client-list", async (req: ExtendedRequest, res) => {
+  try {
+
+    // Components to render
+    let head = await mainHead();
+    let script = await mainScript();
+    let nav = await mainNav.mainNav();
+    let footer = await mainFooter();
+
+    res.status(200).render(view + "client-list.html", {
+      head: head,
+      script: script,
+      footer: footer,
+      nav: nav,
+    });
+  } catch (err) {
+    //console.log(err);
+    res.status(500);
+  }
+});
 router.get("/add-enquiry", async (req: ExtendedRequest, res) => {
   try {
 

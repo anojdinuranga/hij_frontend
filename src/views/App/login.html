@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%-head%>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row login-container">
+            <!-- Logo Section -->
+            <div class="col-md-5 login-logo">
+                <img src="/assets/images/logo.png" alt="HIJ Consultants Logo" class="img-fluid">
+            </div>
+
+            <!-- Divider -->
+            <div class="col-md-1 vertical-divider"></div>
+
+            <!-- Form Section -->
+            <div class="col-md-6 d-flex justify-content-center align-items-center">
+                <div class="login-form w-75">
+                    <h3 class="title">Login</h3>
+                    <h5 class="sub-title">Get Started!</h5>
+                    <form class="mt-80">
+                        <div class="mb-5">
+                            <label for="employeeCode" class="form-label login-form-label">Employee Code</label>
+                            <input type="text" class="form-control" id="employeeCode">
+                        </div>
+                        <div class="mb-5">
+                            <label for="password" class="form-label login-form-label">Password</label>
+                            <input type="password" class="form-control" id="password">
+                        </div>
+
+                        <button type="submit" class="btn btn-primary w-100 mt-90 mb-4 login-btn">Login</button>
+                        <button type="button" class="btn btn-secondary w-100 scan-btn">Scan ID</button>
+                    </form>
+                    <p class="mt-5 text-center link-text">
+                        Don't have an account? <a href="#" class="contact-admin">Contact Admin</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <%-script%>
+</body>
+
+</html>

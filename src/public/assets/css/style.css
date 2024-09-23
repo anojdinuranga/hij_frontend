@@ -214,3 +214,17 @@ body {
 .table1 tbody tr:nth-child(odd){
     
 }
+
+.bg-col-primary{
+    background-color: #2E3192;
+    border-color: #2E3192;
+}
+
+.col-primary{
+    color: #2E3192;
+}
+
+.bg-col-secondary{
+    background-color: #D5D6F9;
+    border-color: #D5D6F9;
+}

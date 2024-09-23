@@ -16,7 +16,7 @@ import ejs from 'ejs';
 const app = express();
 
 // set security HTTP headers
-app.use(helmet());
+// app.use(helmet());
 
 // app.use(morgan('tiny'));
 

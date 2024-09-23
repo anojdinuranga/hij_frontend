@@ -34,6 +34,26 @@ router.get("/", async (req: ExtendedRequest, res) => {
     res.status(500);
   }
 });
+router.get("/contact-admin", async (req: ExtendedRequest, res) => {
+  try {
+
+    // Components to render
+    let head = await mainHead();
+    let script = await mainScript();
+    let nav = await mainNav.mainNav();
+    let footer = await mainFooter();
+
+    res.status(200).render(view + "contact-admin.html", {
+      head: head,
+      script: script,
+      footer: footer,
+      nav: nav,
+    });
+  } catch (err) {
+    //console.log(err);
+    res.status(500);
+  }
+});
 router.get("/add-client", async (req: ExtendedRequest, res) => {
   try {
 

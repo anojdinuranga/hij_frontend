@@ -115,14 +115,16 @@
         $(document).ready(function(){
             $('#login-btn').click(function(){
                 console.log('login');
-                var employeeNumber = $('#employeeNumber').val();
+                var employeeNumber = $('#employeeCode').val();
+                console.log("🚀 ~ $ ~ employeeNumber:", employeeNumber)
                 var password = $('#password').val();
                 $.ajax({
                     url: '/api/v1/user/login',
                     type: 'POST',
                     data: {employeeNumber: employeeNumber, password: password},
                     success: function(data){
-                        if(data.status == 200){
+                        console.log("🚀 ~ $ ~ data:", data)
+                        if(data.status){
                             window.location.href = '/client-list';
                         } else {
                             showAlert({message: data.message, closeText: 'ok'})

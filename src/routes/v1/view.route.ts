@@ -130,7 +130,7 @@ router.get("/client-list", apiAuthorize, async (req: ExtendedRequest, res) => {
     let footer = await mainFooter();
 
     res.status(200).render(view + "client-list.html", {
-      clients: clients.data,
+      clients: clients.data.length == 0?[]:clients.data,
       head: head,
       script: script,
       footer: footer,

@@ -11,10 +11,10 @@ const mainNav = async () => {
                         Client manage
                     </div>
                     <div class="">
-                        <a href="/add-client" class="text-decoration-none text-dark d-block pb-1">
+                        <a href="/add-client" class="text-decoration-none text-dark d-block pb-2">
                             Add Client
                         </a>
-                        <a href="/client-list" class="text-decoration-none text-dark d-block pb-1">
+                        <a href="/client-list" class="text-decoration-none text-dark d-block pb-2">
                             Client List
                         </a>
                     </div> 

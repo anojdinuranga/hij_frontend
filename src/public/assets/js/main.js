@@ -25,6 +25,10 @@ function showAlert(obj){
     $('#alert_button').text(obj.acceptText != undefined ? obj.acceptText : 'accept');
     $('#alert_message').text(obj.message != undefined ? obj.message :'Are you sure you want to proceed ?');
 
+    if(obj.acceptText == undefined){
+       $('#alert_button').addClass('d-none');
+    }
+
     $('#alert_button').click(function(){
         if(obj.acceptFunction != undefined){
             obj.acceptFunction();

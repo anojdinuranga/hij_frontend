@@ -22,10 +22,11 @@ const post = async (url:string, data:any, token:string = "", req: ExtendedReques
             }
         })
         .then(result => {
+            console.log("🚀 ~ returnnewPromise ~ result:", result)
             resolve(DefaultResponse.successFormat("200", result.data));
         })
         .catch(error => {
-            //console.log("result", error);
+            console.log("result", error);
             resolve(DefaultResponse.errorFormat("000", error));
         });
     });

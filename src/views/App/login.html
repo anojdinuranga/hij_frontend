@@ -21,7 +21,7 @@
                 <div class="login-form w-75">
                     <h3 class="title">Login</h3>
                     <h5 class="sub-title">Get Started!</h5>
-                    <form class="mt-80">
+                    <div class="mt-80">
                         <div class="mb-5">
                             <label for="employeeCode" class="form-label login-form-label">Employee Code</label>
                             <input type="text" class="form-control" id="employeeCode">
@@ -31,9 +31,9 @@
                             <input type="password" class="form-control" id="password">
                         </div>
 
-                        <button type="submit" class="btn btn-primary w-100 mt-90 mb-4 login-btn">Login</button>
+                        <button  class="btn btn-primary w-100 mt-90 mb-4 login-btn" id="login-btn">Login</button>
                         <button type="button" class="btn btn-secondary w-100 scan-btn" onclick="cameraToggle(1)">Scan ID</button>
-                    </form>
+                    </div>
                     <p class="mt-5 text-center link-text">
                         Don't have an account? <a onclick="contactAdminToggle(1)" class="contact-admin">Contact Admin</a>
                     </p>
@@ -112,6 +112,25 @@
     </div>
     <%-script%>
     <script>
+        $(document).ready(function(){
+            $('#login-btn').click(function(){
+                console.log('login');
+                var employeeNumber = $('#employeeNumber').val();
+                var password = $('#password').val();
+                $.ajax({
+                    url: '/api/v1/user/login',
+                    type: 'POST',
+                    data: {employeeNumber: employeeNumber, password: password},
+                    success: function(data){
+                        if(data.status == 200){
+                            window.location.href = '/client-list';
+                        } else {
+                            showAlert({message: data.message, closeText: 'ok'})
+                        }
+                    }
+                });
+            });
+        });
         function contactAdminToggle(val){
             if(val == 1){
                 $('#contact-admin-page').show();

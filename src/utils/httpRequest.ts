@@ -26,7 +26,6 @@ const post = async (url:string, data:any, token:string = "", req: ExtendedReques
             }
         })
         .then(result => {
-            console.log("🚀 ~ returnnewPromise ~ result:", result)
             resolve(DefaultResponse.successFormat("200", result.data));
         })
         .catch(error => {

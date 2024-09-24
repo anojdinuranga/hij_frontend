@@ -24,12 +24,13 @@
               </tr>
             </thead>
             <tbody>
-
+              
+              <% clients.forEach((item, index)=>{%>
                 <tr>
-                  <td>name name</td>
-                  <td>05586565</td>
-                  <td>sanjana@gmail.com</td>
-                  <td>head office address</td>
+                  <td><%=item.name%></td>
+                  <td><%=item.contact_number%></td>
+                  <td><%=item.email%></td>
+                  <td><%=item.head_office_address%></td>
                   <td>
                     <div class="dropdown dropend">
                       <button class="btn btn-sm p-0" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
@@ -45,126 +46,7 @@
                   <td>
                   </td>
                 </tr>
-                <tr>
-                  <td>name name</td>
-                  <td>05586565</td>
-                  <td>sanjana@gmail.com</td>
-                  <td>head office address</td>
-                  <td>
-                    <div class="dropdown dropend">
-                      <button class="btn btn-sm p-0" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                        <img src="/assets/images/icons/Group 482180.svg" alt="dropdown" width="25" height="25">
-                      </button>
-                      <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton1">
-                        <li><a class="dropdown-item" href="#" onclick="showAlert({message:'Are you sure you need to delete this client ?', acceptText:'yes', closeText:'no'})">Delete</a></li>
-                        <li><a class="dropdown-item" href="#">Edit</a></li>
-                      </ul>
-                    </div>
-                  </td>
-                  </td>
-                  <td>
-                  </td>
-                </tr>
-                <tr>
-                  <td>name name</td>
-                  <td>05586565</td>
-                  <td>sanjana@gmail.com</td>
-                  <td>head office address</td>
-                  <td>
-                    <div class="dropdown dropend">
-                      <button class="btn btn-sm p-0" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                        <img src="/assets/images/icons/Group 482180.svg" alt="dropdown" width="25" height="25">
-                      </button>
-                      <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton1">
-                        <li><a class="dropdown-item" href="#" onclick="showAlert({message:'Are you sure you need to delete this client ?', acceptText:'yes', closeText:'no'})">Delete</a></li>
-                        <li><a class="dropdown-item" href="#">Edit</a></li>
-                      </ul>
-                    </div>
-                  </td>
-                  </td>
-                  <td>
-                  </td>
-                </tr>
-                <tr>
-                  <td>name name</td>
-                  <td>05586565</td>
-                  <td>sanjana@gmail.com</td>
-                  <td>head office address</td>
-                  <td>
-                    <div class="dropdown dropend">
-                      <button class="btn btn-sm p-0" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                        <img src="/assets/images/icons/Group 482180.svg" alt="dropdown" width="25" height="25">
-                      </button>
-                      <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton1">
-                        <li><a class="dropdown-item" href="#" onclick="showAlert({message:'Are you sure you need to delete this client ?', acceptText:'yes', closeText:'no'})">Delete</a></li>
-                        <li><a class="dropdown-item" href="#">Edit</a></li>
-                      </ul>
-                    </div>
-                  </td>
-                  </td>
-                  <td>
-                  </td>
-                </tr>
-                <tr>
-                  <td>name name</td>
-                  <td>05586565</td>
-                  <td>sanjana@gmail.com</td>
-                  <td>head office address</td>
-                  <td>
-                    <div class="dropdown dropend">
-                      <button class="btn btn-sm p-0" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                        <img src="/assets/images/icons/Group 482180.svg" alt="dropdown" width="25" height="25">
-                      </button>
-                      <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton1">
-                        <li><a class="dropdown-item" href="#" onclick="showAlert({message:'Are you sure you need to delete this client ?', acceptText:'yes', closeText:'no'})">Delete</a></li>
-                        <li><a class="dropdown-item" href="#">Edit</a></li>
-                      </ul>
-                    </div>
-                  </td>
-                  </td>
-                  <td>
-                  </td>
-                </tr>
-                <tr>
-                  <td>name name</td>
-                  <td>05586565</td>
-                  <td>sanjana@gmail.com</td>
-                  <td>head office address</td>
-                  <td>
-                    <div class="dropdown dropend">
-                      <button class="btn btn-sm p-0" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                        <img src="/assets/images/icons/Group 482180.svg" alt="dropdown" width="25" height="25">
-                      </button>
-                      <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton1">
-                        <li><a class="dropdown-item" href="#" onclick="showAlert({message:'Are you sure you need to delete this client ?', acceptText:'yes', closeText:'no'})">Delete</a></li>
-                        <li><a class="dropdown-item" href="#">Edit</a></li>
-                      </ul>
-                    </div>
-                  </td>
-                  </td>
-                  <td>
-                  </td>
-                </tr>
-                <tr>
-                  <td>name name</td>
-                  <td>05586565</td>
-                  <td>sanjana@gmail.com</td>
-                  <td>head office address</td>
-                  <td>
-                    <div class="dropdown dropend">
-                      <button class="btn btn-sm p-0" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                        <img src="/assets/images/icons/Group 482180.svg" alt="dropdown" width="25" height="25">
-                      </button>
-                      <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton1">
-                        <li><a class="dropdown-item" href="#" onclick="showAlert({message:'Are you sure you need to delete this client ?', acceptText:'yes', closeText:'no'})">Delete</a></li>
-                        <li><a class="dropdown-item" href="#">Edit</a></li>
-                      </ul>
-                    </div>
-                  </td>
-                  </td>
-                  <td>
-                  </td>
-                </tr>
+              <%})%>
         
                
             </tbody>

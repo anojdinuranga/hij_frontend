@@ -7,7 +7,7 @@ import mainScript from "../../views/components/script";
 import mainNav from "../../views/components/nav";
 import mainFooter from "../../views/components/footer";
 import crypto from "crypto";
-import { checkLoggedIn, pathAuthorize } from "../../middlewares/authenticate";
+import { checkLoggedIn, pathAuthorize, apiAuthorize } from "../../middlewares/authenticate";
 
 
 // Define Global Variables
@@ -15,6 +15,26 @@ const view = `${__dirname}/../../../src/views/App/`;
 const router: Router = express.Router();
 
 router.get("/", async (req: ExtendedRequest, res) => {
+  try {
+
+    // Components to render
+    let head = await mainHead();
+    let script = await mainScript();
+    let nav = await mainNav.mainNav();
+    let footer = await mainFooter();
+
+    res.status(200).render(view + "login.html", {
+      head: head,
+      script: script,
+      footer: footer,
+      nav: nav,
+    });
+  } catch (err) {
+    //console.log(err);
+    res.status(500);
+  }
+});
+router.get("/login", async (req: ExtendedRequest, res) => {
   try {
 
     // Components to render
@@ -94,8 +114,14 @@ router.get("/edit-client", async (req: ExtendedRequest, res) => {
     res.status(500);
   }
 });
-router.get("/client-list", async (req: ExtendedRequest, res) => {
+router.get("/client-list", apiAuthorize, async (req: ExtendedRequest, res) => {
   try {
+    var clients = await renderData.render_data_post('/api/v1/client/list' , req?.authToken==undefined?'':req?.authToken, {});
+    console.log("🚀 ~ router.get ~ clients:", clients);
+    if(!clients.status){
+      res.redirect('/');
+      return;
+    }
 
     // Components to render
     let head = await mainHead();
@@ -104,6 +130,7 @@ router.get("/client-list", async (req: ExtendedRequest, res) => {
     let footer = await mainFooter();
 
     res.status(200).render(view + "client-list.html", {
+      clients: clients.data,
       head: head,
       script: script,
       footer: footer,

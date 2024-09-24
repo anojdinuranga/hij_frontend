@@ -31,11 +31,13 @@
                             <input type="password" class="form-control" id="password">
                         </div>
 
-                        <button  class="btn btn-primary w-100 mt-90 mb-4 login-btn" id="login-btn">Login</button>
-                        <button type="button" class="btn btn-secondary w-100 scan-btn" onclick="cameraToggle(1)">Scan ID</button>
+                        <button class="btn btn-primary w-100 mt-90 mb-4 login-btn" id="login-btn">Login</button>
+                        <button type="button" class="btn btn-secondary w-100 scan-btn" onclick="cameraToggle(1)">Scan
+                            ID</button>
                     </div>
                     <p class="mt-5 text-center link-text">
-                        Don't have an account? <a onclick="contactAdminToggle(1)" class="contact-admin">Contact Admin</a>
+                        Don't have an account? <a onclick="contactAdminToggle(1)" class="contact-admin">Contact
+                            Admin</a>
                     </p>
                 </div>
             </div>
@@ -49,8 +51,8 @@
                 <i class="fa-solid fa-xmark text-secondary fs-2 p-3" onclick="contactAdminToggle(0)"></i>
             </div>
             <div class="d-flex justify-content-center align-items-center">
-    
-    
+
+
                 <!-- Form Section -->
                 <div class="col-md-5 d-flex justify-content-center align-items-center">
                     <div class="login-form my-0 py-0 w-100">
@@ -64,8 +66,9 @@
                                 <label for="employeeNumber" class="form-label login-form-label">Employee Number</label>
                                 <input type="text" class="form-control" id="employeeNumber">
                             </div>
-    
-                            <button  class="btn btn-primary w-100 mt-5 mb-4 login-btn" onclick="reqSentToggle(1)">Submit</button>
+
+                            <button class="btn btn-primary w-100 mt-5 mb-4 login-btn"
+                                onclick="reqSentToggle(1)">Submit</button>
                         </div>
                     </div>
                 </div>
@@ -78,17 +81,17 @@
                 <img src="/assets/images/logo.png" alt="HIJ Consultants Logo" width="142" class="">
                 <i class="fa-solid fa-xmark text-secondary fs-2 p-3" onclick="reqSentToggle(0)"></i>
             </div>
-                <div class="d-flex justify-content-center align-items-center">
-        
-        
-                    <!-- Form Section -->
-                    <div class="col-md-5 d-flex justify-content-center align-items-center">
-                        <div class="login-form w-100 d-flex align-items-center justify-content-center flex-column">
-                            <h5 class="title text-center">Your account will be created shortly!!!</h5>
-                            <img src="/assets/images/icons/Group 482179.svg" width="295" alt="" class="mt-5">
-                        </div>
+            <div class="d-flex justify-content-center align-items-center">
+
+
+                <!-- Form Section -->
+                <div class="col-md-5 d-flex justify-content-center align-items-center">
+                    <div class="login-form w-100 d-flex align-items-center justify-content-center flex-column">
+                        <h5 class="title text-center">Your account will be created shortly!!!</h5>
+                        <img src="/assets/images/icons/Group 482179.svg" width="295" alt="" class="mt-5">
                     </div>
                 </div>
+            </div>
         </div>
     </div>
     <div class="position-fixed vw-100 vh-100 top-0 left-0 bg-white" style="display: none;" id="camera-page">
@@ -97,66 +100,97 @@
                 <img src="/assets/images/logo.png" alt="HIJ Consultants Logo" width="142" class="">
                 <i class="fa-solid fa-xmark text-secondary fs-2 p-3" onclick="cameraToggle(0)"></i>
             </div>
-                <div class="d-flex justify-content-center align-items-center h-100">
-        
-        
-                    <!-- Form Section -->
-                    <div class="col-md-5 d-flex justify-content-center align-items-center">
-                        <div class="login-form w-100 d-flex align-items-center justify-content-center flex-column">
-                            <img src="/assets/images/icons/Group 482178.svg" width="210" alt="" class="mb-3">
-                            <div class="fw-bold fs-1">Camera</div>
-                        </div>
+            <div class="d-flex justify-content-center align-items-center h-100">
+                <div class="col-md-5 d-flex justify-content-center align-items-center">
+                    <div class="login-form w-100 d-flex align-items-center justify-content-center flex-column">
+                        <!-- Camera Feed Will Appear Here -->
+                        <div id="camera-feed" class="mb-3"></div>
+                        <div class="fw-bold fs-1">Camera</div>
                     </div>
                 </div>
+            </div>
         </div>
     </div>
     <%-script%>
-    <script>
-        $(document).ready(function(){
-            $('#login-btn').click(function(){
-                console.log('login');
-                var employeeNumber = $('#employeeCode').val();
-                console.log("🚀 ~ $ ~ employeeNumber:", employeeNumber)
-                var password = $('#password').val();
-                $.ajax({
-                    url: '/api/v1/user/login',
-                    type: 'POST',
-                    data: {employeeNumber: employeeNumber, password: password},
-                    success: function(data){
-                        console.log("🚀 ~ $ ~ data:", data)
-                        if(data.status){
-                            window.location.href = '/client-list';
-                        } else {
-                            showAlert({message: data.message, closeText: 'ok'})
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/quagga/0.12.1/quagga.min.js"></script>
+        <script>
+            $(document).ready(function () {
+                $('#login-btn').click(function () {
+                    console.log('login');
+                    var employeeNumber = $('#employeeCode').val();
+                    console.log("🚀 ~ $ ~ employeeNumber:", employeeNumber)
+                    var password = $('#password').val();
+                    $.ajax({
+                        url: '/api/v1/user/login',
+                        type: 'POST',
+                        data: { employeeNumber: employeeNumber, password: password },
+                        success: function (data) {
+                            console.log("🚀 ~ $ ~ data:", data)
+                            if (data.status) {
+                                window.location.href = '/client-list';
+                            } else {
+                                showAlert({ message: data.message, closeText: 'ok' })
+                            }
                         }
-                    }
+                    });
                 });
             });
-        });
-        function contactAdminToggle(val){
-            if(val == 1){
-                $('#contact-admin-page').show();
-            } else {
-                $('#contact-admin-page').hide();
+            function contactAdminToggle(val) {
+                if (val == 1) {
+                    $('#contact-admin-page').show();
+                } else {
+                    $('#contact-admin-page').hide();
+                }
             }
-        }
-        function reqSentToggle(val){
-            if(val == 1){
-                $('#req-sent-page').show();
-            } else {
-                $('#req-sent-page').hide();
-                $('#contact-admin-page').hide();
+            function reqSentToggle(val) {
+                if (val == 1) {
+                    $('#req-sent-page').show();
+                } else {
+                    $('#req-sent-page').hide();
+                    $('#contact-admin-page').hide();
+                }
             }
-        }
-        function cameraToggle(val){
-            if(val == 1){
-                $('#camera-page').show();
-            } else {
-                $('#camera-page').hide();
-                $('#contact-admin-page').hide();
+            function cameraToggle(val) {
+                if (val == 1) {
+                    $('#camera-page').show();
+                    startCamera();
+                } else {
+                    $('#camera-page').hide();
+                    stopCamera();
+                }
             }
-        }
-    </script>
+
+            function startCamera() {
+                Quagga.init({
+                    inputStream: {
+                        name: "Live",
+                        type: "LiveStream",
+                        target: document.querySelector('#camera-page .login-form') // Attach camera to the camera-page div
+                    },
+                    decoder: {
+                        readers: ["code_128_reader", "ean_reader", "upc_reader"] // Add your barcode format here
+                    }
+                }, function (err) {
+                    if (err) {
+                        console.log(err);
+                        return;
+                    }
+                    console.log("Quagga initialized");
+                    Quagga.start();
+                });
+
+                Quagga.onDetected(function (result) {
+                    var code = result.codeResult.code;
+                    document.getElementById('employeeCode').value = code; // Populate the Employee Code field
+                    cameraToggle(0); // Close the camera view
+                    stopCamera();
+                });
+            }
+
+            function stopCamera() {
+                Quagga.stop();
+            }
+        </script>
 </body>
 
 </html>

@@ -8,57 +8,172 @@
 <body>
 
     <%-nav%>
-    
+
     <div class="mx-5">
 
         <div class="row mt-5">
             <div class="col-md-9">
                 <div class="form-group w-100 mb-5">
                     <label class="form-label mb-3" for="">Clients Name</label>
-                    <input type="text" class="form-control w-full" id="clientName">
+                    <input type="text" class="form-control w-full" id="clientName" value="<%=clientData.name%>">
                 </div>
 
                 <div class="form-group w-100 mb-5">
                     <label class="form-label mb-3" for="">Contact Number</label>
-                    <input type="text" class="form-control w-full" id="contactNumber">
+                    <input type="text" class="form-control w-full" id="contactNumber" value="<%=clientData.contact_number%>">
                 </div>
 
                 <div class="form-group w-100 mb-5">
                     <label class="form-label mb-3" for="">Email ID</label>
-                    <input type="text" class="form-control w-full" id="emailId">
+                    <input type="text" class="form-control w-full" id="emailId" value="<%=clientData.email%>">
                 </div>
 
                 <div class="form-group w-100 mb-5">
                     <label class="form-label mb-3" for="">POC</label>
-                    <input type="text" class="form-control w-full" id="poc">
+                    <input type="text" class="form-control w-full" id="poc" value="<%=clientData.poc_name%>">
                 </div>
 
                 <div class="form-group w-100 mb-5">
                     <label class="form-label mb-3" for="">POC Contact Number</label>
-                    <input type="text" class="form-control w-full" id="pocContact">
+                    <input type="text" class="form-control w-full" id="pocContact" value="<%=clientData.poc_contact_number%>">
                 </div>
 
                 <div class="form-group w-100 mb-5">
                     <label class="form-label mb-3" for="">Head Office Address</label>
-                    <input type="text" class="form-control w-full" id="headOfficeAddress">
+                    <input type="text" class="form-control w-full" id="headOfficeAddress" value="<%=clientData.head_office_address%>">
                 </div>
             </div>
 
             <div class="col-md-1"></div>
 
             <div class="col-md-2">
-                <div class="form-group w-100 mb-5">
-                    <label class="form-label mb-3" for="">Contact Number</label>
-                    <input type="text" class="form-control" id="">
+                <div class="form-group w-100 mb-5 text-center">
+                    <div class="image-upload border border-3 d-flex align-items-center justify-content-center" id="image_preview">
+                        <%if(clientData.logo==''|| clientData.logo==null){%>
+                            <img src="/assets/images/icons/plus-square (1).svg"  alt="">
+                            <input type="file" name="" id="logo" class="d-none">
+                        <%}else{%>
+                            <img src="/uploads/images/<%=clientData.logo%>" class="w-100 h-100 object-fit-cover"  alt="">
+                            <input type="file" name="" id="logo" class="d-none">
+                        <%}%>
+                    </div>
+                    <label class="form-label mb-3" for="">Add Logo</label>
                 </div>
             </div>
         </div>
 
         <div class="footer">
-            <button type="submit" class="btn btn-primary mb-4 theme-primary-btn">Save</button>
+            <button  class="btn btn-primary mb-4 theme-primary-btn" id="submit-button">Save</button>
         </div>
 
-        <%-script%>
+      <%-script%>
+      <script>
+        $(document).ready(function(){
+            $("#submit-button").click(addData);
+
+            $('#image_preview').click(function(){
+                document.getElementById('logo').click();
+            });
+
+            $('#logo').change(function(){
+                uploadedFile='';
+                var input = this;
+                var url = $(this).val();
+                var ext = url.substring(url.lastIndexOf('.') + 1).toLowerCase();
+                if (input.files && input.files[0]&& (ext == "gif" || ext == "png" || ext == "jpeg" || ext == "jpg"))
+                 {
+                    var reader = new FileReader();
+
+                    reader.onload = function (e) {
+                        $('#image_preview').find('img').attr('src', e.target.result);
+                        $('#image_preview').find('img').addClass('w-100 h-100 object-fit-cover');
+                    }
+
+                    reader.readAsDataURL(input.files[0]);
+                }
+            });
+            
+        });
+
+        function addClient(){
+
+            $.ajax({
+                url: '/api/v1/client/edit',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({
+                    "id": <%=clientData.id%>,
+                    "name": $("#clientName").val(),
+                    "contactNumber": $("#contactNumber").val(),
+                    "email": $("#emailId").val(),
+                    "pocName": $("#poc").val(),
+                    "pocContactNumber": $("#pocContact").val(),
+                    "headOfficeAddress": $("#headOfficeAddress").val(),
+                    "logo": uploadedFile==''? null:uploadedFile
+                }),
+                success: function (response) {
+                    if(response.status){
+                        showAlert({
+                            message:"Success: Client updated successfully",
+                            closeText:'ok',
+                            closeFunction: function(){
+                                window.location.href = '/client-list';
+                            },
+                        });
+                    }else{
+                        showAlert({
+                            message:"ERROR: "+response.message,
+                            closeText:'ok',
+                        });
+                    }
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            });
+
+            };
+
+        var uploadedFile ='<%=clientData.logo%>';
+
+        function addData(){
+            var formData = new FormData();
+            var logo = $("#logo")[0].files[0];
+            if(logo && uploadedFile==''){
+                formData.append('file', logo);
+                $.ajax({
+                    url: '/file/upload',
+                    type: 'POST',
+                    data: formData,
+                    contentType: false,
+                    processData: false,
+                    success: function(data){
+                    console.log("🚀 ~ addData ~ data:", data)
+
+                        if(!data.status){
+                            showAlert({
+                                message:"ERROR: "+data.message,
+                                closeText:'ok',
+                            });
+                        }
+                        else{
+                            uploadedFile = data.data.file;
+                            addClient();
+                        }
+                    },
+                    error: function(err){
+                        showAlert({
+                            message:"ERROR: "+err,
+                            closeText:'ok',
+                        });
+                    }
+                });
+            }else{
+                addClient();
+            }
+           
+        }
+      </script>
 </body>
 
 </div>

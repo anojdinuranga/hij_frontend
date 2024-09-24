@@ -94,9 +94,14 @@ router.get("/add-client", async (req: ExtendedRequest, res) => {
     res.status(500);
   }
 });
-router.get("/edit-client", async (req: ExtendedRequest, res) => {
+router.get("/edit-client/:id", apiAuthorize, async (req: ExtendedRequest, res) => {
   try {
-
+    var clientData = await renderData.render_data_post('/api/v1/client/view' , req?.authToken==undefined?'':req?.authToken, {id:req.params.id});
+    console.log("🚀 ~ router.get ~ clientData:", clientData);
+    if(!clientData.status){
+      res.redirect('/');
+      return;
+    }
     // Components to render
     let head = await mainHead();
     let script = await mainScript();
@@ -104,6 +109,7 @@ router.get("/edit-client", async (req: ExtendedRequest, res) => {
     let footer = await mainFooter();
 
     res.status(200).render(view + "edit-client.html", {
+      clientData:clientData.data,
       head: head,
       script: script,
       footer: footer,

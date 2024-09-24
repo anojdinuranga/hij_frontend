@@ -65,14 +65,8 @@ const getToken = async (req: ExtendedRequest) => {
 
         let result = getCookie( 'auth', req.headers.cookie || "" );
         if ( !result.status ) {
-            console.error(result);
-            return "";
-        }
-    
-        let check = await renderData.render_data('/api/v1/user/check', `${result.data}`);
-        if(!check.status){
-            console.error(result);
-            return "";
+            req.authToken =  "";
+            return;
         }
     
         req.authToken = `${result.data}`;

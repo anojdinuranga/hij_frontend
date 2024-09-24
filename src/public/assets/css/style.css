@@ -228,3 +228,11 @@ body {
     background-color: #D5D6F9;
     border-color: #D5D6F9;
 }
+
+.image-upload{
+    width: 220px;
+    height: 220px;
+    border-radius: 10px;
+    background-color: #9699f0;
+    border-color: #6e72eb !important;
+}

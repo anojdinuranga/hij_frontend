@@ -53,9 +53,10 @@ router.post("/api/v1/user/login", apiAuthorize, async (req: ExtendedRequest, res
     }
 });
 
-router.post("/file/image/upload", upload.single('image'), async (req: Request, res: Response) => {
+router.post("/file/upload", upload.single('file'), async (req: Request, res: Response) => {
     try {
         let token = await getToken(req); // Access token
+        console.log("🚀 ~ router.post ~ token:", token)
 
         // Get the file data and other parameters from the request
         const file = req.file;
@@ -68,12 +69,10 @@ router.post("/file/image/upload", upload.single('image'), async (req: Request, r
 
         // Prepare the FormData for the Axios request
         const formData = new FormData() as any;
-        formData.append('imageId', data.imageId);
-        formData.append('resultId', data.resultId);
-        formData.append('image', file.buffer, { filename: file.originalname });
+        formData.append('file', file.buffer, { filename: file.originalname });
 
         // Make the Axios request to another server
-        const axiosResponse = await axios.post(config.backendDomain + '/api/v1/file/image/upload', formData, {
+        const axiosResponse = await axios.post(config.backendDomain + '/api/v1/file/single', formData, {
             headers: {
                 'Content-Type': `multipart/form-data; boundary=${formData._boundary}`,
                 'Authorization': `Bearer ${token}`
@@ -94,7 +93,7 @@ router.get("/uploads/images/:image", apiAuthorize, async (req: Request, res: Res
          * @detail
          * Process
          */
-        let imageUrl = config.backendDomain + "/uploads/images/" + req.params.image;
+        let imageUrl = config.backendDomain + "/uploads/" + req.params.image;
         const axiosResponse = await axios.get(imageUrl, {
             responseType: 'stream'
         });

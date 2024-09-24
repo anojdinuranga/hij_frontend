@@ -55,10 +55,50 @@
         </div>
 
         <div class="footer">
-            <button type="submit" class="btn btn-primary mb-4 theme-primary-btn">Save</button>
+            <button  class="btn btn-primary mb-4 theme-primary-btn" id="submit-button">Save</button>
         </div>
 
       <%-script%>
+      <script>
+        $(document).ready(function(){
+            $("#submit-button").click(addData);
+        });
+        function addData(){
+            $.ajax({
+                url: '/api/v1/client/add',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({
+                    "name": $("#clientName").val(),
+                    "contactNumber": $("#contactNumber").val(),
+                    "email": $("#emailId").val(),
+                    "pocName": $("#poc").val(),
+                    "pocContactNumber": $("#pocContact").val(),
+                    "headOfficeAddress": $("#headOfficeAddress").val(),
+                    "logo": null
+                }),
+                success: function (response) {
+                    if(response.status){
+                        showAlert({
+                            message:"success",
+                            closeText:'ok',
+                            closeFunction: function(){
+                                window.location.href = '/client-list';
+                            },
+                        });
+                    }else{
+                        showAlert({
+                            message:"ERROR: "+response.message,
+                            closeText:'ok',
+                        });
+                    }
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            });
+        }
+      </script>
 </body>
 
 </div>

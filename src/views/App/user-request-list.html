@@ -41,7 +41,7 @@
                   </td>
                   </td>
                   <td>
-                    <span class="badge rounded-pill bg-primary"><%=item.status == 1 ? 'Pending' : item.status == 2 ? 'Active' : 'Disabled'%></span>                    
+                    <span class="badge rounded-pill bg-<%=item.status == 1 ? 'primary' : item.status == 2 ? 'success' : 'danger'%>"><%=item.status == 1 ? 'Pending' : item.status == 2 ? 'Accepted' : 'Disabled'%></span>                    
                   </td>
                 </tr>
               <%})%>
@@ -88,7 +88,7 @@
             $('.delete-button').click(function(e){
               e.preventDefault();
               var id = $(this).data('id');
-              deleteClient(id);
+              deleteData(id);
             });
 
             $('.accept-button').click(function(e){

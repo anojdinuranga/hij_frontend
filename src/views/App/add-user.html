@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%-head%>
+</head>
+
+<body>
+
+    <%-nav%>
+
+        <div class="mx-5">
+
+            <div class="row mt-5">
+                <div class="col-md-4">
+                    <div class="form-group w-100 mb-5">
+                        <label class="form-label mb-3" for="">Employee name</label>
+                        <input type="text" class="form-control w-full" id="employeeName">
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group w-100 mb-5">
+                        <label class="form-label mb-3" for="">Employee number</label>
+                        <input type="text" class="form-control w-full" id="employeeNumber">
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group w-100 mb-5">
+                        <label class="form-label mb-3" for="">Contact number</label>
+                        <input type="text" class="form-control w-full" id="mobile">
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group w-100 mb-5">
+                        <label class="form-label mb-3" for="">Email address</label>
+                        <input type="text" class="form-control w-full" id="email">
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group w-100 mb-5">
+                        <label class="form-label mb-3" for="">Password</label>
+                        <input type="password" class="form-control w-full" id="password">
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group w-100 mb-5">
+                        <label class="form-label mb-3" for="">Confirm Password</label>
+                        <input type="password" class="form-control w-full" id="confirmPassword">
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer">
+                <button class="btn btn-primary mb-4 theme-primary-btn" id="submit-button"
+                    onclick="addUser()">Save</button>
+            </div>
+
+            <%-script%>
+                <script>
+
+                    function addUser() {
+
+                        if ($("#password").val() !== $("#confirmPassword").val()) {
+                            showAlert({
+                                message: "Password and Confirm Password is not match",
+                                closeText: 'ok',
+                                closeFunction: function () {
+                                    // window.location.href = '/client-list';
+                                },
+                            });
+                        } else {
+
+                            $.ajax({
+                                url: '/api/v1/user/add',
+                                type: 'POST',
+                                contentType: 'application/json',
+                                data: JSON.stringify({
+                                    "employeeNumber": $("#employeeNumber").val(),
+                                    "name": $("#employeeName").val(),
+                                    "password": $("#password").val(),
+                                    "email": $("#email").val(),
+                                    "mobile": $("#mobile").val(),
+                                }),
+                                success: function (response) {
+                                    if (response.status) {
+                                        showAlert({
+                                            message: "Success: Employee added successfully",
+                                            closeText: 'ok',
+                                            closeFunction: function () {
+                                                window.location.href = '/user-list';
+                                            },
+                                        });
+                                    } else {
+                                        showAlert({
+                                            message: "ERROR: " + response.message,
+                                            closeText: 'ok',
+                                        });
+                                    }
+                                },
+                                error: function (error) {
+                                    console.log(error);
+                                }
+                            });
+                        }
+
+                    };
+
+                </script>
+</body>
+
+</div>
+
+</html>

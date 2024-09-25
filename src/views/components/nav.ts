@@ -10,7 +10,7 @@ const mainNav = async () => {
                     <div class="fw-bold pb-2">
                         Client manage
                     </div>
-                    <div class="">
+                    <div class="mb-3">
                         <a href="/add-client" class="text-decoration-none text-dark d-block pb-2">
                             Add Client
                         </a>
@@ -18,6 +18,35 @@ const mainNav = async () => {
                             Client List
                         </a>
                     </div> 
+
+                    <div class="fw-bold pb-2">
+                        Enquiry manage
+                    </div>
+
+                    <div class="mb-3">
+                        <a href="/Add-enquiry" class="text-decoration-none text-dark d-block pb-2">
+                            Add Enquiry
+                        </a>
+
+                        <a href="/enquiry-list" class="text-decoration-none text-dark d-block pb-2">
+                            Enquiry List
+                        </a>
+                    </div> 
+
+                    <div class="fw-bold pb-2">
+                        User manage
+                    </div>
+
+                    <div class="">
+                        <a href="/add-user" class="text-decoration-none text-dark d-block pb-2">
+                            Add Employee
+                        </a>
+
+                        <a href="/user-list" class="text-decoration-none text-dark d-block pb-2">
+                            Employee List
+                        </a>
+                    </div> 
+
                 </div>
             </div>
         </div>

@@ -168,5 +168,75 @@ router.get("/add-enquiry", async (req: ExtendedRequest, res) => {
   }
 });
 
+router.get("/enquiry-list", async (req: ExtendedRequest, res) => {
+  try {
+
+    var clients = await renderData.render_data_post('/api/v1/order/list' , req?.authToken==undefined?'':req?.authToken, {});
+    console.log("🚀 ~ router.get ~ clients:", clients);
+    // if(!clients.status){
+    //   // res.redirect('/');
+    //   return;
+    // }
+
+    // Components to render
+    let head = await mainHead();
+    let script = await mainScript();
+    let nav = await mainNav.mainNav();
+    let footer = await mainFooter();
+
+    res.status(200).render(view + "enquiry-list.html", {
+      head: head,
+      script: script,
+      footer: footer,
+      nav: nav,
+    });
+  } catch (err) {
+    //console.log(err);
+    res.status(500);
+  }
+});
+
+router.get("/add-user", async (req: ExtendedRequest, res) => {
+  try {
+
+    // Components to render
+    let head = await mainHead();
+    let script = await mainScript();
+    let nav = await mainNav.mainNav();
+    let footer = await mainFooter();
+
+    res.status(200).render(view + "add-user.html", {
+      head: head,
+      script: script,
+      footer: footer,
+      nav: nav,
+    });
+  } catch (err) {
+    //console.log(err);
+    res.status(500);
+  }
+});
+
+router.get("/user-list", async (req: ExtendedRequest, res) => {
+  try {
+
+    // Components to render
+    let head = await mainHead();
+    let script = await mainScript();
+    let nav = await mainNav.mainNav();
+    let footer = await mainFooter();
+
+    res.status(200).render(view + "user-list.html", {
+      head: head,
+      script: script,
+      footer: footer,
+      nav: nav,
+    });
+  } catch (err) {
+    //console.log(err);
+    res.status(500);
+  }
+});
+
 
 export default router;

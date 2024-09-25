@@ -168,15 +168,15 @@ router.get("/add-enquiry", async (req: ExtendedRequest, res) => {
   }
 });
 
-router.get("/enquiry-list", async (req: ExtendedRequest, res) => {
+router.get("/enquiry-list", apiAuthorize, async (req: ExtendedRequest, res) => {
   try {
 
-    var clients = await renderData.render_data_post('/api/v1/order/list' , req?.authToken==undefined?'':req?.authToken, {});
-    console.log("🚀 ~ router.get ~ clients:", clients);
-    // if(!clients.status){
-    //   // res.redirect('/');
-    //   return;
-    // }
+    var orders = await renderData.render_data_post('/api/v1/order/list' , req?.authToken==undefined?'':req?.authToken, {});
+    console.log("🚀 ~ router.get ~ orders:", orders);
+    if(!orders.status){
+      res.redirect('/');
+      return;
+    }
 
     // Components to render
     let head = await mainHead();
@@ -185,6 +185,7 @@ router.get("/enquiry-list", async (req: ExtendedRequest, res) => {
     let footer = await mainFooter();
 
     res.status(200).render(view + "enquiry-list.html", {
+      orders:orders.data,
       head: head,
       script: script,
       footer: footer,
@@ -237,6 +238,34 @@ router.get("/user-list", async (req: ExtendedRequest, res) => {
     res.status(500);
   }
 });
+router.get("/user-request-list", apiAuthorize, async (req: ExtendedRequest, res) => {
+  try {
+    var requestList = await renderData.render_data_post('/api/v1/user_register_request/list' , req?.authToken==undefined?'':req?.authToken, {});
+    console.log("🚀 ~ router.get ~ requestList:", requestList);
+    if(!requestList.status){
+      res.redirect('/');
+      return;
+    }
+
+    // Components to render
+    let head = await mainHead();
+    let script = await mainScript();
+    let nav = await mainNav.mainNav(req?.authToken==undefined?'':req?.authToken, "Employee List");
+    let footer = await mainFooter();
+
+    res.status(200).render(view + "user-request-list.html", {
+      requestList:requestList.data,
+      head: head,
+      script: script,
+      footer: footer,
+      nav: nav,
+    });
+  } catch (err) {
+    //console.log(err);
+    res.status(500);
+  }
+});
+
 
 
 export default router;

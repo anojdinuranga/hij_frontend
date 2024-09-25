@@ -50,6 +50,10 @@ const mainNav = async (authToken : string, path?: string) => {
                         <a href="/user-list" class="text-decoration-none text-dark d-block pb-2">
                             Employee List
                         </a>
+                        
+                        <a href="/user-request-list" class="text-decoration-none text-dark d-block pb-2">
+                            Employee Request List
+                        </a>
                     </div> 
 
                 </div>

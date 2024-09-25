@@ -38,9 +38,30 @@
             </tr>
           </thead>
           <tbody id="tableBody">
-
-
-
+            <% for (const data of orders) { %>
+              <tr>
+                <td><%= data.cr_number %></td>
+                <td><%= data.buyer_name %></td>
+                <td><%= new Date(data.enquiry_date).toLocaleDateString('en-CA') %></td>
+                <td><%= data.style_no %></td>
+                <td><%= data.image %></td>
+                <td><%= data.fabric_blend %></td>
+                <td><%= data.combo_no %></td>
+                <td><%= data.value_added_process %></td>
+                <td><%= data.projected_qty_pieces %></td>
+                <td><%= data.sam_per_piece %></td>
+                <td><%= data.lapdip_no %></td>
+                <td><%= new Date(data.expected_order_placement_date).toLocaleDateString('en-CA') %></td>
+                <td><%= data.quoted_price %></td>
+                <td><%= data.fabric_price %></td>
+                <td><%= data.fabric_consumption %></td>
+                <td><%= data.yarn_price %></td>
+                <td><%= data.lapdip_cost %></td>
+                <td><%= data.trim_cost %></td>
+                <td><%= data.tech_pack %></td>
+                <td><%= data.gsm %></td>
+              </tr>
+            <% } %>
           </tbody>
         </table>
       </div>
@@ -49,55 +70,6 @@
         <script>
 
           $(document).ready(function () {
-            $.ajax({
-              url: '/api/v1/order/list',
-              type: 'POST',
-              contentType: 'application/json',
-              data: {},
-              success: function (response) {
-                if (response.status) {
-                  console.log("🚀 ~ response:", response.data)
-
-                  const tableBody = document.getElementById('tableBody');
-
-                  response.data.forEach(data => {
-                    tableBody.innerHTML += `
-                      <tr>
-                          <td>${data.cr_number}</td>
-                          <td>${data.buyer_name}</td>
-                         <td>${new Date(data.enquiry_date).toLocaleDateString('en-CA')}</td>
-                          <td>${data.style_no}</td>
-                          <td>${data.image}</td>
-                          <td>${data.fabric_blend}</td>
-                          <td>${data.combo_no}</td>
-                          <td>${data.value_added_process}</td>
-                          <td>${data.projected_qty_pieces}</td>
-                          <td>${data.sam_per_piece}</td>
-                          <td>${data.lapdip_no}</td>
-                          <td>${new Date(data.expected_order_placement_date).toLocaleDateString('en-CA')}</td>
-                          <td>${data.quoted_price}</td>
-                          <td>${data.fabric_price}</td>
-                          <td>${data.fabric_consumption}</td>
-                          <td>${data.yarn_price}</td>
-                          <td>${data.lapdip_cost}</td>
-                          <td>${data.trim_cost}</td>
-                          <td>${data.tech_pack}</td>
-                          <td>${data.gsm}</td>
-                      </tr>
-                    `
-                  });
-
-                } else {
-                  showAlert({
-                    message: "ERROR: " + response.message,
-                    closeText: 'ok',
-                  });
-                }
-              },
-              error: function (error) {
-                console.log(error);
-              }
-            });
           });
 
 

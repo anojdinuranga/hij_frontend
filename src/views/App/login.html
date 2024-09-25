@@ -60,15 +60,14 @@
                         <div class="mt-80" action="">
                             <div class="mb-5">
                                 <label for="employeeName" class="form-label login-form-label">Employee Name</label>
-                                <input type="text" class="form-control" id="employeeName">
+                                <input type="text" class="form-control" id="reqEmployeeName">
                             </div>
                             <div class="mb-5">
                                 <label for="employeeNumber" class="form-label login-form-label">Employee Number</label>
-                                <input type="text" class="form-control" id="employeeNumber">
+                                <input type="text" class="form-control" id="reqEmployeeNumber">
                             </div>
 
-                            <button class="btn btn-primary w-100 mt-5 mb-4 login-btn"
-                                onclick="reqSentToggle(1)">Submit</button>
+                            <button class="btn btn-primary w-100 mt-5 mb-4 login-btn" id="req-button">Submit</button>
                         </div>
                     </div>
                 </div>
@@ -134,7 +133,29 @@
                         }
                     });
                 });
+
+                $('#req-button').click(function () {
+                    console.log('login');
+                    var employeeName = $('#reqEmployeeName').val();
+                    var employeeNumber = $('#reqEmployeeNumber').val();
+                    $.ajax({
+                        url: '/api/v1/user_register_request/add',
+                        type: 'POST',
+                        data: { name: employeeName, employeeNumber: employeeNumber },
+                        success: function (data) {
+                            console.log("🚀 ~ $ ~ data:", data)
+                            if (data.status) {
+                                reqSentToggle(1);
+                                // window.location.href = '/client-list';
+                            } else {
+                                showAlert({ message: data.message, closeText: 'ok' })
+                            }
+                        }
+                    });
+                });
+
             });
+
             function contactAdminToggle(val) {
                 if (val == 1) {
                     $('#contact-admin-page').show();

@@ -20,7 +20,7 @@ router.get("/", async (req: ExtendedRequest, res) => {
     // Components to render
     let head = await mainHead();
     let script = await mainScript();
-    let nav = await mainNav.mainNav();
+    let nav = await mainNav.mainNav(req?.authToken==undefined?'':req?.authToken);
     let footer = await mainFooter();
 
     res.status(200).render(view + "login.html", {
@@ -40,7 +40,7 @@ router.get("/login", async (req: ExtendedRequest, res) => {
     // Components to render
     let head = await mainHead();
     let script = await mainScript();
-    let nav = await mainNav.mainNav();
+    let nav = await mainNav.mainNav(req?.authToken==undefined?'':req?.authToken);
     let footer = await mainFooter();
 
     res.status(200).render(view + "login.html", {
@@ -60,7 +60,7 @@ router.get("/contact-admin", async (req: ExtendedRequest, res) => {
     // Components to render
     let head = await mainHead();
     let script = await mainScript();
-    let nav = await mainNav.mainNav();
+    let nav = await mainNav.mainNav(req?.authToken==undefined?'':req?.authToken);
     let footer = await mainFooter();
 
     res.status(200).render(view + "contact-admin.html", {
@@ -80,7 +80,7 @@ router.get("/add-client", async (req: ExtendedRequest, res) => {
     // Components to render
     let head = await mainHead();
     let script = await mainScript();
-    let nav = await mainNav.mainNav();
+    let nav = await mainNav.mainNav(req?.authToken==undefined?'':req?.authToken, "Add Client");
     let footer = await mainFooter();
 
     res.status(200).render(view + "add-client.html", {
@@ -105,7 +105,7 @@ router.get("/edit-client/:id", apiAuthorize, async (req: ExtendedRequest, res) =
     // Components to render
     let head = await mainHead();
     let script = await mainScript();
-    let nav = await mainNav.mainNav();
+    let nav = await mainNav.mainNav(req?.authToken==undefined?'':req?.authToken, "Update Client");
     let footer = await mainFooter();
 
     res.status(200).render(view + "edit-client.html", {
@@ -132,7 +132,7 @@ router.get("/client-list", apiAuthorize, async (req: ExtendedRequest, res) => {
     // Components to render
     let head = await mainHead();
     let script = await mainScript();
-    let nav = await mainNav.mainNav();
+    let nav = await mainNav.mainNav(req?.authToken==undefined?'':req?.authToken, "Client List");
     let footer = await mainFooter();
 
     res.status(200).render(view + "client-list.html", {
@@ -153,7 +153,7 @@ router.get("/add-enquiry", async (req: ExtendedRequest, res) => {
     // Components to render
     let head = await mainHead();
     let script = await mainScript();
-    let nav = await mainNav.mainNav();
+    let nav = await mainNav.mainNav(req?.authToken==undefined?'':req?.authToken, "Add Enquiry");
     let footer = await mainFooter();
 
     res.status(200).render(view + "add-enquiry.html", {
@@ -181,7 +181,7 @@ router.get("/enquiry-list", async (req: ExtendedRequest, res) => {
     // Components to render
     let head = await mainHead();
     let script = await mainScript();
-    let nav = await mainNav.mainNav();
+    let nav = await mainNav.mainNav(req?.authToken==undefined?'':req?.authToken, "Enquiry List");
     let footer = await mainFooter();
 
     res.status(200).render(view + "enquiry-list.html", {
@@ -202,7 +202,7 @@ router.get("/add-user", async (req: ExtendedRequest, res) => {
     // Components to render
     let head = await mainHead();
     let script = await mainScript();
-    let nav = await mainNav.mainNav();
+    let nav = await mainNav.mainNav(req?.authToken==undefined?'':req?.authToken, "Add Employee");
     let footer = await mainFooter();
 
     res.status(200).render(view + "add-user.html", {
@@ -223,7 +223,7 @@ router.get("/user-list", async (req: ExtendedRequest, res) => {
     // Components to render
     let head = await mainHead();
     let script = await mainScript();
-    let nav = await mainNav.mainNav();
+    let nav = await mainNav.mainNav(req?.authToken==undefined?'':req?.authToken, "Employee List");
     let footer = await mainFooter();
 
     res.status(200).render(view + "user-list.html", {

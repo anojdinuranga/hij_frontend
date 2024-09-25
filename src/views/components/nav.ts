@@ -1,4 +1,9 @@
-const mainNav = async () => {
+import renderData from "../../utils/renderData";
+
+const mainNav = async (authToken : string, path?: string) => {
+    let response = await renderData.render_data('/api/v1/user/check', authToken);
+    console.log("🚀 ~ mainNav ~ response:", response)
+
     return `
         <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
             <div class="offcanvas-header">
@@ -60,15 +65,15 @@ const mainNav = async () => {
         </div>
         <div class="d-flex align-items-center">
             <p class="breadcrumb mt-3">
-                Client's Detail
+                ${path}
             </p>
         </div>
         <div class="d-flex align-items-center gap-4">
             <i class="fa-regular fa-comment menu-icon"></i>
             <i class="fa-regular fa-bell menu-icon"></i>
             <div class="d-flex flex-column">
-                <span class="user-name">Samiksha Singh</span>
-                <span class="user-team">Team: <span>Bruno Mars</span></span>
+                <span class="user-name">${response.data.name}</span>
+                <span class="user-team">${response.data.email}</span></span>
             </div>
             <i class="fa-regular fa-circle-user menu-icon-user"></i>
         </div>

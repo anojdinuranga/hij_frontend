@@ -41,7 +41,7 @@
                   </td>
                   </td>
                   <td>
-                    <span class="badge rounded-pill bg-<%=item.status == 1 ? 'primary' : item.status == 2 ? 'success' : 'danger'%>"><%=item.status == 1 ? 'Pending' : item.status == 2 ? 'Accepted' : 'Disabled'%></span>                    
+                    <span class="badge rounded-pill bg-<%=item.status == 1 ? 'primary' : item.status == 2 ? 'success' : 'danger'%>"><%=item.status == 1 ? 'Pending' : item.status == 2 ? 'Accepted' : 'Rejected'%></span>                    
                   </td>
                 </tr>
               <%})%>
@@ -90,6 +90,11 @@
               var id = $(this).data('id');
               deleteData(id);
             });
+            $('.reject-button').click(function(e){
+              e.preventDefault();
+              var id = $(this).data('id');
+              rejectData(id);
+            });
 
             $('.accept-button').click(function(e){
               e.preventDefault();
@@ -135,6 +140,35 @@
                 acceptFunction: ()=>{
                   $.ajax({
                     url: '/api/v1/user_register_request/delete',
+                    type: 'POST',
+                    data: {id:id},
+                    success: function(response){
+                      if(response.status){
+                        location.reload();
+                      }else{
+                        showAlert({
+                          message:"ERROR: "+response.message,
+                          closeText:'ok',
+                        });
+                          console.log("🚀 ~ deleteClient ~ response:", response)
+                      }
+                    },
+                    error: function(err){
+                      console.log(err);
+                    }
+                  });
+                },
+            });
+          }
+          
+          function rejectData(id){
+            showAlert({
+                message:"Are you sure you want to reject this request?",
+                closeText:'no',
+                acceptText:'yes',
+                acceptFunction: ()=>{
+                  $.ajax({
+                    url: '/api/v1/user_register_request/reject',
                     type: 'POST',
                     data: {id:id},
                     success: function(response){

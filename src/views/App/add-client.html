@@ -65,7 +65,9 @@
             <%-script%>
                 <script>
                     $(document).ready(function () {
-                        $("#submit-button").click(addData);
+                        $("#submit-button").click(function(){
+                            addData(this);
+                        });
 
                         $('#image_preview').click(function () {
                             document.getElementById('logo').click();
@@ -90,7 +92,8 @@
 
                     });
 
-                    function addClient() {
+                    function addClient(elem) {
+                    console.log("🚀 ~ addClient ~ elem:", elem)
 
                         $.ajax({
                             url: '/api/v1/client/add',
@@ -118,11 +121,17 @@
                                     showAlert({
                                         message: "ERROR: " + response.message,
                                         closeText: 'ok',
+                                        closeFunction:()=>{
+                                            $(elem).text('Save');
+                                            $(elem).removeClass('disabled');
+                                        }
                                     });
                                 }
                             },
                             error: function (error) {
                                 console.log(error);
+                                $(elem).text('Save');
+                                $(elem).removeClass('disabled');
                             }
                         });
 
@@ -130,7 +139,12 @@
 
                     var uploadedFile = '';
 
-                    function addData() {
+                    function addData(elem) {
+                        $(elem).addClass('disabled');
+                        $(elem).html(`
+                        <div class="spinner-border text-light" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                        </div>`);
                         var formData = new FormData();
                         var logo = $("#logo")[0].files[0];
                         if (logo && uploadedFile == '') {
@@ -148,22 +162,32 @@
                                         showAlert({
                                             message: "ERROR: " + data.message,
                                             closeText: 'ok',
+                                            closeFunction:()=>{
+                                                $(elem).text('Save');
+                                                $(elem).removeClass('disabled');
+                                            }
                                         });
+                                    
                                     }
                                     else {
                                         uploadedFile = data.data.file;
-                                        addClient();
+                                        addClient(elem);
                                     }
                                 },
                                 error: function (err) {
                                     showAlert({
                                         message: "ERROR: " + err,
                                         closeText: 'ok',
+                                        closeFunction:()=>{
+                                            $(elem).text('Save');
+                                            $(elem).removeClass('disabled');
+                                        }
                                     });
+
                                 }
                             });
                         } else {
-                            addClient();
+                            addClient(elem);
                         }
 
                     }

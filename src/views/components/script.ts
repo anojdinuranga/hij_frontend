@@ -6,6 +6,8 @@ const default_script = () => {
     return `
         <script src="/assets/js/bootstrap.min.js"></script>
         <script src="/assets/js/main.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
     `;
 }
 

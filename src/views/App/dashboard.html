@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%-head%>
+</head>
+
+<body>
+
+    <%-nav%>
+
+        <div class="m-3">
+            <div class="d-flex gap-3">
+                <div class="d-flex flex-column bg-white shadow p-3">
+                    <div>New Enquiry</div>
+                    <img src="/assets/images/icons/plus.png" alt="">
+                </div>
+            </div>
+            <div class="d-flex gap-3 flex-wrap mt-3">
+                <div class="bg-white p-4 shadow col">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <div>sample status</div>
+                            <div>70</div>
+                        </div>
+                        <div>
+                            <select name="" id="" class="form-select">
+                                <option>customer</option>
+                            </select>
+                        </div>
+                    </div>
+                    <canvas id="piechart1"></canvas>
+                    <div class="d-flex flex-wrap">
+                        <div class="col-6">Approved Sample</div>
+                        <div class="col-6">In Development</div>
+                        <div class="col-6">Pending Approval</div>
+                        <div class="col-6">Re-Development</div>
+                    </div>
+                </div>
+                <div class="bg-white p-4 shadow col">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <div>sample status</div>
+                            <div>70</div>
+                        </div>
+                        <div>
+                            <select name="" id="" class="form-select">
+                                <option>customer</option>
+                            </select>
+                        </div>
+                    </div>
+                    <canvas id="piechart2"></canvas>
+                    <div class="d-flex flex-wrap">
+                        <div class="col-6">Approved Sample</div>
+                        <div class="col-6">In Development</div>
+                        <div class="col-6">Pending Approval</div>
+                        <div class="col-6">Re-Development</div>
+                    </div>
+                </div>
+                <div class="bg-white p-4 shadow col">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <div>sample status</div>
+                            <div>70</div>
+                        </div>
+                        <div>
+                            <select name="" id="" class="form-select">
+                                <option>customer</option>
+                            </select>
+                        </div>
+                    </div>
+                    <canvas id="piechart3"></canvas>
+                    <div class="d-flex flex-wrap">
+                        <div class="col-6">Approved Sample</div>
+                        <div class="col-6">In Development</div>
+                        <div class="col-6">Pending Approval</div>
+                        <div class="col-6">Re-Development</div>
+                    </div>
+                </div>
+                <div class="bg-white p-4 shadow col">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <div>sample status</div>
+                            <div>70</div>
+                        </div>
+                        <div>
+                            <select name="" id="" class="form-select">
+                                <option>customer</option>
+                            </select>
+                        </div>
+                    </div>
+                    <canvas id="piechart4"></canvas>
+                    <div class="d-flex flex-wrap">
+                        <div class="col-6">Approved Sample</div>
+                        <div class="col-6">In Development</div>
+                        <div class="col-6">Pending Approval</div>
+                        <div class="col-6">Re-Development</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    <%-script%>
+    <script>
+        const ctx1 = document.getElementById('piechart1');
+        const ctx2 = document.getElementById('piechart2');
+        const ctx3 = document.getElementById('piechart3');
+        const ctx4 = document.getElementById('piechart4');
+        const data = {
+            labels: [
+            ],
+            datasets: [{
+                label: 'sample status',
+                data: [300, 50, 100],
+                backgroundColor: [
+                'rgb(255, 99, 132)',
+                'rgb(54, 162, 235)',
+                'rgb(255, 205, 86)',
+                'rgb(100, 205, 255)',
+                ],
+                hoverOffset: 4
+            }]
+            };
+      
+        new Chart(ctx1, {
+            type: 'pie',
+            data: data,
+        });
+        new Chart(ctx2, {
+            type: 'pie',
+            data: data,
+        });
+        new Chart(ctx3, {
+            type: 'pie',
+            data: data,
+        });
+        new Chart(ctx4, {
+            type: 'pie',
+            data: data,
+        });
+    </script>
+       
+               
+</body>
+
+</div>
+
+</html>

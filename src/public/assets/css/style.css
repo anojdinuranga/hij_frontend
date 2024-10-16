@@ -270,3 +270,10 @@ body {
     transform: translate(0, -60%);
     margin: 0;
 }
+.clickable {
+    cursor: pointer; /* Indicate that this is clickable */
+}
+.active-header {
+    text-decoration: underline; /* Underline the active header */
+    color:  #034311;
+}

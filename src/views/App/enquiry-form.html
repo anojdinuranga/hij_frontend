@@ -267,10 +267,11 @@
                     </div>
                     
                     <div class="col-md-9 d-flex justify-content-end align-items-center">
-                        
-                        <img src="assets/images/d2b8efa5759607a0fb0c01c397166766.png" alt="Value Added Process Image" class="img-fluid">
+                        <!-- Default Image / Image Preview -->
+                        <img src="assets/images/1594466867group-339-png.png" alt="Value Added Process Image" id="imagePreview" class="img-fluid" style="max-width: 600px; height: 350px; cursor: pointer;" onclick="document.getElementById('imageUpload').click()">
+                        <!-- File Upload Input (Hidden) -->
+                        <input type="file" id="imageUpload" accept="image/*" style="display:none" onchange="previewImage(event)">
                     </div>
-                    
                 </div>
                 
                 <div class="row mt-5">
@@ -631,6 +632,22 @@
             // Optionally, clear the input fields after adding the row
             document.querySelectorAll('input').forEach(input => input.value = '');
         });
+
+        function previewImage(event) {
+            const imagePreview = document.getElementById('imagePreview');
+            const file = event.target.files[0];
+                
+            if (file) {
+                const reader = new FileReader();
+                    
+                    // When file is loaded, display it in the img tag
+                reader.onload = function(e) {
+                    imagePreview.src = e.target.result; // Set the new image
+                };
+                    
+                reader.readAsDataURL(file); // Read the image file as a data URL
+            }
+        }
     </script>
 </body>
 

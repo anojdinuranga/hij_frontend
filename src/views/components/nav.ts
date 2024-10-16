@@ -42,7 +42,7 @@ const mainNav = async (authToken : string, path?: string) => {
                         User manage
                     </div>
 
-                    <div class="">
+                    <div class="mb-3">
                         <a href="/add-user" class="text-decoration-none text-dark d-block pb-2">
                             Add Employee
                         </a>
@@ -53,6 +53,20 @@ const mainNav = async (authToken : string, path?: string) => {
                         
                         <a href="/user-request-list" class="text-decoration-none text-dark d-block pb-2">
                             Employee Request List
+                        </a>
+                    </div> 
+
+                    <div class="fw-bold pb-2">
+                        Department manage
+                    </div>
+
+                    <div class="">
+                        <a href="/add-department" class="text-decoration-none text-dark d-block pb-2">
+                            Add Department
+                        </a>
+
+                        <a href="/department-list" class="text-decoration-none text-dark d-block pb-2">
+                            Department List
                         </a>
                     </div> 
 

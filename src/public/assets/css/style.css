@@ -211,9 +211,7 @@ body {
     margin-bottom: 4rem !important;
     border-bottom: 1.7rem solid white;
 }
-.table1 tbody tr:nth-child(odd){
-    
-}
+
 
 .bg-col-primary{
     background-color: #2E3192;
@@ -235,4 +233,33 @@ body {
     border-radius: 10px;
     background-color: #9699f0;
     border-color: #6e72eb !important;
+}
+
+.larger-checkbox {
+    width: 25px; /* Adjust size as needed */
+    height: 25px; /* Adjust size as needed */
+    border: 2px solid green; /* Green border */
+    outline: none; /* Remove default outline */
+    appearance: none; /* Remove default checkbox styling */
+    border-radius: 5px; /* Optional: rounded corners */
+    position: relative;
+}
+
+.larger-checkbox:checked {
+    background-color: green; /* Change background when checked */
+    border-color: green; /* Match border when checked */
+}
+
+.label-margin {
+    margin-left: 10px; 
+    margin-top: 4px;
+}
+
+.Sketch-label{
+    margin-top: 80px;
+}
+
+.custom-bg {
+    background-color: #f8f9fa; /* Light gray background */
+    padding: 15px; /* Optional: Add padding for better spacing */
 }

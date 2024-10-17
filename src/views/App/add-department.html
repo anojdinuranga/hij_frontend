@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%-head%>
+</head>
+
+<body>
+
+    <%-nav%>
+
+    <div class="container">
+        <div class="row mt-5">
+            <div class="col-md-12">
+                <div class="form-group w-100 mb-5">
+                    <label class="form-label mb-3" for="departmentName">Department name</label>
+                    <input type="text" class="form-control w-full" id="departmentName">
+                </div>
+            </div>
+        </div>
+
+        <!-- Designation Inputs -->
+        <div class="col-md-12">
+            <div id="designationInputs" class="mb-3">
+                <label class="form-label mb-3">Department Designations</label>
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="Enter designation" id="designationInput0">
+                    <button class="btn btn-outline-secondary" type="button" onclick="removeDesignation(this)">Remove</button>
+                </div>
+            </div>
+        </div>
+        <button class="btn btn-secondary mb-4" onclick="addDesignation()">Add Designation</button>
+
+        <div class="footer">
+            <button class="btn btn-primary mb-4 theme-primary-btn" id="submit-button" onclick="addDepartment()">Save</button>
+        </div>
+
+        <%-script%>
+        <script>
+            
+            let designationCount = 1; 
+            function addDesignation() {
+                const designationInputs = document.getElementById('designationInputs');
+                const newInput = document.createElement('div');
+                newInput.className = 'input-group mb-3';
+                newInput.innerHTML = `
+                    <input type="text" class="form-control" placeholder="Enter designation" id="designationInput${designationCount}">
+                    <button class="btn btn-outline-secondary" type="button" onclick="removeDesignation(this)">Remove</button>
+                `;
+                designationInputs.appendChild(newInput);
+                designationCount++;
+            }
+
+            // Function to remove a designation input field
+            function removeDesignation(button) {
+                const inputGroup = button.parentElement;
+                inputGroup.remove();
+            }
+
+            function addDepartment() {
+                const submitButton = $("#submit-button");
+                submitButton.prop("disabled", true);
+                const departmentName = $("#departmentName").val();
+                const designations = [];
+                
+                // Collect all designations
+                for (let i = 0; i < designationCount; i++) {
+                    const designationValue = $(`#designationInput${i}`).val();
+                    if (designationValue) {
+                        designations.push(designationValue);
+                    }
+                }
+
+                $.ajax({
+                    url: '/api/v1/department/add',
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify({
+                        "departmentName": departmentName,
+                        "designations": designations 
+                    }),
+                    success: function (response) {
+                        if (response.status) {
+                            showAlert({
+                                message: "Success: Department added successfully",
+                                closeText: 'ok',
+                                closeFunction: function () {
+                                    $("#departmentName").val('');
+                                    $("#designationInputs").empty();
+                                    designationCount = 1; 
+                                    addDesignation();
+                                    submitButton.prop("disabled", false);
+                                },
+                            });
+                        } else {
+                            showAlert({
+                                message: "ERROR: " + response.message,
+                                closeText: 'ok',
+                            });
+                        }
+                    },
+                    error: function (error) {
+                        console.log(error);
+                    }
+                });
+            };
+        </script>
+    </div>
+
+</body>
+
+</html>

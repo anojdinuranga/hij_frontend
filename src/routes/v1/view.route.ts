@@ -209,6 +209,27 @@ router.get("/enquiry-form", async (req: ExtendedRequest, res) => {
   }
 });
 
+router.get("/add-department", async (req: ExtendedRequest, res) => {
+  try {
+
+    // Components to render
+    let head = await mainHead();
+    let script = await mainScript();
+    let nav = await mainNav.mainNav(req?.authToken==undefined?'':req?.authToken, "Add Department");
+    let footer = await mainFooter();
+
+    res.status(200).render(view + "add-department.html", {
+      head: head,
+      script: script,
+      footer: footer,
+      nav: nav,
+    });
+  } catch (err) {
+    //console.log(err);
+    res.status(500);
+  }
+});
+
 router.get("/enquiry-list", apiAuthorize, async (req: ExtendedRequest, res) => {
   try {
 

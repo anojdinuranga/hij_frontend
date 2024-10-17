@@ -263,3 +263,17 @@ body {
     background-color: #f8f9fa; /* Light gray background */
     padding: 15px; /* Optional: Add padding for better spacing */
 }
+.modal-dialog {
+    position: fixed;
+    top: 10%;
+    left: 10%;
+    transform: translate(0, -60%);
+    margin: 0;
+}
+.clickable {
+    cursor: pointer; /* Indicate that this is clickable */
+}
+.active-header {
+    text-decoration: underline; /* Underline the active header */
+    color:  #034311;
+}

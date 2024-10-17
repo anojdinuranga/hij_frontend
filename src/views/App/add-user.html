@@ -9,110 +9,176 @@
 
     <%-nav%>
 
-        <div class="mx-5">
+    <div class="mx-5">
 
-            <div class="row mt-5">
-                <div class="col-md-4">
-                    <div class="form-group w-100 mb-5">
-                        <label class="form-label mb-3" for="">Employee name</label>
-                        <input type="text" class="form-control w-full" id="employeeName">
-                    </div>
-                </div>
-
-                <div class="col-md-4">
-                    <div class="form-group w-100 mb-5">
-                        <label class="form-label mb-3" for="">Employee number</label>
-                        <input type="text" class="form-control w-full" id="employeeNumber">
-                    </div>
-                </div>
-
-                <div class="col-md-4">
-                    <div class="form-group w-100 mb-5">
-                        <label class="form-label mb-3" for="">Contact number</label>
-                        <input type="text" class="form-control w-full" id="mobile">
-                    </div>
-                </div>
-
-                <div class="col-md-4">
-                    <div class="form-group w-100 mb-5">
-                        <label class="form-label mb-3" for="">Email address</label>
-                        <input type="text" class="form-control w-full" id="email">
-                    </div>
-                </div>
-
-                <div class="col-md-4">
-                    <div class="form-group w-100 mb-5">
-                        <label class="form-label mb-3" for="">Password</label>
-                        <input type="password" class="form-control w-full" id="password">
-                    </div>
-                </div>
-
-                <div class="col-md-4">
-                    <div class="form-group w-100 mb-5">
-                        <label class="form-label mb-3" for="">Confirm Password</label>
-                        <input type="password" class="form-control w-full" id="confirmPassword">
-                    </div>
+        <div class="row mt-5">
+            <div class="col-md-4">
+                <div class="form-group w-100 mb-5">
+                    <label class="form-label mb-3" for="">Employee name</label>
+                    <input type="text" class="form-control w-full" id="employeeName">
                 </div>
             </div>
 
-            <div class="footer">
-                <button class="btn btn-primary mb-4 theme-primary-btn" id="submit-button"
-                    onclick="addUser()">Save</button>
+            <div class="col-md-4">
+                <div class="form-group w-100 mb-5">
+                    <label class="form-label mb-3" for="">Employee number</label>
+                    <input type="text" class="form-control w-full" id="employeeNumber">
+                </div>
             </div>
 
-            <%-script%>
-                <script>
+            <div class="col-md-4">
+                <div class="form-group w-100 mb-5">
+                    <label class="form-label mb-3" for="">Contact number</label>
+                    <input type="text" class="form-control w-full" id="mobile">
+                </div>
+            </div>
 
-                    function addUser() {
+            <div class="col-md-4">
+                <div class="form-group w-100 mb-5">
+                    <label class="form-label mb-3" for="">Email address</label>
+                    <input type="text" class="form-control w-full" id="email">
+                </div>
+            </div>
 
-                        if ($("#password").val() !== $("#confirmPassword").val()) {
+            <div class="col-md-4">
+                <div class="form-group w-100 mb-5">
+                    <label class="form-label mb-3" for="">Password</label>
+                    <input type="password" class="form-control w-full" id="password">
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="form-group w-100 mb-5">
+                    <label class="form-label mb-3" for="">Confirm Password</label>
+                    <input type="password" class="form-control w-full" id="confirmPassword">
+                </div>
+            </div>
+
+            <!-- Department Selection -->
+            <div class="col-md-4">
+                <div class="form-group w-100 mb-5">
+                    <label class="form-label mb-3" for="departmentSelect">Select Department</label>
+                    <select class="form-control w-full" id="departmentSelect" onchange="fetchDesignations()">
+                        <option value="">Select a department</option>
+                        <!-- Options will be populated dynamically -->
+                    </select>
+                </div>
+            </div>
+
+            <!-- Designation Selection -->
+            <div class="col-md-4">
+                <div class="form-group w-100 mb-5">
+                    <label class="form-label mb-3" for="designationSelect">Select Designation</label>
+                    <select class="form-control w-full" id="designationSelect">
+                        <option value="">Select a designation</option>
+                        <!-- Options will be populated dynamically -->
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <button class="btn btn-primary mb-4 theme-primary-btn" id="submit-button" onclick="addUser()">Save</button>
+        </div>
+
+        <%-script%>
+        <script>
+            // Fetch departments on page load
+            $(document).ready(function() {
+                $.ajax({
+                    url: '/api/v1/department/list', // Update with your API endpoint
+                    type: 'GET',
+                    success: function(response) {
+                        if (response.status) {
+                            response.data.forEach(department => {
+                                $('#departmentSelect').append(`<option value="${department.id}">${department.department_name}</option>`);
+                            });
+                        } else {
+                            console.error("Error fetching departments: " + response.message);
+                        }
+                    },
+                    error: function(error) {
+                        console.error("Error: ", error);
+                    }
+                });
+            });
+
+            // Fetch designations based on the selected department
+            function fetchDesignations() {
+                const departmentId = $('#departmentSelect').val();
+                $('#designationSelect').empty().append('<option value="">Select a designation</option>'); // Clear existing options
+                
+                if (departmentId) {
+                    $.ajax({
+                        url: `/api/v1/department_designation/view`, // Update with your API endpoint
+                        type: 'POST',
+                        contentType: 'application/json',
+                        data: JSON.stringify({
+                            "id":  departmentId
+                        }),
+                        success: function(response) {
+                            if (response.status) {
+                                response.data.forEach(designation => {
+                                    $('#designationSelect').append(`<option value="${designation.id}">${designation.designation}</option>`);
+                                });
+                            } else {
+                                console.error("Error fetching designations: " + response.message);
+                            }
+                        },
+                        error: function(error) {
+                            console.error("Error: ", error);
+                        }
+                    });
+                }
+            }
+
+            function addUser() {
+                if ($("#password").val() !== $("#confirmPassword").val()) {
+                    showAlert({
+                        message: "Password and Confirm Password do not match",
+                        closeText: 'ok',
+                    });
+                    return; // Exit the function if passwords do not match
+                }
+
+                $.ajax({
+                    url: '/api/v1/user/add',
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify({
+                        "employeeNumber": $("#employeeNumber").val(),
+                        "name": $("#employeeName").val(),
+                        "password": $("#password").val(),
+                        "email": $("#email").val(),
+                        "mobile": $("#mobile").val(),
+                        "department": $("#departmentSelect").val(), 
+                        "designation": $("#designationSelect").val() 
+                    }),
+                    success: function (response) {
+                        if (response.status) {
                             showAlert({
-                                message: "Password and Confirm Password is not match",
+                                message: "Success: Employee added successfully",
                                 closeText: 'ok',
                                 closeFunction: function () {
-                                    // window.location.href = '/client-list';
+                                    window.location.href = '/user-list';
                                 },
                             });
                         } else {
-
-                            $.ajax({
-                                url: '/api/v1/user/add',
-                                type: 'POST',
-                                contentType: 'application/json',
-                                data: JSON.stringify({
-                                    "employeeNumber": $("#employeeNumber").val(),
-                                    "name": $("#employeeName").val(),
-                                    "password": $("#password").val(),
-                                    "email": $("#email").val(),
-                                    "mobile": $("#mobile").val(),
-                                }),
-                                success: function (response) {
-                                    if (response.status) {
-                                        showAlert({
-                                            message: "Success: Employee added successfully",
-                                            closeText: 'ok',
-                                            closeFunction: function () {
-                                                window.location.href = '/user-list';
-                                            },
-                                        });
-                                    } else {
-                                        showAlert({
-                                            message: "ERROR: " + response.message,
-                                            closeText: 'ok',
-                                        });
-                                    }
-                                },
-                                error: function (error) {
-                                    console.log(error);
-                                }
+                            showAlert({
+                                message: "ERROR: " + response.message,
+                                closeText: 'ok',
                             });
                         }
+                    },
+                    error: function (error) {
+                        console.log(error);
+                    }
+                });
+            };
 
-                    };
+        </script>
+    </div>
 
-                </script>
 </body>
-
-</div>
 
 </html>

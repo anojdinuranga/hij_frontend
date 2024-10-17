@@ -13,7 +13,118 @@
             <div class="d-flex gap-3">
                 <div class="d-flex flex-column bg-white shadow p-3">
                     <div>New Enquiry</div>
-                    <img src="/assets/images/icons/plus.png" alt="">
+                    <img src="/assets/images/icons/plus.png" alt="" data-bs-toggle="modal" data-bs-target="#enquiryModal" style="cursor: pointer;">
+                </div>
+                <div class="modal fade" id="enquiryModal" tabindex="-1" aria-labelledby="enquiryModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="enquiryModalLabel">New Enquiry</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <!-- Form Row with Two Select Inputs and File Attachment -->
+                                <div class="row mb-3">
+                                    <!-- First Select Input -->
+                                    <div class="col-md-4">
+                                        <select class="form-select" id="selectCustomer">
+                                            <option selected>Choose Customer</option>
+                                            <option value="2">Add Customer</option>
+                                            <option value="2">Option 1</option>
+                                            <option value="3">Option 2</option>
+                                        </select>
+                                    </div>
+                
+                                    <!-- Second Select Input -->
+                                    <div class="col-md-4">
+                                        <select class="form-select" id="enquiryType">
+                                            <option selected>Enquiry Type</option>
+                                            <option value="1">Coasting Request</option>
+                                            <option value="2">Sample Request</option>
+                                        </select>
+                                    </div>
+                
+                                    <!-- File Attachment -->
+                                    <div class="col-md-4">
+                                        <input class="form-control" type="file" id="fileInput1">
+                                    </div>
+                                </div>
+                                <div class="row mb-3 d-none" id="row2">
+                                    <!-- First Select Input -->
+                                    <div class="col-md-4">
+                                        <select class="form-select" id="developmentType">
+                                            <option selected>Development Type</option>
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                        </select>
+                                    </div>
+                
+                                    <!-- Second Select Input -->
+                                    <div class="col-md-4">
+                                        <select class="form-select" id="ordType">
+                                            <option selected>Ord Type</option>
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                        </select>
+                                    </div>
+                
+                                    <!-- File Attachment -->
+                                    <div class="col-md-4">
+                                        <input class="form-control" type="file" id="fileInput2">
+                                    </div>
+                                </div>
+                                <div class="row mb-3 d-none" id="row3">
+                                    <!-- First Select Input -->
+                                    <div class="col-md-4">
+                                        <select class="form-select" id="sampleType">
+                                            <option selected>Sample Type</option>
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <!-- Submit Button (Centered on the next row) -->
+                                <div class="row justify-content-center">
+                                    <div class="col-auto">
+                                        <button type="button" class="btn btn-primary">Submit</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="d-flex flex-column bg-white shadow p-3 text-center">
+                    <div>Sample Requests</div>
+                    <h2 class="mt-2">352</h2>
+                    <a href="#">View All</a>
+                </div>
+                
+            
+                <!-- Costing Requests Box -->
+                <div class="d-flex flex-column bg-white shadow p-3 text-center">
+                    <div>Costing Requests</div>
+                    <h2 class="mt-2">52</h2>
+                    <a href="#">View All</a>
+                </div>
+            
+                <!-- Filter Sample Box -->
+                <div class="d-flex flex-column">
+                    <!-- Filter Sample Box -->
+                    <div class="d-flex flex-column bg-white shadow p-3 mb-2 mt-2">
+                        <div>Filter Sample</div>
+                    </div>
+                    
+                    <!-- Filter Buyer Box -->
+                    <div class="d-flex flex-column bg-white shadow p-3 mt-2">
+                        <div>Filter Buyer</div>
+                    </div>
+                </div>
+                
+                <div class="d-flex flex-column">
+                    <div class="d-flex flex-column bg-white shadow p-3 mt-2">
+                        <div>Filter Date</div>
+                    </div>
+                    
                 </div>
             </div>
             <div class="d-flex gap-3 flex-wrap mt-3">
@@ -99,125 +210,112 @@
                 </div>
             </div>
         </div>
-        <div class="m-3">
+        <div class="m-3 mt-2">
             <div class="row mb-4">
-                <div class="col-md-6 custom-bg">
-                    <div class="row">
-                        <div class="col-md-3">
-                            <h6>Approved Sample</h6>
-                        </div>
-                        <div class="col-md-4">
-                            <h6>Pending Sample Approval</h6>
-                        </div>
-                        <div class="col-md-2">
-                            <h6>In Development</h6>
-                        </div>
-                        <div class="col-md-3">
-                            <h6>Re-Development</h6>
-                        </div>
-                    </div>
-                    <hr>
-                    <div class="row mb-3 align-items-center">
-                        <div class="col-md-1">
-                            <h6>Count:</h6>
-                        </div>
-                        <div class="col-md-1">
-                            <input type="number" class="form-control" placeholder="0" aria-label="Count">
-                        </div>
-                        <div class="col-md-1">
-                            <i class="fas fa-filter"></i> <!-- Use Font Awesome for filter icon -->
-                        </div>
-                        <div class="col-md-5">
-                            <div class="input-group">
-                                <input type="text" class="form-control" placeholder="Search..." aria-label="Search">
-                                <span class="input-group-text">
-                                    <i class="fas fa-search"></i> <!-- Use Font Awesome for search icon -->
-                                </span>
+                <div class="d-flex justify-content-between">
+                    <div class="col-md-6 custom-bg me-3" style="flex: 0 0 auto; width: 49.6%;"> <!-- Adjusted width -->
+                        <div class="row">
+                            <div class="col-md-3">
+                                <h6 class="clickable active-header" data-type="approved-sample">Approved Sample</h6>
+                            </div>
+                            <div class="col-md-4">
+                                <h6 class="clickable" data-type="pending-sample">Pending Sample Approval</h6>
+                            </div>
+                            <div class="col-md-2">
+                                <h6 class="clickable" data-type="in-development-sample">In Development</h6>
+                            </div>
+                            <div class="col-md-3">
+                                <h6 class="clickable" data-type="re-development-sample">Re-Development</h6>
                             </div>
                         </div>
+                        <hr>
+                        <div class="row mb-3 align-items-center">
+                            <div class="col-md-1">
+                                <h6>Count:</h6>
+                            </div>
+                            <div class="col-md-1">
+                                <input type="text" class="form-control" placeholder="" aria-label="Count">
+                            </div>
+                            <div class="col-md-10 d-flex justify-content-end mb-1">
+                                <div class="col-md-1 d-flex align-items-center justify-content-end">
+                                    <i class="fas fa-filter me-2"></i>
+                                </div>
+                                <div class="col-md-5">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control search-input" placeholder="Search..." aria-label="Search">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <table class="table table-bordered" id="sample-data-table">
+                            <thead>
+                                <tr>
+                                    <th>GSR No</th>
+                                    <th>Buyer</th>
+                                    <th>Enquiry Date</th>
+                                    <th>Style No</th>
+                                    <th>Development Type</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                
+                            </tbody>
+                        </table>
                     </div>
-                    
-                    <table class="table table-bordered">
-                        <thead>
-                            <tr>
-                                <th>GSR No</th>
-                                <th>Buyer</th>
-                                <th>Enquiry Date</th>
-                                <th>Style No</th>
-                                <th>Development Type</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>PP1234457</td>
-                                <td>PACT APPAREL</td>
-                                <td>18-Feb-2024</td>
-                                <td>WAI-1MIN-12</td>
-                                <td>Only For Garment</td>
-                                <td><a href="#">Sample Request</a></td>
-                            </tr>
-                            <tr>
-                                <td>SMS1234459</td>
-                                <td>PRANA</td>
-                                <td>18-Jan-2024</td>
-                                <td>WIX</td>
-                                <td>Only For Fabric</td>
-                                <td><a href="#">Sample Request</a></td>
-                            </tr>
-                            <!-- Add more rows as needed -->
-                        </tbody>
-                    </table>
-                </div>
         
-                <div class="col-md-6 custom-bg">
-                    <div class="row mb-3">
-                        <div class="col-md-3">
-                            <h6>Approved Costing</h6>
+                    <div class="col-md-6 custom-bg" style="flex: 0 0 auto; width: 49.6%;"> <!-- Adjusted width -->
+                        <div class="row mb-3">
+                            <div class="col-md-3">
+                                <h6 class="clickable active-header" data-type="approved-costing">Approved Costing</h6>
+                            </div>
+                            <div class="col-md-4">
+                                <h6 class="clickable" data-type="pending-costing">Pending Costing Approval</h6>
+                            </div>
+                            <div class="col-md-3">
+                                <h6 class="clickable" data-type="active-costing">Active Costing</h6>
+                            </div>
                         </div>
-                        <div class="col-md-4">
-                            <h6>Pending Costing Approval</h6>
+                        <hr>
+                        <div class="row mb-3 align-items-center">
+                            <div class="col-md-1">
+                                <h6>Count:</h6>
+                            </div>
+                            <div class="col-md-1">
+                                <input type="text" class="form-control" placeholder="" aria-label="Count">
+                            </div>
+                            <div class="col-md-10 d-flex justify-content-end mb-1">
+                                <div class="col-md-1 d-flex align-items-center justify-content-end">
+                                    <i class="fas fa-filter me-2"></i>
+                                </div>
+                                <div class="col-md-5">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control search-input" placeholder="Search..." aria-label="Search">
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="col-md-3">
-                            <h6>Active Costing</h6>
-                        </div>
+                        <hr>
+                        <table class="table table-bordered" id="costing-data-table">
+                            <thead>
+                                <tr>
+                                    <th>CSR No</th>
+                                    <th>Buyer</th>
+                                    <th>Enquiry Date</th>
+                                    <th>Style No</th>
+                                    <th>Enquiry No</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
                     </div>
-                    <table class="table table-bordered">
-                        <thead>
-                            <tr>
-                                <th>CSR No</th>
-                                <th>Buyer</th>
-                                <th>Enquiry Date</th>
-                                <th>Style No</th>
-                                <th>Enquiry No</th>
-                                <th>Status</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Cost123456</td>
-                                <td>PACT APPAREL</td>
-                                <td>18-Feb-2024</td>
-                                <td>WAI-1MIN-12</td>
-                                <td>123456</td>
-                                <td><a href="#">Sample Request</a></td>
-                            </tr>
-                            <tr>
-                                <td>Cost123457</td>
-                                <td>PRANA</td>
-                                <td>17-Feb-2024</td>
-                                <td>GHT</td>
-                                <td>123456</td>
-                                <td><a href="#">Sample Request</a></td>
-                            </tr>
-                            <!-- Add more rows as needed -->
-                        </tbody>
-                    </table>
                 </div>
             </div>
         </div>
         
-
     <%-script%>
     <script>
         const ctx1 = document.getElementById('piechart1');
@@ -256,6 +354,121 @@
             type: 'pie',
             data: data,
         });
+
+        document.getElementById('enquiryType').addEventListener('change', function() {
+            var selectedValue = this.value;
+            
+            var row2 = document.getElementById('row2');
+            var row3 = document.getElementById('row3');
+            
+            // Show or hide rows based on selected enquiry type
+            if (selectedValue === "2") {
+                row2.classList.remove('d-none');
+                row3.classList.remove('d-none');
+            } else {
+                row2.classList.add('d-none');
+                row3.classList.add('d-none');
+            }
+        });
+
+
+        const sampleData = {
+            'approved-sample': [
+                { GSRNo: 'PP1234457', Buyer: 'PACT APPAREL', EnquiryDate: '18-Feb-2024', StyleNo: 'WAI-1MIN-12', DevelopmentType: 'Only For Garment', Action: '<a href="#">Sample Request</a>' },
+                { GSRNo: 'PP1234458', Buyer: 'EXAMPLE APPAREL', EnquiryDate: '20-Feb-2024', StyleNo: 'WAI-1MIN-13', DevelopmentType: 'Only For Accessories', Action: '<a href="#">Sample Request</a>' }
+            ],
+            'pending-sample': [
+                { GSRNo: 'SMS1234459', Buyer: 'PRANA', EnquiryDate: '18-Jan-2024', StyleNo: 'WIX', DevelopmentType: 'Only For Fabric', Action: '<a href="#">Sample Request</a>' }
+            ],
+            'in-development-sample': [
+                { GSRNo: 'DEV1234457', Buyer: 'DEV COMPANY', EnquiryDate: '01-Mar-2024', StyleNo: 'DEV-1MIN-12', DevelopmentType: 'In Development', Action: '<a href="#">Sample Request</a>' }
+            ],
+            're-development-sample': [
+                { GSRNo: 'REDEV1234458', Buyer: 'REDEV COMPANY', EnquiryDate: '15-Mar-2024', StyleNo: 'REDEV-1MIN-12', DevelopmentType: 'Re-Development', Action: '<a href="#">Sample Request</a>' }
+            ],
+            'approved-costing': [
+                { CSRNo: 'CRS1234457', Buyer: 'COMPANY A', EnquiryDate: '18-Apr-2024', StyleNo: 'A-1', EnquiryNo: 'ENQ123', Status: 'Approved' },
+                { CSRNo: 'CRS1234458', Buyer: 'COMPANY B', EnquiryDate: '20-Apr-2024', StyleNo: 'B-1', EnquiryNo: 'ENQ124', Status: 'Approved' }
+            ],
+            'pending-costing': [
+                { CSRNo: 'CRS1234459', Buyer: 'COMPANY C', EnquiryDate: '18-May-2024', StyleNo: 'C-1', EnquiryNo: 'ENQ125', Status: 'Pending' }
+            ],
+            'active-costing': [
+                { CSRNo: 'CRS1234460', Buyer: 'COMPANY D', EnquiryDate: '01-Jun-2024', StyleNo: 'D-1', EnquiryNo: 'ENQ126', Status: 'Active' }
+            ]
+        };
+
+        // Function to populate the sample data table
+        function populateSampleTable(type) {
+            const tableBody = document.querySelector('#sample-data-table tbody');
+            tableBody.innerHTML = ''; // Clear existing rows
+
+            sampleData[type].forEach(item => {
+                const row = `<tr>
+                    <td>${item.GSRNo}</td>
+                    <td>${item.Buyer}</td>
+                    <td>${item.EnquiryDate}</td>
+                    <td>${item.StyleNo}</td>
+                    <td>${item.DevelopmentType}</td>
+                    <td>${item.Action}</td>
+                </tr>`;
+                tableBody.innerHTML += row; // Add new row
+            });
+        }
+
+        // Function to populate the costing data table
+        function populateCostingTable(type) {
+            const tableBody = document.querySelector('#costing-data-table tbody');
+            tableBody.innerHTML = ''; // Clear existing rows
+
+            sampleData[type].forEach(item => {
+                const row = `<tr>
+                    <td>${item.CSRNo}</td>
+                    <td>${item.Buyer}</td>
+                    <td>${item.EnquiryDate}</td>
+                    <td>${item.StyleNo}</td>
+                    <td>${item.EnquiryNo}</td>
+                    <td>${item.Status}</td>
+                </tr>`;
+                tableBody.innerHTML += row; // Add new row
+            });
+        }
+
+        // Event listeners for the sample table headers
+        document.querySelectorAll('.clickable[data-type$="-sample"]').forEach(header => {
+            header.addEventListener('click', function() {
+                const type = this.getAttribute('data-type');
+
+                // Clear active class from all sample headers and set it on the clicked one
+                document.querySelectorAll('.clickable[data-type$="-sample"]').forEach(h => {
+                    h.classList.remove('active-header');
+                });
+                this.classList.add('active-header');
+
+                // Populate the sample table with the corresponding data
+                populateSampleTable(type);
+            });
+        });
+
+        // Event listeners for the costing table headers
+        document.querySelectorAll('.clickable[data-type$="-costing"]').forEach(header => {
+            header.addEventListener('click', function() {
+                const type = this.getAttribute('data-type');
+
+                // Clear active class from all costing headers and set it on the clicked one
+                document.querySelectorAll('.clickable[data-type$="-costing"]').forEach(h => {
+                    h.classList.remove('active-header');
+                });
+                this.classList.add('active-header');
+
+                // Populate the costing table with the corresponding data
+                populateCostingTable(type);
+            });
+        });
+
+        // Populate initial data (Approved Sample and Approved Costing)
+        populateSampleTable('approved-sample');
+        populateCostingTable('approved-costing');
     </script>
        
                

@@ -3,701 +3,722 @@
 
 <head>
     <%- head %>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.0/css/bootstrap.min.css">
 </head>
 
 <body>
 
     <%- nav %>
 
-    <div class="mx-5 mt-5">
-        <div class="row mb-2">
-            <!-- First Column: Customer, Enquiry, File -->
-            <div class="col-md-3">
-                <div class="row">
-                    <div class="col-6">
-                        <h5>Customer:</h5>
-                    </div>
-                    <div class="col-6">
-                        <span id="customerName"></span>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-6">
-                        <h5>Enquiry:</h5>
-                    </div>
-                    <div class="col-6">
-                        <span id="enquiryType"></span>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-6">
-                        <h5>File:</h5>
-                    </div>
-                    <div class="col-6">
-                        <span><a href="#" id="fileLink"></a></span>
-                    </div>
-                </div> 
-            </div>
-        
-            <!-- Second Column: Enquiry No, Enquiry Date -->
-            <div class="col-md-3">
-                <div class="row">
-                    <div class="col-6">
-                        <h5>Enquiry No:</h5>
-                    </div>
-                    <div class="col-4">
-                        <span id="enquiryNo"></span>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-6">
-                        <h5>Enquiry Date:</h5>
-                    </div>
-                    <div class="col-4">
-                        <span id="enquiryDate"></span>
-                    </div>
-                </div>
-            </div>
-        
-            <!-- Third Column: GSR No, Garment Sketch -->
-            <div class="col-md-6">
-                <div class="row">
-                    <div class="col-2 offset-md-2">
-                        <h5>GSR No:</h5>
-                    </div>
-                    <div class="col-2">
-                        <span id="gsrNo"></span>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="row">
-            <div class="col-md-10 offset-md-7 d-flex justify-content-start align-items-center">
-                <h5>Garment Sketch:</h5>
-            </div>
-            <div class="col-md-4">
-                <h5 class="mb-5"><b>Main Body Fabric</b></h5>
-                <div id="fabric-container">
-                    <div class="fabric-section" id="fabric-section-template">
-                        <div class="row mb-3 align-items-center">
-                            <div class="col-md-3">
-                                <label for="knitStructure" class="col-form-label">Knit Structure:</label>
-                            </div>
-                            <div class="col-md-5">
-                                <input type="text" class="form-control" id="knitStructure" value="">
-                            </div>
-                        </div>
-                    
-                        <div class="row mb-3 align-items-center">
-                            <div class="col-md-3">
-                                <label for="blend" class="col-form-label">Blend:</label>
-                            </div>
-                            <div class="col-md-5">
-                                <input type="text" class="form-control" id="blend" value="">
-                            </div>
-                        </div>
-                    
-                        <div class="row mb-3 align-items-center">
-                            <div class="col-md-3">
-                                <label for="gsm" class="col-form-label">GSM:</label>
-                            </div>
-                            <div class="col-md-5">
-                                <input type="text" class="form-control" id="gsm" value="">
-                            </div>
-                        </div>
-                    
-                        <div class="row mb-3 align-items-center">
-                            <div class="col-md-3">
-                                <label for="finish" class="col-form-label">Finish:</label>
-                            </div>
-                            <div class="col-md-5">
-                                <input type="text" class="form-control" id="finish" value="">
-                            </div>
-                        </div>
-                        
-                        <div class="row mb-3 align-items-center">
-                            <div class="col-md-3">
-                                <label for="dryMethod" class="col-form-label">Dry Method:</label>
-                            </div>
-                            <div class="col-md-5">
-                                <input type="text" class="form-control" id="dryMethod" value="">
-                            </div>
-                        </div>
-                    
-                        <div class="row mb-3 align-items-center">
-                            <div class="col-md-3">
-                                <label for="placement" class="col-form-label">Placement:</label>
-                            </div>
-                            <div class="col-md-5">
-                                <input type="text" class="form-control" id="placement" value="">
-                            </div>
-                        </div>
-                      
-                    </div>
-                </div>
-                <div class="d-flex align-items-center">
-                    <!-- Add Button with Plus Icon -->
-                    <!-- <button type="button" class="btn btn-primary rounded-circle" style="width: 35px; height: 25px; display: flex; justify-content: center; align-items: center; margin-right: 10px;">
-                        <span class="text-white" style="font-size: 20px;">+</span>
-                    </button> -->
-                
-                    <!-- Add More Button with Ellipse -->
-                    <button type="button" class="btn btn-primary" style="border-radius: 25px;" id="add-more-button-fabric" onclick="cloneSection('fabric-container','fabric-section-template')">
-                        Add More
-                    </button>
-                </div>
-                <h5 class="mb-5 mt-5"><b>Accessory Fabric</b></h5>
-                <div id="fabric-container-accessory">
-                    <div class="accessory-section" id="accessory-section-template">
-                        <div class="row mb-3 align-items-center">
-                            <div class="col-md-3">
-                                <label for="knitStructure" class="col-form-label">Knit Structure:</label>
-                            </div>
-                            <div class="col-md-5">
-                                <input type="text" class="form-control" id="knitStructureAccessory" value="">
-                            </div>
-                        </div>
-                    
-                        <div class="row mb-3 align-items-center">
-                            <div class="col-md-3">
-                                <label for="blend" class="col-form-label">Blend:</label>
-                            </div>
-                            <div class="col-md-5">
-                                <input type="text" class="form-control" id="blendAccessory" value="">
-                            </div>
-                        </div>
-                    
-                        <div class="row mb-3 align-items-center">
-                            <div class="col-md-3">
-                                <label for="gsm" class="col-form-label">GSM:</label>
-                            </div>
-                            <div class="col-md-5">
-                                <input type="text" class="form-control" id="gsmAccessory" value="">
-                            </div>
-                        </div>
-                    
-                        <div class="row mb-3 align-items-center">
-                            <div class="col-md-3">
-                                <label for="placement" class="col-form-label">Placement:</label>
-                            </div>
-                            <div class="col-md-5">
-                                <input type="text" class="form-control" id="placementAccessory" value="">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="d-flex align-items-center">
-                    <!-- Add Button with Plus Icon -->
-                    <!-- <button type="button" class="btn btn-primary rounded-circle" style="width: 35px; height: 25px; display: flex; justify-content: center; align-items: center; margin-right: 10px;">
-                        <span class="text-white" style="font-size: 20px;">+</span>
-                    </button> -->
-                
-                    <!-- Add More Button with Ellipse -->
-                    <button type="button" class="btn btn-primary" style="border-radius: 25px;" onclick="cloneSection('fabric-container-accessory','accessory-section-template')">
-                        Add More
-                    </button>
-                </div>
-                <div class="mt-5" id="fabric-container-combo">
-                    <div class="accessory-section-combo" id="combo-section-template">
-                        <div class="row mb-3 align-items-center">
-                            <div class="col-md-3">
-                                <label for="comboNo" class="col-form-label">Combo No:</label>
-                            </div>
-                            <div class="col-md-5">
-                                <input type="text" class="form-control" id="comboNo" value="">
-                            </div>
-                        </div>
-                        <div class="row mb-3 align-items-center">
-                            <div class="col-md-3">
-                                <label for="comboNo" class="col-form-label">Size & Pieces:</label>
-                            </div>
-                            <div class="col-md-3">
-                                <input type="select" class="form-control" id="size" value="Body">
-                            </div>
-                            <div class="col-md-2">
-                                <input type="text" class="form-control" id="Pieces" value="Body">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="d-flex align-items-center">
-                    <!-- Add Button with Plus Icon -->
-                    <!-- <button type="button" class="btn btn-primary rounded-circle" style="width: 35px; height: 25px; display: flex; justify-content: center; align-items: center; margin-right: 10px;">
-                        <span class="text-white" style="font-size: 20px;">+</span>
-                    </button> -->
-                
-                    <!-- Add More Button with Ellipse -->
-                    <button type="button" class="btn btn-primary" style="border-radius: 25px;" onclick="cloneSection('fabric-container-combo','combo-section-template')">
-                        Add More
-                    </button>
-                </div>
-                
-            </div>
-            <div class="col-md-8">
-                <div class="row">
-                    <div class="col-md-3 d-flex flex-column align-items-center mt-5">
-                        <h5 class="mt-4"><b>Value Added Process</b></h5>
-                        <div class="col-md-6">
-                            <div class="form-check">
-                                <input class="form-check-input larger-checkbox" type="checkbox" value="" id="">
-                                <label class="form-check-label label-margin" for="aop">
-                                    AOP
-                                </label>
-                            </div>
-                            <div class="form-check mt-2">
-                                <input class="form-check-input larger-checkbox" type="checkbox" value="" id="">
-                                <label class="form-check-label label-margin" for="printing">
-                                    Printing
-                                </label>
-                            </div>
-                            <div class="form-check mt-2">
-                                <input class="form-check-input larger-checkbox" type="checkbox" value="" id="">
-                                <label class="form-check-label label-margin" for="embroidery">
-                                    Embroidery
-                                </label>
-                            </div>
-                            <div class="form-check mt-2">
-                                <input class="form-check-input larger-checkbox" type="checkbox" value="" id="">
-                                <label class="form-check-label label-margin" for="gmtWash">
-                                    GMT. Wash
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="col-md-9 d-flex justify-content-end align-items-center">
-                        <!-- Default Image / Image Preview -->
-                        <img src="assets/images/1594466867group-339-png.png" alt="Value Added Process Image" id="imagePreview" class="img-fluid" style="max-width: 600px; height: 350px; cursor: pointer;" onclick="document.getElementById('imageUpload').click()">
-                        <!-- File Upload Input (Hidden) -->
-                        <input type="file" id="imageUpload" accept="image/*" style="display:none" onchange="previewImage(event)">
-                    </div>
-                </div>
-                
-                <div class="row mt-5">
-                    <h5 class="mt-4"><b>Trims</b></h5>
-                    <hr style="border: 3px solid #000;">
+        <div class="mx-5 mt-5">
+            <div class="row mb-2">
+                <!-- First Column: Customer, Enquiry, File -->
+                <div class="col-md-3">
                     <div class="row">
-                        <div class="col-md-6">
-                            <div id="trim-container">
-                                <div class="trim-section" id="trim-template">
-                                    <h6><b>Button 1:</b></h6>
-                                    <div class="ml-2">
-                                        <div class="row mb-3 align-items-center">
-                                            <div class="col-md-3">
-                                                <label for="buttonDescription" class="col-form-label">Description:</label>
-                                            </div>
-                                            <div class="col-md-5">
-                                                <input type="text" class="form-control" id="buttonDescription" value="">
-                                            </div>
-                                        </div>
-                                        
-                                        <div class="row mb-3 align-items-center">
-                                            <div class="col-md-3">
-                                                <label for="buttonContent" class="col-form-label">Content:</label>
-                                            </div>
-                                            <div class="col-md-5">
-                                                <input type="text" class="form-control" id="buttonContent" value="">
-                                            </div>
-                                        </div>
-                                        
-                                        <div class="row mb-3 align-items-center">
-                                            <div class="col-md-3">
-                                                <label for="buttonPlacement" class="col-form-label">Placement:</label>
-                                            </div>
-                                            <div class="col-md-5">
-                                                <input type="text" class="form-control" id="buttonPlacement" value="">
-                                            </div>
-                                        </div>
-                                    </div>
+                        <div class="col-6">
+                            <h5>Customer:</h5>
+                        </div>
+                        <div class="col-6">
+                            <span id="customerName"></span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <h5>Enquiry:</h5>
+                        </div>
+                        <div class="col-6">
+                            <span id="enquiryType"></span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <h5>File:</h5>
+                        </div>
+                        <div class="col-6">
+                            <span><a href="#" id="fileLink"></a></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Second Column: Enquiry No, Enquiry Date -->
+                <div class="col-md-3">
+                    <div class="row">
+                        <div class="col-6">
+                            <h5>Enquiry No:</h5>
+                        </div>
+                        <div class="col-4">
+                            <span id="enquiryNo"></span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <h5>Enquiry Date:</h5>
+                        </div>
+                        <div class="col-4">
+                            <span id="enquiryDate"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Third Column: GSR No, Garment Sketch -->
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-2 offset-md-2">
+                            <h5>GSR No:</h5>
+                        </div>
+                        <div class="col-2">
+                            <span id="gsrNo"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-10 offset-md-7 d-flex justify-content-start align-items-center">
+                    <h5>Garment Sketch:</h5>
+                </div>
+                <div class="col-md-4">
+                    <h5 class="mb-5"><b>Main Body Fabric</b></h5>
+                    <div id="fabric-container">
+                        <div class="fabric-section" id="fabric-section-template">
+                            <div class="row mb-3 align-items-center">
+                                <div class="col-md-3">
+                                    <label for="knitStructure" class="col-form-label">Knit Structure:</label>
                                 </div>
-                            </div>
-                            <div class="d-flex align-items-center">
-                                <!-- Add Button with Plus Icon -->
-                                <!-- <button type="button" class="btn btn-primary rounded-circle" style="width: 35px; height: 25px; display: flex; justify-content: center; align-items: center; margin-right: 10px;">
-                                    <span class="text-white" style="font-size: 20px;">+</span>
-                                </button> -->
-                            
-                                <!-- Add More Button with Ellipse -->
-                                <button type="button" class="btn btn-primary" style="border-radius: 25px;" onclick=" cloneWithLabelCount('trim-container','trim-template','Button')">
-                                    Add More
-                                </button>
+                                <div class="col-md-5">
+                                    <input type="text" class="form-control" id="knitStructure" value="">
+                                </div>
                             </div>
 
-                            <div id="thread-container">
-                                <div class="mt-5 trim-section-thread" id="thread-template">
-                                    <h6><b>Thread 1:</b></h6>
-                                    <div class="row mb-3 align-items-center">
-                                        <div class="col-md-3">
-                                            <label for="thread1Description" class="col-form-label">Description:</label>
-                                        </div>
-                                        <div class="col-md-5">
-                                            <input type="text" class="form-control" id="threadDescription" value="">
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="row mb-3 align-items-center">
-                                        <div class="col-md-3">
-                                            <label for="thread1Content" class="col-form-label">Content:</label>
-                                        </div>
-                                        <div class="col-md-5">
-                                            <input type="text" class="form-control" id="threadContent" value="">
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="row mb-3 align-items-center">
-                                        <div class="col-md-3">
-                                            <label for="thread1Placement" class="col-form-label">Placement:</label>
-                                        </div>
-                                        <div class="col-md-5">
-                                            <input type="text" class="form-control" id="threadPlacement" value="">
-                                        </div>
-                                    </div>
+                            <div class="row mb-3 align-items-center">
+                                <div class="col-md-3">
+                                    <label for="blend" class="col-form-label">Blend:</label>
+                                </div>
+                                <div class="col-md-5">
+                                    <input type="text" class="form-control" id="blend" value="">
                                 </div>
                             </div>
-                            <!-- Add Button with Plus Icon -->
-                            <div class="d-flex align-items-center">
-                                <!-- Add Button with Plus Icon -->
-                                <!-- <button type="button" class="btn btn-primary rounded-circle" style="width: 35px; height: 25px; display: flex; justify-content: center; align-items: center; margin-right: 10px;">
-                                    <span class="text-white" style="font-size: 20px;">+</span>
-                                </button> -->
-                            
-                                <!-- Add More Button with Ellipse -->
-                                <button type="button" class="btn btn-primary" style="border-radius: 25px;" onclick=" cloneWithLabelCount2('thread-container','thread-template','Thread')">
-                                    Add More
-                                </button>
+
+                            <div class="row mb-3 align-items-center">
+                                <div class="col-md-3">
+                                    <label for="gsm" class="col-form-label">GSM:</label>
+                                </div>
+                                <div class="col-md-5">
+                                    <input type="text" class="form-control" id="gsm" value="">
+                                </div>
+                            </div>
+
+                            <div class="row mb-3 align-items-center">
+                                <div class="col-md-3">
+                                    <label for="finish" class="col-form-label">Finish:</label>
+                                </div>
+                                <div class="col-md-5">
+                                    <input type="text" class="form-control" id="finish" value="">
+                                </div>
+                            </div>
+
+                            <div class="row mb-3 align-items-center">
+                                <div class="col-md-3">
+                                    <label for="dryMethod" class="col-form-label">Dry Method:</label>
+                                </div>
+                                <div class="col-md-5">
+                                    <input type="text" class="form-control" id="dryMethod" value="">
+                                </div>
+                            </div>
+
+                            <div class="row mb-3 align-items-center">
+                                <div class="col-md-3">
+                                    <label for="placement" class="col-form-label">Placement:</label>
+                                </div>
+                                <div class="col-md-5">
+                                    <input type="text" class="form-control" id="placement" value="">
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-center">
+                        <!-- Add Button with Plus Icon -->
+                        <!-- <button type="button" class="btn btn-primary rounded-circle" style="width: 35px; height: 25px; display: flex; justify-content: center; align-items: center; margin-right: 10px;">
+                        <span class="text-white" style="font-size: 20px;">+</span>
+                    </button> -->
+
+                        <!-- Add More Button with Ellipse -->
+                        <button type="button" class="btn btn-primary" style="border-radius: 25px;"
+                            id="add-more-button-fabric"
+                            onclick="cloneSection('fabric-container','fabric-section-template')">
+                            Add More
+                        </button>
+                    </div>
+                    <h5 class="mb-5 mt-5"><b>Accessory Fabric</b></h5>
+                    <div id="fabric-container-accessory">
+                        <div class="accessory-section" id="accessory-section-template">
+                            <div class="row mb-3 align-items-center">
+                                <div class="col-md-3">
+                                    <label for="knitStructure" class="col-form-label">Knit Structure:</label>
+                                </div>
+                                <div class="col-md-5">
+                                    <input type="text" class="form-control" id="knitStructureAccessory" value="">
+                                </div>
+                            </div>
+
+                            <div class="row mb-3 align-items-center">
+                                <div class="col-md-3">
+                                    <label for="blend" class="col-form-label">Blend:</label>
+                                </div>
+                                <div class="col-md-5">
+                                    <input type="text" class="form-control" id="blendAccessory" value="">
+                                </div>
+                            </div>
+
+                            <div class="row mb-3 align-items-center">
+                                <div class="col-md-3">
+                                    <label for="gsm" class="col-form-label">GSM:</label>
+                                </div>
+                                <div class="col-md-5">
+                                    <input type="text" class="form-control" id="gsmAccessory" value="">
+                                </div>
+                            </div>
+
+                            <div class="row mb-3 align-items-center">
+                                <div class="col-md-3">
+                                    <label for="placement" class="col-form-label">Placement:</label>
+                                </div>
+                                <div class="col-md-5">
+                                    <input type="text" class="form-control" id="placementAccessory" value="">
+                                </div>
                             </div>
                         </div>
-                        
-                        <div class="col-md-6">
-                            <div id="label-container">
-                                <div class="label-section" id="label-template">
-                                    <h6><b>Label 1:</b></h6>
-                                    <div class="row mb-3 align-items-center">
-                                        <div class="col-md-3">
-                                            <label for="label1Description" class="col-form-label">Description:</label>
-                                        </div>
-                                        <div class="col-md-5">
-                                            <input type="text" class="form-control" id="label1Description" value="">
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="row mb-3 align-items-center">
-                                        <div class="col-md-3">
-                                            <label for="label1Placement" class="col-form-label">Placement:</label>
-                                        </div>
-                                        <div class="col-md-5">
-                                            <input type="text" class="form-control" id="label1Placement" value="">
+                    </div>
+                    <div class="d-flex align-items-center">
+                        <!-- Add Button with Plus Icon -->
+                        <!-- <button type="button" class="btn btn-primary rounded-circle" style="width: 35px; height: 25px; display: flex; justify-content: center; align-items: center; margin-right: 10px;">
+                        <span class="text-white" style="font-size: 20px;">+</span>
+                    </button> -->
+
+                        <!-- Add More Button with Ellipse -->
+                        <button type="button" class="btn btn-primary" style="border-radius: 25px;"
+                            onclick="cloneSection('fabric-container-accessory','accessory-section-template')">
+                            Add More
+                        </button>
+                    </div>
+                    <div class="mt-5" id="fabric-container-combo">
+                        <div class="accessory-section-combo" id="combo-section-template">
+                            <div class="row mb-3 align-items-center">
+                                <div class="col-md-3">
+                                    <label for="comboNo" class="col-form-label">Combo No:</label>
+                                </div>
+                                <div class="col-md-5">
+                                    <input type="text" class="form-control" id="comboNo" value="">
+                                </div>
+                            </div>
+                            <div class="row mb-3 align-items-center">
+                                <div class="col-md-3">
+                                    <label for="comboNo" class="col-form-label">Size & Pieces:</label>
+                                </div>
+                                <div class="col-md-3">
+                                    <input type="select" class="form-control" id="size" value="Body">
+                                </div>
+                                <div class="col-md-2">
+                                    <input type="text" class="form-control" id="Pieces" value="Body">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-center">
+                        <!-- Add Button with Plus Icon -->
+                        <!-- <button type="button" class="btn btn-primary rounded-circle" style="width: 35px; height: 25px; display: flex; justify-content: center; align-items: center; margin-right: 10px;">
+                        <span class="text-white" style="font-size: 20px;">+</span>
+                    </button> -->
+
+                        <!-- Add More Button with Ellipse -->
+                        <button type="button" class="btn btn-primary" style="border-radius: 25px;"
+                            onclick="cloneSection('fabric-container-combo','combo-section-template')">
+                            Add More
+                        </button>
+                    </div>
+
+                </div>
+                <div class="col-md-8">
+                    <div class="row">
+                        <div class="col-md-3 d-flex flex-column align-items-center mt-5">
+                            <h5 class="mt-4"><b>Value Added Process</b></h5>
+                            <div class="col-md-6">
+                                <div class="form-check">
+                                    <input class="form-check-input larger-checkbox" type="checkbox" value="" id="">
+                                    <label class="form-check-label label-margin" for="aop">
+                                        AOP
+                                    </label>
+                                </div>
+                                <div class="form-check mt-2">
+                                    <input class="form-check-input larger-checkbox" type="checkbox" value="" id="">
+                                    <label class="form-check-label label-margin" for="printing">
+                                        Printing
+                                    </label>
+                                </div>
+                                <div class="form-check mt-2">
+                                    <input class="form-check-input larger-checkbox" type="checkbox" value="" id="">
+                                    <label class="form-check-label label-margin" for="embroidery">
+                                        Embroidery
+                                    </label>
+                                </div>
+                                <div class="form-check mt-2">
+                                    <input class="form-check-input larger-checkbox" type="checkbox" value="" id="">
+                                    <label class="form-check-label label-margin" for="gmtWash">
+                                        GMT. Wash
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-9 d-flex justify-content-end align-items-center">
+                            <!-- Default Image / Image Preview -->
+                            <img src="assets/images/1594466867group-339-png.png" alt="Value Added Process Image"
+                                id="imagePreview" class="img-fluid"
+                                style="max-width: 600px; height: 350px; cursor: pointer;"
+                                onclick="document.getElementById('imageUpload').click()">
+                            <!-- File Upload Input (Hidden) -->
+                            <input type="file" id="imageUpload" accept="image/*" style="display:none"
+                                onchange="previewImage(event)">
+                        </div>
+                    </div>
+
+                    <div class="row mt-5">
+                        <h5 class="mt-4"><b>Trims</b></h5>
+                        <hr style="border: 3px solid #000;">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div id="trim-container">
+                                    <div class="trim-section" id="trim-template">
+                                        <h6><b>Button 1:</b></h6>
+                                        <div class="ml-2">
+                                            <div class="row mb-3 align-items-center">
+                                                <div class="col-md-3">
+                                                    <label for="buttonDescription"
+                                                        class="col-form-label">Description:</label>
+                                                </div>
+                                                <div class="col-md-5">
+                                                    <input type="text" class="form-control" id="buttonDescription"
+                                                        value="">
+                                                </div>
+                                            </div>
+
+                                            <div class="row mb-3 align-items-center">
+                                                <div class="col-md-3">
+                                                    <label for="buttonContent" class="col-form-label">Content:</label>
+                                                </div>
+                                                <div class="col-md-5">
+                                                    <input type="text" class="form-control" id="buttonContent" value="">
+                                                </div>
+                                            </div>
+
+                                            <div class="row mb-3 align-items-center">
+                                                <div class="col-md-3">
+                                                    <label for="buttonPlacement"
+                                                        class="col-form-label">Placement:</label>
+                                                </div>
+                                                <div class="col-md-5">
+                                                    <input type="text" class="form-control" id="buttonPlacement"
+                                                        value="">
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="d-flex align-items-center mt-3">
-                                <!-- Add Button with Plus Icon -->
-                                <!-- <button type="button" class="btn btn-primary rounded-circle" style="width: 35px; height: 25px; display: flex; justify-content: center; align-items: center; margin-right: 10px;">
+                                <div class="d-flex align-items-center">
+                                    <!-- Add Button with Plus Icon -->
+                                    <!-- <button type="button" class="btn btn-primary rounded-circle" style="width: 35px; height: 25px; display: flex; justify-content: center; align-items: center; margin-right: 10px;">
                                     <span class="text-white" style="font-size: 20px;">+</span>
                                 </button> -->
-                        
-                                <!-- Add More Button with Ellipse -->
-                                <button type="button" class="btn btn-primary" style="border-radius: 25px;" onclick=" cloneWithLabelCount3('label-container','label-template','label')">
-                                    Add More
-                                </button>
+
+                                    <!-- Add More Button with Ellipse -->
+                                    <button type="button" class="btn btn-primary" style="border-radius: 25px;"
+                                        onclick=" cloneWithLabelCount('trim-container','trim-template','Button')">
+                                        Add More
+                                    </button>
+                                </div>
+
+                                <div id="thread-container">
+                                    <div class="mt-5 trim-section-thread" id="thread-template">
+                                        <h6><b>Thread 1:</b></h6>
+                                        <div class="row mb-3 align-items-center">
+                                            <div class="col-md-3">
+                                                <label for="thread1Description"
+                                                    class="col-form-label">Description:</label>
+                                            </div>
+                                            <div class="col-md-5">
+                                                <input type="text" class="form-control" id="threadDescription" value="">
+                                            </div>
+                                        </div>
+
+                                        <div class="row mb-3 align-items-center">
+                                            <div class="col-md-3">
+                                                <label for="thread1Content" class="col-form-label">Content:</label>
+                                            </div>
+                                            <div class="col-md-5">
+                                                <input type="text" class="form-control" id="threadContent" value="">
+                                            </div>
+                                        </div>
+
+                                        <div class="row mb-3 align-items-center">
+                                            <div class="col-md-3">
+                                                <label for="thread1Placement" class="col-form-label">Placement:</label>
+                                            </div>
+                                            <div class="col-md-5">
+                                                <input type="text" class="form-control" id="threadPlacement" value="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Add Button with Plus Icon -->
+                                <div class="d-flex align-items-center">
+                                    <!-- Add Button with Plus Icon -->
+                                    <!-- <button type="button" class="btn btn-primary rounded-circle" style="width: 35px; height: 25px; display: flex; justify-content: center; align-items: center; margin-right: 10px;">
+                                    <span class="text-white" style="font-size: 20px;">+</span>
+                                </button> -->
+
+                                    <!-- Add More Button with Ellipse -->
+                                    <button type="button" class="btn btn-primary" style="border-radius: 25px;"
+                                        onclick=" cloneWithLabelCount2('thread-container','thread-template','Thread')">
+                                        Add More
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div id="label-container">
+                                    <div class="label-section" id="label-template">
+                                        <h6><b>Label 1:</b></h6>
+                                        <div class="row mb-3 align-items-center">
+                                            <div class="col-md-3">
+                                                <label for="label1Description"
+                                                    class="col-form-label">Description:</label>
+                                            </div>
+                                            <div class="col-md-5">
+                                                <input type="text" class="form-control" id="label1Description" value="">
+                                            </div>
+                                        </div>
+
+                                        <div class="row mb-3 align-items-center">
+                                            <div class="col-md-3">
+                                                <label for="label1Placement" class="col-form-label">Placement:</label>
+                                            </div>
+                                            <div class="col-md-5">
+                                                <input type="text" class="form-control" id="label1Placement" value="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="d-flex align-items-center mt-3">
+                                    <!-- Add Button with Plus Icon -->
+                                    <!-- <button type="button" class="btn btn-primary rounded-circle" style="width: 35px; height: 25px; display: flex; justify-content: center; align-items: center; margin-right: 10px;">
+                                    <span class="text-white" style="font-size: 20px;">+</span>
+                                </button> -->
+
+                                    <!-- Add More Button with Ellipse -->
+                                    <button type="button" class="btn btn-primary" style="border-radius: 25px;"
+                                        onclick=" cloneWithLabelCount3('label-container','label-template','label')">
+                                        Add More
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+
+            <div class="row mb-2 mt-5">
+                <!-- Point of Measure -->
+                <div class="col-md-2">
+                    <label for="pointOfMeasure">Po.Of Measure</label>
+                    <input type="text" class="form-control" id="pointOfMeasure">
+                </div>
+
+                <!-- Code -->
+                <div class="col-md-1">
+                    <label for="code">Code</label>
+                    <input type="text" class="form-control" id="code">
+                </div>
+
+                <!-- How to Measure -->
+                <div class="col-md-2">
+                    <label for="howToMeasure">How to Measure</label>
+                    <input type="text" class="form-control" id="howToMeasure">
+                </div>
+
+                <!-- Critical -->
+                <div class="col-md-1">
+                    <label for="critical">Critical</label>
+                    <input type="text" class="form-control" id="critical">
+                </div>
+
+                <!-- Type -->
+                <div class="col-md-1">
+                    <label for="type">Type</label>
+                    <input type="text" class="form-control" id="type">
+                </div>
+
+                <!-- Tolerance -->
+                <div class="col-md-1">
+                    <label for="tolerance">Tolerance</label>
+                    <input type="text" class="form-control" id="tolerance">
+                </div>
+
+                <!-- S -->
+                <div class="col-md-1">
+                    <label for="sizeS">S</label>
+                    <input type="text" class="form-control" id="sizeS">
+                </div>
+
+                <!-- M -->
+                <div class="col-md-1">
+                    <label for="sizeM">M</label>
+                    <input type="text" class="form-control" id="sizeM">
+                </div>
+
+                <!-- L -->
+                <div class="col-md-1">
+                    <label for="sizeL">L</label>
+                    <input type="text" class="form-control" id="sizeL">
+                </div>
+
+                <!-- XL -->
+                <div class="col-md-1">
+                    <label for="sizeXL">XL</label>
+                    <input type="text" class="form-control" id="sizeXL">
+                </div>
+            </div>
+            <div class="row justify-content-end">
+                <div class="col-md-2 d-flex justify-content-end">
+                    <button type="button" class="btn btn-primary" id="addRowBtn">Add</button>
+                </div>
+            </div>
+            <table class="table table-bordered mt-4" id="dataTable">
+                <thead>
+                    <tr>
+                        <th>Point of Measure</th>
+                        <th>Code</th>
+                        <th>How to Measure</th>
+                        <th>Critical</th>
+                        <th>Type</th>
+                        <th>Tolerance</th>
+                        <th>S</th>
+                        <th>M</th>
+                        <th>L</th>
+                        <th>XL</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Rows will be appended here dynamically -->
+                </tbody>
+            </table>
+
+            <div class="d-flex justify-content-end">
+                <button class="btn btn-primary mt-5 mb-4 theme-primary-btn" id="submit-button"
+                    onclick="submit();">Submit</button>
+            </div>
+
         </div>
 
-        <div class="row mb-2 mt-5">
-            <!-- Point of Measure -->
-            <div class="col-md-2">
-                <label for="pointOfMeasure">Po.Of Measure</label>
-                <input type="text" class="form-control" id="pointOfMeasure">
-            </div>
-        
-            <!-- Code -->
-            <div class="col-md-1">
-                <label for="code">Code</label>
-                <input type="text" class="form-control" id="code">
-            </div>
-        
-            <!-- How to Measure -->
-            <div class="col-md-2">
-                <label for="howToMeasure">How to Measure</label>
-                <input type="text" class="form-control" id="howToMeasure">
-            </div>
-        
-            <!-- Critical -->
-            <div class="col-md-1">
-                <label for="critical">Critical</label>
-                <input type="text" class="form-control" id="critical">
-            </div>
-        
-            <!-- Type -->
-            <div class="col-md-1">
-                <label for="type">Type</label>
-                <input type="text" class="form-control" id="type">
-            </div>
-        
-            <!-- Tolerance -->
-            <div class="col-md-1">
-                <label for="tolerance">Tolerance</label>
-                <input type="text" class="form-control" id="tolerance">
-            </div>
-        
-            <!-- S -->
-            <div class="col-md-1">
-                <label for="sizeS">S</label>
-                <input type="text" class="form-control" id="sizeS">
-            </div>
-        
-            <!-- M -->
-            <div class="col-md-1">
-                <label for="sizeM">M</label>
-                <input type="text" class="form-control" id="sizeM">
-            </div>
-        
-            <!-- L -->
-            <div class="col-md-1">
-                <label for="sizeL">L</label>
-                <input type="text" class="form-control" id="sizeL">
-            </div>
-        
-            <!-- XL -->
-            <div class="col-md-1">
-                <label for="sizeXL">XL</label>
-                <input type="text" class="form-control" id="sizeXL">
-            </div>
-        </div>
-        <div class="row justify-content-end">
-            <div class="col-md-2 d-flex justify-content-end">
-                <button type="button" class="btn btn-primary" id="addRowBtn">Add</button>
-            </div>
-        </div>
-        <table class="table table-bordered mt-4" id="dataTable">
-            <thead>
-                <tr>
-                    <th>Point of Measure</th>
-                    <th>Code</th>
-                    <th>How to Measure</th>
-                    <th>Critical</th>
-                    <th>Type</th>
-                    <th>Tolerance</th>
-                    <th>S</th>
-                    <th>M</th>
-                    <th>L</th>
-                    <th>XL</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- Rows will be appended here dynamically -->
-            </tbody>
-        </table>
-        
-        
-    </div>
+        <%- script %>
+            <script>
 
-    <%- script %>
-    <script>
-       
-       function cloneSection(containerId, sectionId) {
-            // Get the container and the section template
-            const container = document.getElementById(containerId);
-            const sectionTemplate = document.getElementById(sectionId);
-            
-            // Clone the template section
-            const clone = sectionTemplate.cloneNode(true);
-            
-            // Reset the values in the cloned section
-            const inputs = clone.querySelectorAll('input');
-            inputs.forEach(input => {
-                input.value = ''; // Clear the input values
-            });
+                function cloneSection(containerId, sectionId) {
+                    // Get the container and the section template
+                    const container = document.getElementById(containerId);
+                    const sectionTemplate = document.getElementById(sectionId);
 
-            // Remove the ID from the cloned section to avoid duplicate IDs
-            clone.removeAttribute('id');
-            
-            // Create a new remove button
-            const removeButton = document.createElement('button');
-            removeButton.type = 'button';
-            removeButton.className = 'btn btn-danger';
-            removeButton.textContent = 'Remove';
-            removeButton.onclick = function() {
-                removeSection(removeButton);
-            };
+                    // Clone the template section
+                    const clone = sectionTemplate.cloneNode(true);
 
-            // Append the remove button to the cloned section
-            const buttonContainer = document.createElement('div');
-            buttonContainer.className = 'row mb-3 d-flex justify-content-end';
-            const buttonCol = document.createElement('div');
-            buttonCol.className = 'col-md-4';
-            buttonCol.appendChild(removeButton);
-            buttonContainer.appendChild(buttonCol);
-            
-            // Append the button container to the cloned section
-            clone.appendChild(buttonContainer);
-            // Append the cloned section to the container
-            container.appendChild(clone);
-        }
+                    // Reset the values in the cloned section
+                    const inputs = clone.querySelectorAll('input');
+                    inputs.forEach(input => {
+                        input.value = ''; // Clear the input values
+                    });
 
-        function removeSection(button) {
-            // Remove the closest fabric-section parent of the button
-            const section = button.closest('.fabric-section')|| button.closest('.accessory-section-combo') || button.closest('.accessory-section') || button.closest('.trim-section')|| button.closest('.label-section')|| button.closest('.trim-section-thread');
-            if (section) {
-                section.remove();
-            }
-        }
-        let buttonCount = 1;
+                    // Remove the ID from the cloned section to avoid duplicate IDs
+                    clone.removeAttribute('id');
 
-        function cloneWithLabelCount(containerId, sectionId,ButtonName) {
-            buttonCount++; // Increment the counter
-            const trimContainer = document.getElementById(containerId);
+                    // Create a new remove button
+                    const removeButton = document.createElement('button');
+                    removeButton.type = 'button';
+                    removeButton.className = 'btn btn-danger';
+                    removeButton.textContent = 'Remove';
+                    removeButton.onclick = function () {
+                        removeSection(removeButton);
+                    };
 
-            // Clone the trim template
-            const newTrimSection = document.getElementById(sectionId).cloneNode(true);
+                    // Append the remove button to the cloned section
+                    const buttonContainer = document.createElement('div');
+                    buttonContainer.className = 'row mb-3 d-flex justify-content-end';
+                    const buttonCol = document.createElement('div');
+                    buttonCol.className = 'col-md-4';
+                    buttonCol.appendChild(removeButton);
+                    buttonContainer.appendChild(buttonCol);
 
-            // Update the title and labels with the new button count
-            newTrimSection.querySelector('h6 b').textContent = `${ButtonName} ${buttonCount}:`;
-            newTrimSection.querySelectorAll('label').forEach(label => {
-                const currentText = label.textContent;
-                label.textContent = currentText.replace(/\d+/, buttonCount); 
-            });
+                    // Append the button container to the cloned section
+                    clone.appendChild(buttonContainer);
+                    // Append the cloned section to the container
+                    container.appendChild(clone);
+                }
 
-            // Clear input values for new section
-            newTrimSection.querySelectorAll('input').forEach(input => {
-                input.value = '';
-            });
+                function removeSection(button) {
+                    // Remove the closest fabric-section parent of the button
+                    const section = button.closest('.fabric-section') || button.closest('.accessory-section-combo') || button.closest('.accessory-section') || button.closest('.trim-section') || button.closest('.label-section') || button.closest('.trim-section-thread');
+                    if (section) {
+                        section.remove();
+                    }
+                }
+                let buttonCount = 1;
 
-            // Create a new remove button
-            const removeButton = document.createElement('button');
-            removeButton.type = 'button';
-            removeButton.className = 'btn btn-danger';
-            removeButton.textContent = 'Remove';
-            removeButton.onclick = function() {
-                removeSection(removeButton);
-            };
+                function cloneWithLabelCount(containerId, sectionId, ButtonName) {
+                    buttonCount++; // Increment the counter
+                    const trimContainer = document.getElementById(containerId);
 
-            // Append the remove button to the cloned section
-            const buttonContainer = document.createElement('div');
-            buttonContainer.className = 'row mb-3 d-flex justify-content-end';
-            const buttonCol = document.createElement('div');
-            buttonCol.className = 'col-md-4';
-            buttonCol.appendChild(removeButton);
-            buttonContainer.appendChild(buttonCol);
+                    // Clone the trim template
+                    const newTrimSection = document.getElementById(sectionId).cloneNode(true);
 
-            // Append the remove button container to the cloned section
-            newTrimSection.appendChild(buttonContainer);
-            // Append the cloned section to the container
-            trimContainer.appendChild(newTrimSection);
-        }
+                    // Update the title and labels with the new button count
+                    newTrimSection.querySelector('h6 b').textContent = `${ButtonName} ${buttonCount}:`;
+                    newTrimSection.querySelectorAll('label').forEach(label => {
+                        const currentText = label.textContent;
+                        label.textContent = currentText.replace(/\d+/, buttonCount);
+                    });
 
-        let buttonCount1 = 1;
-        function cloneWithLabelCount2(containerId, sectionId,ButtonName) {
-            buttonCount1++; // Increment the counter
-            const trimContainer = document.getElementById(containerId);
+                    // Clear input values for new section
+                    newTrimSection.querySelectorAll('input').forEach(input => {
+                        input.value = '';
+                    });
 
-            // Clone the trim template
-            const newTrimSection = document.getElementById(sectionId).cloneNode(true);
+                    // Create a new remove button
+                    const removeButton = document.createElement('button');
+                    removeButton.type = 'button';
+                    removeButton.className = 'btn btn-danger';
+                    removeButton.textContent = 'Remove';
+                    removeButton.onclick = function () {
+                        removeSection(removeButton);
+                    };
 
-            // Update the title and labels with the new button count
-            newTrimSection.querySelector('h6 b').textContent = `${ButtonName} ${buttonCount1}:`;
-            newTrimSection.querySelectorAll('label').forEach(label => {
-                const currentText = label.textContent;
-                label.textContent = currentText.replace(/\d+/, buttonCount1); 
-            });
+                    // Append the remove button to the cloned section
+                    const buttonContainer = document.createElement('div');
+                    buttonContainer.className = 'row mb-3 d-flex justify-content-end';
+                    const buttonCol = document.createElement('div');
+                    buttonCol.className = 'col-md-4';
+                    buttonCol.appendChild(removeButton);
+                    buttonContainer.appendChild(buttonCol);
 
-            // Clear input values for new section
-            newTrimSection.querySelectorAll('input').forEach(input => {
-                input.value = '';
-            });
+                    // Append the remove button container to the cloned section
+                    newTrimSection.appendChild(buttonContainer);
+                    // Append the cloned section to the container
+                    trimContainer.appendChild(newTrimSection);
+                }
 
-            // Create a new remove button
-            const removeButton = document.createElement('button');
-            removeButton.type = 'button';
-            removeButton.className = 'btn btn-danger';
-            removeButton.textContent = 'Remove';
-            removeButton.onclick = function() {
-                removeSection(removeButton);
-            };
+                let buttonCount1 = 1;
+                function cloneWithLabelCount2(containerId, sectionId, ButtonName) {
+                    buttonCount1++; // Increment the counter
+                    const trimContainer = document.getElementById(containerId);
 
-            // Append the remove button to the cloned section
-            const buttonContainer = document.createElement('div');
-            buttonContainer.className = 'row mb-3 d-flex justify-content-end';
-            const buttonCol = document.createElement('div');
-            buttonCol.className = 'col-md-4';
-            buttonCol.appendChild(removeButton);
-            buttonContainer.appendChild(buttonCol);
+                    // Clone the trim template
+                    const newTrimSection = document.getElementById(sectionId).cloneNode(true);
 
-            // Append the remove button container to the cloned section
-            newTrimSection.appendChild(buttonContainer);
-            // Append the cloned section to the container
-            trimContainer.appendChild(newTrimSection);
-        }
+                    // Update the title and labels with the new button count
+                    newTrimSection.querySelector('h6 b').textContent = `${ButtonName} ${buttonCount1}:`;
+                    newTrimSection.querySelectorAll('label').forEach(label => {
+                        const currentText = label.textContent;
+                        label.textContent = currentText.replace(/\d+/, buttonCount1);
+                    });
 
-        let buttonCount2 = 1;
-        function cloneWithLabelCount3(containerId, sectionId,ButtonName) {
-            buttonCount2++; // Increment the counter
-            const trimContainer = document.getElementById(containerId);
+                    // Clear input values for new section
+                    newTrimSection.querySelectorAll('input').forEach(input => {
+                        input.value = '';
+                    });
 
-            // Clone the trim template
-            const newTrimSection = document.getElementById(sectionId).cloneNode(true);
+                    // Create a new remove button
+                    const removeButton = document.createElement('button');
+                    removeButton.type = 'button';
+                    removeButton.className = 'btn btn-danger';
+                    removeButton.textContent = 'Remove';
+                    removeButton.onclick = function () {
+                        removeSection(removeButton);
+                    };
 
-            // Update the title and labels with the new button count
-            newTrimSection.querySelector('h6 b').textContent = `${ButtonName} ${buttonCount2}:`;
-            newTrimSection.querySelectorAll('label').forEach(label => {
-                const currentText = label.textContent;
-                label.textContent = currentText.replace(/\d+/, buttonCount2); 
-            });
+                    // Append the remove button to the cloned section
+                    const buttonContainer = document.createElement('div');
+                    buttonContainer.className = 'row mb-3 d-flex justify-content-end';
+                    const buttonCol = document.createElement('div');
+                    buttonCol.className = 'col-md-4';
+                    buttonCol.appendChild(removeButton);
+                    buttonContainer.appendChild(buttonCol);
 
-            // Create a new remove button
-            const removeButton = document.createElement('button');
-            removeButton.type = 'button';
-            removeButton.className = 'btn btn-danger';
-            removeButton.textContent = 'Remove';
-            removeButton.onclick = function() {
-                removeSection(removeButton);
-            };
+                    // Append the remove button container to the cloned section
+                    newTrimSection.appendChild(buttonContainer);
+                    // Append the cloned section to the container
+                    trimContainer.appendChild(newTrimSection);
+                }
 
-            // Append the remove button to the cloned section
-            const buttonContainer = document.createElement('div');
-            buttonContainer.className = 'row mb-3 d-flex justify-content-end';
-            const buttonCol = document.createElement('div');
-            buttonCol.className = 'col-md-4';
-            buttonCol.appendChild(removeButton);
-            buttonContainer.appendChild(buttonCol);
+                let buttonCount2 = 1;
+                function cloneWithLabelCount3(containerId, sectionId, ButtonName) {
+                    buttonCount2++; // Increment the counter
+                    const trimContainer = document.getElementById(containerId);
 
-            // Append the remove button container to the cloned section
-            newTrimSection.appendChild(buttonContainer);
-            // Clear input values for new section
-            newTrimSection.querySelectorAll('input').forEach(input => {
-                input.value = '';
-            });
+                    // Clone the trim template
+                    const newTrimSection = document.getElementById(sectionId).cloneNode(true);
 
-            // Append the cloned section to the container
-            trimContainer.appendChild(newTrimSection);
-        }
+                    // Update the title and labels with the new button count
+                    newTrimSection.querySelector('h6 b').textContent = `${ButtonName} ${buttonCount2}:`;
+                    newTrimSection.querySelectorAll('label').forEach(label => {
+                        const currentText = label.textContent;
+                        label.textContent = currentText.replace(/\d+/, buttonCount2);
+                    });
 
-        document.getElementById('addRowBtn').addEventListener('click', function() {
-            // Get values from form inputs
-            const pointOfMeasure = document.getElementById('pointOfMeasure').value;
-            const code = document.getElementById('code').value;
-            const howToMeasure = document.getElementById('howToMeasure').value;
-            const critical = document.getElementById('critical').value;
-            const type = document.getElementById('type').value;
-            const tolerance = document.getElementById('tolerance').value;
-            const sizeS = document.getElementById('sizeS').value;
-            const sizeM = document.getElementById('sizeM').value;
-            const sizeL = document.getElementById('sizeL').value;
-            const sizeXL = document.getElementById('sizeXL').value;
+                    // Create a new remove button
+                    const removeButton = document.createElement('button');
+                    removeButton.type = 'button';
+                    removeButton.className = 'btn btn-danger';
+                    removeButton.textContent = 'Remove';
+                    removeButton.onclick = function () {
+                        removeSection(removeButton);
+                    };
 
-            // Create a new row and append values
-            const tableBody = document.querySelector('#dataTable tbody');
-            const newRow = document.createElement('tr');
+                    // Append the remove button to the cloned section
+                    const buttonContainer = document.createElement('div');
+                    buttonContainer.className = 'row mb-3 d-flex justify-content-end';
+                    const buttonCol = document.createElement('div');
+                    buttonCol.className = 'col-md-4';
+                    buttonCol.appendChild(removeButton);
+                    buttonContainer.appendChild(buttonCol);
 
-            // Add each value to a table cell and append it to the row
-            newRow.innerHTML = `
+                    // Append the remove button container to the cloned section
+                    newTrimSection.appendChild(buttonContainer);
+                    // Clear input values for new section
+                    newTrimSection.querySelectorAll('input').forEach(input => {
+                        input.value = '';
+                    });
+
+                    // Append the cloned section to the container
+                    trimContainer.appendChild(newTrimSection);
+                }
+
+                document.getElementById('addRowBtn').addEventListener('click', function () {
+                    // Get values from form inputs
+                    const pointOfMeasure = document.getElementById('pointOfMeasure').value;
+                    const code = document.getElementById('code').value;
+                    const howToMeasure = document.getElementById('howToMeasure').value;
+                    const critical = document.getElementById('critical').value;
+                    const type = document.getElementById('type').value;
+                    const tolerance = document.getElementById('tolerance').value;
+                    const sizeS = document.getElementById('sizeS').value;
+                    const sizeM = document.getElementById('sizeM').value;
+                    const sizeL = document.getElementById('sizeL').value;
+                    const sizeXL = document.getElementById('sizeXL').value;
+
+                    // Create a new row and append values
+                    const tableBody = document.querySelector('#dataTable tbody');
+                    const newRow = document.createElement('tr');
+
+                    // Add each value to a table cell and append it to the row
+                    newRow.innerHTML = `
                 <td>${pointOfMeasure}</td>
                 <td>${code}</td>
                 <td>${howToMeasure}</td>
@@ -710,86 +731,106 @@
                 <td>${sizeXL}</td>
             `;
 
-            // Append the new row to the table body
-            tableBody.appendChild(newRow);
+                    // Append the new row to the table body
+                    tableBody.appendChild(newRow);
 
-            // Optionally, clear the input fields after adding the row
-            document.querySelectorAll('input').forEach(input => input.value = '');
-        });
+                    // Optionally, clear the input fields after adding the row
+                    document.getElementById('pointOfMeasure').value = '';
+                    document.getElementById('code').value = '';
+                    document.getElementById('howToMeasure').value = '';
+                    document.getElementById('critical').value = '';
+                    document.getElementById('type').value = '';
+                    document.getElementById('tolerance').value = '';
+                    document.getElementById('sizeS').value = '';
+                    document.getElementById('sizeM').value = '';
+                    document.getElementById('sizeL').value = '';
+                    document.getElementById('sizeXL').value = '';
 
-        function previewImage(event) {
-            const imagePreview = document.getElementById('imagePreview');
-            const file = event.target.files[0];
-                
-            if (file) {
-                const reader = new FileReader();
-                    
-                    // When file is loaded, display it in the img tag
-                reader.onload = function(e) {
-                    imagePreview.src = e.target.result; // Set the new image
-                };
-                    
-                reader.readAsDataURL(file); // Read the image file as a data URL
-            }
-        }
+                });
 
-        // Function to extract ID from the URL
-        function getIdFromUrl() {
-            const url = window.location.href; // Get the current URL
-            const id = url.substring(url.lastIndexOf('/') + 1); // Extract ID from URL
-            return id;
-        }
+                function previewImage(event) {
+                    const imagePreview = document.getElementById('imagePreview');
+                    const file = event.target.files[0];
 
-        // Function to fetch data using the extracted ID
-        function fetchData(id) {
-            const apiUrl = '/api/v1/enquiry/view'; // Your API endpoint
+                    if (file) {
+                        const reader = new FileReader();
 
-            $.ajax({
-                url: apiUrl,
-                type: 'POST',
-                contentType: 'application/json', // Set content type to JSON
-                data: JSON.stringify({ id: id }), // Send the ID as JSON
-                success: function(response) {
-                    if (response.status) {
-                        const data = response.data;
-                        function formatDate(date) {
-                            const options = { year: 'numeric', month: 'short', day: '2-digit' };
-                            return new Date(date).toLocaleDateString('en-GB', options).replace(/ /g, '-');
-                        }
-                        const today = new Date();
-                        document.getElementById('customerName').textContent = data.client_name;
-                
-                        document.getElementById('enquiryType').textContent = data.type === 1 ? 'Coasting Request' : 'Sample Request';
-                        
-                        if (data.file) {
-                            document.getElementById('fileLink').textContent = data.file;
-                        } else {
-                            document.getElementById('fileLink').textContent = 'No file';
-                        }
+                        // When file is loaded, display it in the img tag
+                        reader.onload = function (e) {
+                            imagePreview.src = e.target.result; // Set the new image
+                        };
 
-                        document.getElementById('enquiryNo').textContent = data.enq_number;  
-                        document.getElementById('enquiryDate').textContent = formatDate(today); 
-                        document.getElementById('gsrNo').textContent = data.gsr_number;  
-                        console.log('Data retrieved successfully:', response.data);
-                      
-                    } else {
-                        alert('Failed to retrieve data.');
+                        reader.readAsDataURL(file); // Read the image file as a data URL
                     }
-                },
-                error: function(jqXHR, textStatus, errorThrown) {
-                    console.error('Error fetching data:', textStatus, errorThrown);
-                    alert('Error occurred while fetching data.');
                 }
-            });
-        }
 
-        // Main function to execute on DOM content loaded
-        document.addEventListener('DOMContentLoaded', () => {
-            const id = getIdFromUrl(); // Get ID from URL
-            fetchData(id); // Fetch data using the extracted ID
-        });
+                // Function to extract ID from the URL
+                function getIdFromUrl() {
+                    const url = window.location.href; // Get the current URL
+                    const id = url.substring(url.lastIndexOf('/') + 1); // Extract ID from URL
+                    return id;
+                }
 
-    </script>
+                // Function to fetch data using the extracted ID
+                function fetchData(id) {
+                    const apiUrl = '/api/v1/enquiry/view'; // Your API endpoint
+
+                    $.ajax({
+                        url: apiUrl,
+                        type: 'POST',
+                        contentType: 'application/json', // Set content type to JSON
+                        data: JSON.stringify({ id: id }), // Send the ID as JSON
+                        success: function (response) {
+                            if (response.status) {
+                                const data = response.data;
+                                function formatDate(date) {
+                                    const options = { year: 'numeric', month: 'short', day: '2-digit' };
+                                    return new Date(date).toLocaleDateString('en-GB', options).replace(/ /g, '-');
+                                }
+                                const today = new Date();
+                                document.getElementById('customerName').textContent = data.client_name;
+
+                                document.getElementById('enquiryType').textContent = data.type === 1 ? 'Coasting Request' : 'Sample Request';
+
+                                if (data.file) {
+                                    document.getElementById('fileLink').textContent = data.file;
+                                } else {
+                                    document.getElementById('fileLink').textContent = 'No file';
+                                }
+
+                                document.getElementById('enquiryNo').textContent = data.enq_number;
+                                document.getElementById('enquiryDate').textContent = formatDate(today);
+                                document.getElementById('gsrNo').textContent = data.gsr_number;
+                                console.log('Data retrieved successfully:', response.data);
+
+                            } else {
+                                alert('Failed to retrieve data.');
+                            }
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            console.error('Error fetching data:', textStatus, errorThrown);
+                            alert('Error occurred while fetching data.');
+                        }
+                    });
+                }
+
+                // Main function to execute on DOM content loaded
+                document.addEventListener('DOMContentLoaded', () => {
+                    const id = getIdFromUrl(); // Get ID from URL
+                    fetchData(id); // Fetch data using the extracted ID
+                });
+
+                function submit() {
+                    showAlert({
+                        message: "Success: Form submitted successfully",
+                        closeText: 'ok',
+                        closeFunction: function () {
+                            window.location.href = '/dashboard';
+                        },
+                    });
+                }
+
+            </script>
 </body>
 
 </html>

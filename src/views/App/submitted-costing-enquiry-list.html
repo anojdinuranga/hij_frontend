@@ -25,7 +25,31 @@
             </tr>
           </thead>
           <tbody id="tableBody">
-            
+            <% enquiry.forEach((item, index)=>{
+              if(item.type == 1) {
+           %>
+             <tr>
+               <td><%=item.gsr_number%></td>
+               <td><%=item.client_name%></td>
+               <td><%=item.enq_number%></td>
+               <td>-</td>
+               <td><%=item.added_time%></td>
+               <td><%=item.file%></td>
+               <td>
+                 <div class="dropdown dropend">
+                   <button class="btn btn-sm p-0" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                     <img src="/assets/images/icons/Group 482180.svg" alt="dropdown" width="25" height="25">
+                   </button>
+                   <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton1">
+                    <li class="delete-button" data-id="<%=item.id%>"><a class="dropdown-item" href="#" >Delete</a></li>
+                     <li><a class="dropdown-item">Edit</a></li>
+                     <li><a class="dropdown-item">Approve</a></li>
+                      <li><a class="dropdown-item">Reject</a></li>
+                   </ul>
+                 </div>
+               </td>
+             </tr>
+           <%}})%>
           </tbody>
         </table>
       </div>
@@ -51,7 +75,7 @@
               acceptText: 'yes',
               acceptFunction: () => {
                 $.ajax({
-                  url: '/api/v1/client/delete',
+                  url: '/api/v1/enquiry/delete',
                   type: 'POST',
                   data: { id: id },
                   success: function (response) {

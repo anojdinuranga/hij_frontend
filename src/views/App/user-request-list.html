@@ -136,7 +136,10 @@
                 "id": requestId,
                 "email": $('#email').val(),
                 "mobile": $('#mobile').val(),
-                "password": $('#password').val()
+                "password": $('#password').val(),
+                "department": $("#departmentSelect").val(), 
+                "designation": $("#designationSelect").val(),
+                "approveLevel": $("#approveLevel").val() 
               },
               success: function(response){
                 if(response.status){

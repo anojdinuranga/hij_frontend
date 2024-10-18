@@ -19,7 +19,7 @@
                         <h5>Customer:</h5>
                     </div>
                     <div class="col-6">
-                        <span id="customerName">PACT APPAREL</span>
+                        <span id="customerName"></span>
                     </div>
                 </div>
                 <div class="row">
@@ -27,7 +27,7 @@
                         <h5>Enquiry:</h5>
                     </div>
                     <div class="col-6">
-                        <span id="enquiryType">Sample Request</span>
+                        <span id="enquiryType"></span>
                     </div>
                 </div>
                 <div class="row">
@@ -35,7 +35,7 @@
                         <h5>File:</h5>
                     </div>
                     <div class="col-6">
-                        <span><a href="#" id="fileLink">WA1-MHR.pdf</a></span>
+                        <span><a href="#" id="fileLink"></a></span>
                     </div>
                 </div> 
             </div>
@@ -47,7 +47,7 @@
                         <h5>Enquiry No:</h5>
                     </div>
                     <div class="col-4">
-                        <span id="enquiryNo">123456</span>
+                        <span id="enquiryNo"></span>
                     </div>
                 </div>
                 <div class="row">
@@ -55,7 +55,7 @@
                         <h5>Enquiry Date:</h5>
                     </div>
                     <div class="col-4">
-                        <span id="enquiryDate">22-Feb-2024</span>
+                        <span id="enquiryDate"></span>
                     </div>
                 </div>
             </div>
@@ -67,7 +67,7 @@
                         <h5>GSR No:</h5>
                     </div>
                     <div class="col-2">
-                        <span id="gsrNo">FT123456</span>
+                        <span id="gsrNo"></span>
                     </div>
                 </div>
             </div>
@@ -134,6 +134,7 @@
                                 <input type="text" class="form-control" id="placement" value="">
                             </div>
                         </div>
+                      
                     </div>
                 </div>
                 <div class="d-flex align-items-center">
@@ -325,7 +326,7 @@
                             </div>
 
                             <div id="thread-container">
-                                <div class="mt-5 trim-section" id="thread-template">
+                                <div class="mt-5 trim-section-thread" id="thread-template">
                                     <h6><b>Thread 1:</b></h6>
                                     <div class="row mb-3 align-items-center">
                                         <div class="col-md-3">
@@ -518,10 +519,36 @@
             // Remove the ID from the cloned section to avoid duplicate IDs
             clone.removeAttribute('id');
             
+            // Create a new remove button
+            const removeButton = document.createElement('button');
+            removeButton.type = 'button';
+            removeButton.className = 'btn btn-danger';
+            removeButton.textContent = 'Remove';
+            removeButton.onclick = function() {
+                removeSection(removeButton);
+            };
+
+            // Append the remove button to the cloned section
+            const buttonContainer = document.createElement('div');
+            buttonContainer.className = 'row mb-3 d-flex justify-content-end';
+            const buttonCol = document.createElement('div');
+            buttonCol.className = 'col-md-4';
+            buttonCol.appendChild(removeButton);
+            buttonContainer.appendChild(buttonCol);
+            
+            // Append the button container to the cloned section
+            clone.appendChild(buttonContainer);
             // Append the cloned section to the container
             container.appendChild(clone);
         }
 
+        function removeSection(button) {
+            // Remove the closest fabric-section parent of the button
+            const section = button.closest('.fabric-section')|| button.closest('.accessory-section-combo') || button.closest('.accessory-section') || button.closest('.trim-section')|| button.closest('.label-section')|| button.closest('.trim-section-thread');
+            if (section) {
+                section.remove();
+            }
+        }
         let buttonCount = 1;
 
         function cloneWithLabelCount(containerId, sectionId,ButtonName) {
@@ -543,6 +570,25 @@
                 input.value = '';
             });
 
+            // Create a new remove button
+            const removeButton = document.createElement('button');
+            removeButton.type = 'button';
+            removeButton.className = 'btn btn-danger';
+            removeButton.textContent = 'Remove';
+            removeButton.onclick = function() {
+                removeSection(removeButton);
+            };
+
+            // Append the remove button to the cloned section
+            const buttonContainer = document.createElement('div');
+            buttonContainer.className = 'row mb-3 d-flex justify-content-end';
+            const buttonCol = document.createElement('div');
+            buttonCol.className = 'col-md-4';
+            buttonCol.appendChild(removeButton);
+            buttonContainer.appendChild(buttonCol);
+
+            // Append the remove button container to the cloned section
+            newTrimSection.appendChild(buttonContainer);
             // Append the cloned section to the container
             trimContainer.appendChild(newTrimSection);
         }
@@ -567,6 +613,25 @@
                 input.value = '';
             });
 
+            // Create a new remove button
+            const removeButton = document.createElement('button');
+            removeButton.type = 'button';
+            removeButton.className = 'btn btn-danger';
+            removeButton.textContent = 'Remove';
+            removeButton.onclick = function() {
+                removeSection(removeButton);
+            };
+
+            // Append the remove button to the cloned section
+            const buttonContainer = document.createElement('div');
+            buttonContainer.className = 'row mb-3 d-flex justify-content-end';
+            const buttonCol = document.createElement('div');
+            buttonCol.className = 'col-md-4';
+            buttonCol.appendChild(removeButton);
+            buttonContainer.appendChild(buttonCol);
+
+            // Append the remove button container to the cloned section
+            newTrimSection.appendChild(buttonContainer);
             // Append the cloned section to the container
             trimContainer.appendChild(newTrimSection);
         }
@@ -586,6 +651,25 @@
                 label.textContent = currentText.replace(/\d+/, buttonCount2); 
             });
 
+            // Create a new remove button
+            const removeButton = document.createElement('button');
+            removeButton.type = 'button';
+            removeButton.className = 'btn btn-danger';
+            removeButton.textContent = 'Remove';
+            removeButton.onclick = function() {
+                removeSection(removeButton);
+            };
+
+            // Append the remove button to the cloned section
+            const buttonContainer = document.createElement('div');
+            buttonContainer.className = 'row mb-3 d-flex justify-content-end';
+            const buttonCol = document.createElement('div');
+            buttonCol.className = 'col-md-4';
+            buttonCol.appendChild(removeButton);
+            buttonContainer.appendChild(buttonCol);
+
+            // Append the remove button container to the cloned section
+            newTrimSection.appendChild(buttonContainer);
             // Clear input values for new section
             newTrimSection.querySelectorAll('input').forEach(input => {
                 input.value = '';
@@ -683,9 +767,9 @@
                             document.getElementById('fileLink').textContent = 'No file';
                         }
 
-                        document.getElementById('enquiryNo').textContent = data.id;  
+                        document.getElementById('enquiryNo').textContent = data.enq_number;  
                         document.getElementById('enquiryDate').textContent = formatDate(today); 
-                        document.getElementById('gsrNo').textContent = data.gsrNo || 'N/A';  
+                        document.getElementById('gsrNo').textContent = data.gsr_number;  
                         console.log('Data retrieved successfully:', response.data);
                       
                     } else {

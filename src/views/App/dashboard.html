@@ -31,8 +31,6 @@
                                     <div class="col-md-4">
                                         <select class="form-select" id="selectCustomer">
                                             <option selected disabled>Choose Customer</option>
-                                            <option value="2">Option 1</option>
-                                            <option value="3">Option 2</option>
                                         </select>
                                     </div>
                 
@@ -96,7 +94,7 @@
                                 <!-- Submit Button (Centered on the next row) -->
                                 <div class="row justify-content-end">
                                     <div class="col-auto">
-                                        <button type="button" class="btn btn-primary">Submit</button>
+                                        <button type="button" class="btn btn-primary es-btn">Submit</button>
                                     </div>
                                 </div>
                             </div>
@@ -480,6 +478,136 @@
         // Populate initial data (Approved Sample and Approved Costing)
         populateSampleTable('approved-sample');
         populateCostingTable('approved-costing');
+
+       
+        document.addEventListener('DOMContentLoaded', () => {
+            const submitButton = document.querySelector('.es-btn');
+
+            submitButton.addEventListener('click', () => {
+                // Get form field values
+                const customer = document.getElementById('selectCustomer').value;
+                const enquiryType = document.getElementById('enquiryType').value;
+                const fileInput1 = document.getElementById('fileInput1').files[0];
+                const developmentType = document.getElementById('developmentType').value;
+                const orderType = document.getElementById('ordType').value;
+                const sampleType = document.getElementById('sampleType').value;
+                const fileInput2 = document.getElementById('fileInput2').files[0];
+
+                // Define max file size in bytes (e.g., 5MB = 5 * 1024 * 1024 bytes)
+                const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB limit
+
+                // Check if the files exceed the size limit
+                if (fileInput1 && fileInput1.size > MAX_FILE_SIZE) {
+                    alert('File 1 exceeds the 5MB size limit.');
+                    return; // Stop submission
+                }
+                if (fileInput2 && fileInput2.size > MAX_FILE_SIZE) {
+                    alert('File 2 exceeds the 5MB size limit.');
+                    return; // Stop submission
+                }
+
+                // Function to convert file to base64 string
+                const getFileBase64 = (file) => {
+                    return new Promise((resolve, reject) => {
+                        const reader = new FileReader();
+                        reader.readAsDataURL(file);
+                        reader.onload = () => resolve(reader.result);
+                        reader.onerror = error => reject(error);
+                    });
+                };
+
+                // Process the data and send the request
+                const processAndSendData = async () => {
+                    try {
+                        let base64File1 = fileInput1 ? await getFileBase64(fileInput1) : null;
+                        let base64File2 = fileInput2 ? await getFileBase64(fileInput2) : null;
+
+                        // Prepare JSON object with base64-encoded files
+                        let data = {
+                            client: customer,
+                            type: enquiryType, 
+                            file: "",  
+                            developmentType: enquiryType === '2' ? developmentType : null,  
+                            orderType: enquiryType === '2' ? orderType : null,  
+                            sampleType: enquiryType === '2' ? sampleType : null,  
+                            file2: enquiryType === '2' ? base64File2 : null 
+                        };
+
+                        // Send the API request via AJAX
+                        $.ajax({
+                            url: '/api/v1/enquiry/add',
+                            type: 'POST',
+                            data: JSON.stringify(data),  // Send the JSON object
+                            contentType: 'application/json',  // Set content type to application/json
+                            success: function(response) {
+                                if (response.status) {
+                                    rId = response.data.enquiryId;
+                                    showAlert({
+                                        message: "Success: Enquiry added successfully",
+                                        closeText: 'ok',
+                                        closeFunction: function () {
+                                            window.location.href = `/enquiry-form/${rId}`;
+                                        },
+                                    });
+                                } else {
+                                    alert('Failed to submit enquiry.');
+                                }
+                            },
+                            error: function(jqXHR, textStatus, errorThrown) {
+                                console.error('Error submitting enquiry:', textStatus, errorThrown);
+                                alert('Error occurred while submitting enquiry.');
+                            }
+                        });
+                    } catch (error) {
+                        console.error('Error processing files:', error);
+                        alert('Failed to process files.');
+                    }
+                };
+
+                processAndSendData();  // Call the async function to process and send the data
+            });
+
+        });
+
+
+        $(document).ready(function() {
+            // Function to fetch data from the API
+            function fetchCustomers() {
+                $.ajax({
+                    url: '/api/v1/client/list',  // Replace with your actual API endpoint
+                    type: 'POST',
+                    data:{},
+                    contentType: 'application/json',
+                    success: function(response) {
+                        if (response.status) {
+                            const customers = response.data;  // Assuming `data` contains an array of customers
+                            const customerSelect = $('#selectCustomer');
+                            
+                            // Clear the select options first (except the default one)
+                            customerSelect.find('option:not(:first)').remove();
+                            
+                            // Loop through the customer data and create option elements
+                            customers.forEach(customer => {
+                                const option = $('<option>', {
+                                    value: customer.id,  // Assuming customer has an `id` field
+                                    text: customer.name  // Assuming customer has a `name` field
+                                });
+                                customerSelect.append(option);
+                            });
+                        } else {
+                            alert('Failed to fetch customers.');
+                        }
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        console.error('Error fetching customers:', textStatus, errorThrown);
+                        alert('Error occurred while fetching customers.');
+                    }
+                });
+            }
+
+            // Call the function to fetch customers when the page loads
+            fetchCustomers();
+        });
     </script>
        
                

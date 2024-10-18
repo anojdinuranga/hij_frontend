@@ -198,7 +198,8 @@ router.get("/add-enquiry", pathAuthorize, async (req: ExtendedRequest, res) => {
   }
 });
 
-router.get("/enquiry-form", pathAuthorize, async (req: ExtendedRequest, res) => {
+router.get("/enquiry-form/:id", pathAuthorize, async (req: ExtendedRequest, res) => {
+
   try {
 
     // Components to render
@@ -229,6 +230,28 @@ router.get("/add-department", pathAuthorize, async (req: ExtendedRequest, res) =
     let footer = await mainFooter();
 
     res.status(200).render(view + "add-department.html", {
+      head: head,
+      script: script,
+      footer: footer,
+      nav: nav,
+    });
+  } catch (err) {
+    //console.log(err);
+    res.status(500);
+  }
+});
+
+
+router.get("/department-list", pathAuthorize, async (req: ExtendedRequest, res) => {
+  try {
+
+    // Components to render
+    let head = await mainHead();
+    let script = await mainScript();
+    let nav = await mainNav.mainNav(req?.authToken==undefined?'':req?.authToken, "Department List");
+    let footer = await mainFooter();
+
+    res.status(200).render(view + "department-list.html", {
       head: head,
       script: script,
       footer: footer,

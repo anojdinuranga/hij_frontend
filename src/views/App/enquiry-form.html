@@ -19,7 +19,7 @@
                         <h5>Customer:</h5>
                     </div>
                     <div class="col-6">
-                        <span>PACT APPAREL</span>
+                        <span id="customerName">PACT APPAREL</span>
                     </div>
                 </div>
                 <div class="row">
@@ -27,7 +27,7 @@
                         <h5>Enquiry:</h5>
                     </div>
                     <div class="col-6">
-                        <span>Sample Request</span>
+                        <span id="enquiryType">Sample Request</span>
                     </div>
                 </div>
                 <div class="row">
@@ -35,9 +35,9 @@
                         <h5>File:</h5>
                     </div>
                     <div class="col-6">
-                        <span><a href="#">WA1-MHR.pdf</a></span>
+                        <span><a href="#" id="fileLink">WA1-MHR.pdf</a></span>
                     </div>
-                </div>
+                </div> 
             </div>
         
             <!-- Second Column: Enquiry No, Enquiry Date -->
@@ -47,7 +47,7 @@
                         <h5>Enquiry No:</h5>
                     </div>
                     <div class="col-4">
-                        <span>123456</span>
+                        <span id="enquiryNo">123456</span>
                     </div>
                 </div>
                 <div class="row">
@@ -55,7 +55,7 @@
                         <h5>Enquiry Date:</h5>
                     </div>
                     <div class="col-4">
-                        <span>22-Feb-2024</span>
+                        <span id="enquiryDate">22-Feb-2024</span>
                     </div>
                 </div>
             </div>
@@ -67,7 +67,7 @@
                         <h5>GSR No:</h5>
                     </div>
                     <div class="col-2">
-                        <span>FT123456</span>
+                        <span id="gsrNo">FT123456</span>
                     </div>
                 </div>
             </div>
@@ -648,6 +648,63 @@
                 reader.readAsDataURL(file); // Read the image file as a data URL
             }
         }
+
+        // Function to extract ID from the URL
+        function getIdFromUrl() {
+            const url = window.location.href; // Get the current URL
+            const id = url.substring(url.lastIndexOf('/') + 1); // Extract ID from URL
+            return id;
+        }
+
+        // Function to fetch data using the extracted ID
+        function fetchData(id) {
+            const apiUrl = '/api/v1/enquiry/view'; // Your API endpoint
+
+            $.ajax({
+                url: apiUrl,
+                type: 'POST',
+                contentType: 'application/json', // Set content type to JSON
+                data: JSON.stringify({ id: id }), // Send the ID as JSON
+                success: function(response) {
+                    if (response.status) {
+                        const data = response.data;
+                        function formatDate(date) {
+                            const options = { year: 'numeric', month: 'short', day: '2-digit' };
+                            return new Date(date).toLocaleDateString('en-GB', options).replace(/ /g, '-');
+                        }
+                        const today = new Date();
+                        document.getElementById('customerName').textContent = data.client_name;
+                
+                        document.getElementById('enquiryType').textContent = data.type === 1 ? 'Coasting Request' : 'Sample Request';
+                        
+                        if (data.file) {
+                            document.getElementById('fileLink').textContent = data.file;
+                        } else {
+                            document.getElementById('fileLink').textContent = 'No file';
+                        }
+
+                        document.getElementById('enquiryNo').textContent = data.id;  
+                        document.getElementById('enquiryDate').textContent = formatDate(today); 
+                        document.getElementById('gsrNo').textContent = data.gsrNo || 'N/A';  
+                        console.log('Data retrieved successfully:', response.data);
+                      
+                    } else {
+                        alert('Failed to retrieve data.');
+                    }
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    console.error('Error fetching data:', textStatus, errorThrown);
+                    alert('Error occurred while fetching data.');
+                }
+            });
+        }
+
+        // Main function to execute on DOM content loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            const id = getIdFromUrl(); // Get ID from URL
+            fetchData(id); // Fetch data using the extracted ID
+        });
+
     </script>
 </body>
 

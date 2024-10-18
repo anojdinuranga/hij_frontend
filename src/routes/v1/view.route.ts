@@ -199,6 +199,7 @@ router.get("/add-enquiry", pathAuthorize, async (req: ExtendedRequest, res) => {
 });
 
 router.get("/enquiry-form/:id", pathAuthorize, async (req: ExtendedRequest, res) => {
+
   try {
 
     // Components to render
@@ -239,6 +240,7 @@ router.get("/add-department", pathAuthorize, async (req: ExtendedRequest, res) =
     res.status(500);
   }
 });
+
 
 router.get("/department-list", pathAuthorize, async (req: ExtendedRequest, res) => {
   try {

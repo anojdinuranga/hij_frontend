@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <%-head%>
+</head>
+
+<body>
+
+  <%-nav%>
+
+    <div class="mx-5">
+
+      <div class="mt-5">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th scope="col">CSR No</th>
+              <th scope="col">Customer</th>
+              <th scope="col">Enquiry No</th>
+              <th scope="col">Enquiry</th>
+              <th scope="col">Enquiry Date</th>
+              <th scope="col">File</th>
+              <th scope="col">Action</th>
+            </tr>
+          </thead>
+          <tbody id="tableBody">
+            
+          </tbody>
+        </table>
+      </div>
+
+      <%-script%>
+        <script>
+
+          $(document).ready(function () {
+          });
+
+
+          $(document).ready(function () {
+            $('.delete-button').click(function (e) {
+              e.preventDefault();
+              var id = $(this).data('id');
+              deleteClient(id);
+            });
+          });
+          function deleteClient(id) {
+            showAlert({
+              message: "Are you sure you want to delete this client?",
+              closeText: 'no',
+              acceptText: 'yes',
+              acceptFunction: () => {
+                $.ajax({
+                  url: '/api/v1/client/delete',
+                  type: 'POST',
+                  data: { id: id },
+                  success: function (response) {
+                    if (response.status) {
+                      location.reload();
+                    } else {
+                      showAlert({
+                        message: "ERROR: " + response.message,
+                        closeText: 'ok',
+                      });
+                    }
+                  },
+                  error: function (err) {
+                    console.log(err);
+                  }
+                });
+              },
+            });
+          }
+        </script>
+
+</body>
+
+</div>
+
+</html>

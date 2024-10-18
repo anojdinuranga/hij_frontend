@@ -59,17 +59,39 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body">
-                <div class="form-group w-100 mb-5">
-                  <label class="form-label mb-3" for="">Email</label>
+                <div class="form-group w-100 mb-2">
+                  <label class="form-label mb-1" for="">Email</label>
                   <input type="text" class="form-control w-full" id="email">
                 </div>
-                <div class="form-group w-100 mb-5">
-                  <label class="form-label mb-3" for="">Mobile</label>
+                <div class="form-group w-100 mb-2">
+                  <label class="form-label mb-1" for="">Mobile</label>
                   <input type="text" class="form-control w-full" id="mobile">
                 </div>
-                <div class="form-group w-100 mb-5">
-                  <label class="form-label mb-3" for="">Password</label>
+                <div class="form-group w-100 mb-2">
+                  <label class="form-label mb-1" for="">Password</label>
                   <input type="password" class="form-control w-full" id="password">
+                </div>
+                <div class="form-group w-100 mb-2">
+                  <label class="form-label mb-1" for="departmentSelect">Select Department</label>
+                  <select class="form-control w-full" id="departmentSelect" onchange="fetchDesignations()">
+                      <option value="">Select a department</option>
+                      <!-- Options will be populated dynamically -->
+                  </select>
+                </div>
+                <div class="form-group w-100 mb-2">
+                  <label class="form-label mb-1" for="designationSelect">Select Designation</label>
+                  <select class="form-control w-full" id="designationSelect">
+                    <option value="">Select a designation</option>
+                      <!-- Options will be populated dynamically -->
+                  </select>
+                </div>
+                <div class="form-group w-100 mb-2">
+                    <label class="form-label mb-1" for="approveLevel">Select Approval Level</label>
+                    <select class="form-control w-full" id="approveLevel" >
+                      <option value="1">No Approval</option>
+                      <option value="2">Approval Level 1</option>
+                      <option value="3">Approval Level 2</option>
+                    </select>
                 </div>
               </div>
               <div class="modal-footer">
@@ -190,6 +212,54 @@
             });
           }
           
+
+          $(document).ready(function() {
+                $.ajax({
+                    url: '/api/v1/department/list', 
+                    type: 'GET',
+                    success: function(response) {
+                        if (response.status) {
+                            response.data.forEach(department => {
+                                $('#departmentSelect').append(`<option value="${department.id}">${department.department_name}</option>`);
+                            });
+                        } else {
+                            console.error("Error fetching departments: " + response.message);
+                        }
+                    },
+                    error: function(error) {
+                        console.error("Error: ", error);
+                    }
+                });
+            });
+
+            // Fetch designations based on the selected department
+            function fetchDesignations() {
+                const departmentId = $('#departmentSelect').val();
+                $('#designationSelect').empty().append('<option value="">Select a designation</option>'); 
+                
+                if (departmentId) {
+                    $.ajax({
+                        url: `/api/v1/department_designation/view`, 
+                        type: 'POST',
+                        contentType: 'application/json',
+                        data: JSON.stringify({
+                            "id":  departmentId
+                        }),
+                        success: function(response) {
+                            if (response.status) {
+                                response.data.forEach(designation => {
+                                    $('#designationSelect').append(`<option value="${designation.id}">${designation.designation}</option>`);
+                                });
+                            } else {
+                                console.error("Error fetching designations: " + response.message);
+                            }
+                        },
+                        error: function(error) {
+                            console.error("Error: ", error);
+                        }
+                    });
+                }
+            }
        </script>
        
 </body>

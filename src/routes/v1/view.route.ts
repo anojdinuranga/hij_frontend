@@ -34,6 +34,7 @@ router.get("/", async (req: ExtendedRequest, res) => {
     res.status(500);
   }
 });
+
 router.get("/login", async (req: ExtendedRequest, res) => {
   try {
 
@@ -54,6 +55,7 @@ router.get("/login", async (req: ExtendedRequest, res) => {
     res.status(500);
   }
 });
+
 router.get("/contact-admin", async (req: ExtendedRequest, res) => {
   try {
 
@@ -74,13 +76,15 @@ router.get("/contact-admin", async (req: ExtendedRequest, res) => {
     res.status(500);
   }
 });
-router.get("/dashboard", async (req: ExtendedRequest, res) => {
+
+router.get("/dashboard", pathAuthorize, async (req: ExtendedRequest, res) => {
+
   try {
 
     // Components to render
     let head = await mainHead();
     let script = await mainScript();
-    let nav = await mainNav.mainNav(req?.authToken==undefined?'':req?.authToken);
+    let nav = await mainNav.mainNav(req?.authToken==undefined?'':req?.authToken, "Dashboard");
     let footer = await mainFooter();
 
     res.status(200).render(view + "dashboard.html", {
@@ -94,7 +98,8 @@ router.get("/dashboard", async (req: ExtendedRequest, res) => {
     res.status(500);
   }
 });
-router.get("/add-client", async (req: ExtendedRequest, res) => {
+  
+router.get("/add-client", pathAuthorize, async (req: ExtendedRequest, res) => {
   try {
 
     // Components to render
@@ -114,7 +119,11 @@ router.get("/add-client", async (req: ExtendedRequest, res) => {
     res.status(500);
   }
 });
-router.get("/edit-client/:id", apiAuthorize, async (req: ExtendedRequest, res) => {
+
+router.get("/edit-client/:id", pathAuthorize, async (req: ExtendedRequest, res) => {
+
+  console.log("🚀 ~ router.get ~ req.authToken:", req)
+
   try {
     var clientData = await renderData.render_data_post('/api/v1/client/view' , req?.authToken==undefined?'':req?.authToken, {id:req.params.id});
     console.log("🚀 ~ router.get ~ clientData:", clientData);
@@ -140,10 +149,10 @@ router.get("/edit-client/:id", apiAuthorize, async (req: ExtendedRequest, res) =
     res.status(500);
   }
 });
-router.get("/client-list", apiAuthorize, async (req: ExtendedRequest, res) => {
+
+router.get("/client-list", pathAuthorize, async (req: ExtendedRequest, res) => {
   try {
     var clients = await renderData.render_data_post('/api/v1/client/list' , req?.authToken==undefined?'':req?.authToken, {});
-    console.log("🚀 ~ router.get ~ clients:", clients);
     if(!clients.status){
       res.redirect('/');
       return;
@@ -167,7 +176,8 @@ router.get("/client-list", apiAuthorize, async (req: ExtendedRequest, res) => {
     res.status(500);
   }
 });
-router.get("/add-enquiry", async (req: ExtendedRequest, res) => {
+
+router.get("/add-enquiry", pathAuthorize, async (req: ExtendedRequest, res) => {
   try {
 
     // Components to render
@@ -188,7 +198,7 @@ router.get("/add-enquiry", async (req: ExtendedRequest, res) => {
   }
 });
 
-router.get("/enquiry-form", async (req: ExtendedRequest, res) => {
+router.get("/enquiry-form/:id", pathAuthorize, async (req: ExtendedRequest, res) => {
   try {
 
     // Components to render
@@ -209,7 +219,7 @@ router.get("/enquiry-form", async (req: ExtendedRequest, res) => {
   }
 });
 
-router.get("/add-department", async (req: ExtendedRequest, res) => {
+router.get("/add-department", pathAuthorize, async (req: ExtendedRequest, res) => {
   try {
 
     // Components to render
@@ -230,11 +240,31 @@ router.get("/add-department", async (req: ExtendedRequest, res) => {
   }
 });
 
-router.get("/enquiry-list", apiAuthorize, async (req: ExtendedRequest, res) => {
+router.get("/department-list", pathAuthorize, async (req: ExtendedRequest, res) => {
+  try {
+
+    // Components to render
+    let head = await mainHead();
+    let script = await mainScript();
+    let nav = await mainNav.mainNav(req?.authToken==undefined?'':req?.authToken, "Department List");
+    let footer = await mainFooter();
+
+    res.status(200).render(view + "department-list.html", {
+      head: head,
+      script: script,
+      footer: footer,
+      nav: nav,
+    });
+  } catch (err) {
+    //console.log(err);
+    res.status(500);
+  }
+});
+
+router.get("/submitted-sample-enquiry-list", pathAuthorize, async (req: ExtendedRequest, res) => {
   try {
 
     var orders = await renderData.render_data_post('/api/v1/order/list' , req?.authToken==undefined?'':req?.authToken, {});
-    console.log("🚀 ~ router.get ~ orders:", orders);
     if(!orders.status){
       res.redirect('/');
       return;
@@ -243,10 +273,10 @@ router.get("/enquiry-list", apiAuthorize, async (req: ExtendedRequest, res) => {
     // Components to render
     let head = await mainHead();
     let script = await mainScript();
-    let nav = await mainNav.mainNav(req?.authToken==undefined?'':req?.authToken, "Enquiry List");
+    let nav = await mainNav.mainNav(req?.authToken==undefined?'':req?.authToken, "Submitted Sample Enquiry List");
     let footer = await mainFooter();
 
-    res.status(200).render(view + "enquiry-list.html", {
+    res.status(200).render(view + "submitted-sample-enquiry-list.html", {
       orders:orders.data,
       head: head,
       script: script,
@@ -259,7 +289,91 @@ router.get("/enquiry-list", apiAuthorize, async (req: ExtendedRequest, res) => {
   }
 });
 
-router.get("/add-user", async (req: ExtendedRequest, res) => {
+router.get("/approved-sample-enquiry-list", pathAuthorize, async (req: ExtendedRequest, res) => {
+  try {
+
+    var orders = await renderData.render_data_post('/api/v1/order/list' , req?.authToken==undefined?'':req?.authToken, {});
+    if(!orders.status){
+      res.redirect('/');
+      return;
+    }
+
+    // Components to render
+    let head = await mainHead();
+    let script = await mainScript();
+    let nav = await mainNav.mainNav(req?.authToken==undefined?'':req?.authToken, "Approved Sample Enquiry List");
+    let footer = await mainFooter();
+
+    res.status(200).render(view + "approved-sample-enquiry-list.html", {
+      orders:orders.data,
+      head: head,
+      script: script,
+      footer: footer,
+      nav: nav,
+    });
+  } catch (err) {
+    //console.log(err);
+    res.status(500);
+  }
+});
+
+router.get("/submitted-costing-enquiry-list", pathAuthorize, async (req: ExtendedRequest, res) => {
+  try {
+
+    var orders = await renderData.render_data_post('/api/v1/order/list' , req?.authToken==undefined?'':req?.authToken, {});
+    if(!orders.status){
+      res.redirect('/');
+      return;
+    }
+
+    // Components to render
+    let head = await mainHead();
+    let script = await mainScript();
+    let nav = await mainNav.mainNav(req?.authToken==undefined?'':req?.authToken, "Submitted Costing Enquiry List");
+    let footer = await mainFooter();
+
+    res.status(200).render(view + "submitted-sample-enquiry-list.html", {
+      orders:orders.data,
+      head: head,
+      script: script,
+      footer: footer,
+      nav: nav,
+    });
+  } catch (err) {
+    //console.log(err);
+    res.status(500);
+  }
+});
+
+router.get("/approved-costing-enquiry-list", pathAuthorize, async (req: ExtendedRequest, res) => {
+  try {
+
+    var orders = await renderData.render_data_post('/api/v1/order/list' , req?.authToken==undefined?'':req?.authToken, {});
+    if(!orders.status){
+      res.redirect('/');
+      return;
+    }
+
+    // Components to render
+    let head = await mainHead();
+    let script = await mainScript();
+    let nav = await mainNav.mainNav(req?.authToken==undefined?'':req?.authToken, "Approved Costing Enquiry List");
+    let footer = await mainFooter();
+
+    res.status(200).render(view + "approved-sample-enquiry-list.html", {
+      orders:orders.data,
+      head: head,
+      script: script,
+      footer: footer,
+      nav: nav,
+    });
+  } catch (err) {
+    //console.log(err);
+    res.status(500);
+  }
+});
+
+router.get("/add-user", pathAuthorize, async (req: ExtendedRequest, res) => {
   try {
 
     // Components to render
@@ -280,7 +394,7 @@ router.get("/add-user", async (req: ExtendedRequest, res) => {
   }
 });
 
-router.get("/user-list", async (req: ExtendedRequest, res) => {
+router.get("/user-list", pathAuthorize, async (req: ExtendedRequest, res) => {
   try {
 
     // Components to render
@@ -300,7 +414,8 @@ router.get("/user-list", async (req: ExtendedRequest, res) => {
     res.status(500);
   }
 });
-router.get("/user-request-list", apiAuthorize, async (req: ExtendedRequest, res) => {
+
+router.get("/user-request-list", pathAuthorize, async (req: ExtendedRequest, res) => {
   try {
     var requestList = await renderData.render_data_post('/api/v1/user_register_request/list' , req?.authToken==undefined?'':req?.authToken, {});
     console.log("🚀 ~ router.get ~ requestList:", requestList);

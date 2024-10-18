@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <%-head%>
+</head>
+
+<body>
+
+  <%-nav%>
+
+    <div class="container">
+
+      <div class="mt-5">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Department name</th>
+              <th scope="col">Action</th>
+            </tr>
+          </thead>
+          <tbody id="tableBody">
+
+
+
+          </tbody>
+        </table>
+      </div>
+
+      <%-script%>
+        <script>
+
+          $(document).ready(function () {
+            $.ajax({
+              url: '/api/v1/department/list',
+              type: 'GET',
+              contentType: 'application/json',
+              data: {},
+              success: function (response) {
+                if (response.status) {
+                  console.log("🚀 ~ response:", response.data)
+
+                  const tableBody = document.getElementById('tableBody');
+
+                  response.data.forEach(data => {
+                    tableBody.innerHTML += `
+                      <tr>
+                        <td>${data.id}</td>
+                        <td>${data.department_name}</td>
+                        <td>
+                            <div class="d-flex gap-3">
+                                <i class="fa-solid fa-pen-to-square"></i>
+                                <i class="fa-solid fa-trash text-danger" onclick=(deleteUser(${data.id}))></i>
+                            </div>
+                            
+                        </td>
+                    </tr>
+                    `
+                  });
+
+                } else {
+                  showAlert({
+                    message: "ERROR: " + response.message,
+                    closeText: 'ok',
+                  });
+                }
+              },
+              error: function (error) {
+                console.log(error);
+              }
+            });
+          });
+
+          
+        </script>
+
+</body>
+
+</div>
+
+</html>

@@ -350,67 +350,7 @@
             </div>
         </div>
 
-        <div class="row mb-2 mt-5">
-            <!-- Point of Measure -->
-            <div class="col-md-2">
-                <label for="pointOfMeasure">Po.Of Measure</label>
-                <input type="text" class="form-control" id="pointOfMeasure">
-            </div>
         
-            <!-- Code -->
-            <div class="col-md-1">
-                <label for="code">Code</label>
-                <input type="text" class="form-control" id="code">
-            </div>
-        
-            <!-- How to Measure -->
-            <div class="col-md-2">
-                <label for="howToMeasure">How to Measure</label>
-                <input type="text" class="form-control" id="howToMeasure">
-            </div>
-        
-            <!-- Critical -->
-            <div class="col-md-1">
-                <label for="critical">Critical</label>
-                <input type="text" class="form-control" id="critical">
-            </div>
-        
-            <!-- Type -->
-            <div class="col-md-1">
-                <label for="type">Type</label>
-                <input type="text" class="form-control" id="type">
-            </div>
-        
-            <!-- Tolerance -->
-            <div class="col-md-1">
-                <label for="tolerance">Tolerance</label>
-                <input type="text" class="form-control" id="tolerance">
-            </div>
-        
-            <!-- S -->
-            <div class="col-md-1">
-                <label for="sizeS">S</label>
-                <input type="text" class="form-control" id="sizeS">
-            </div>
-        
-            <!-- M -->
-            <div class="col-md-1">
-                <label for="sizeM">M</label>
-                <input type="text" class="form-control" id="sizeM">
-            </div>
-        
-            <!-- L -->
-            <div class="col-md-1">
-                <label for="sizeL">L</label>
-                <input type="text" class="form-control" id="sizeL">
-            </div>
-        
-            <!-- XL -->
-            <div class="col-md-1">
-                <label for="sizeXL">XL</label>
-                <input type="text" class="form-control" id="sizeXL">
-            </div>
-        </div>
        
         <table class="table table-bordered mt-4" id="dataTable">
             <thead>
@@ -672,6 +612,14 @@
             });
         }
 
+        let buttonTemplate, threadTemplate, labelTemplate;
+
+        function initializeTemplates() {
+            buttonTemplate = document.getElementById('trim-template');
+            threadTemplate = document.getElementById('thread-template');
+            labelTemplate = document.getElementById('label-template');
+        }
+
         function populateTrims(trims) {
             const buttonContainer = document.getElementById('trim-container');
             const threadContainer = document.getElementById('thread-container');
@@ -687,10 +635,14 @@
 
                 if (trim.type === 1) {
                     // Clone the button template
-                    newSection = document.getElementById('trim-template').cloneNode(true);
+                    newSection = buttonTemplate.cloneNode(true);
                     newSection.querySelector('#buttonDescription').value = trim.description || '';
                     newSection.querySelector('#buttonContent').value = trim.content || '';
                     newSection.querySelector('#buttonPlacement').value = trim.placement || '';
+
+                    newSection.querySelector('#buttonDescription').disabled = true;
+                    newSection.querySelector('#buttonContent').disabled = true;
+                    newSection.querySelector('#buttonPlacement').disabled = true;
 
                     // Change the header text
                     const header = newSection.querySelector('h6');
@@ -699,10 +651,14 @@
 
                 } else if (trim.type === 2) {
                     // Clone the thread template
-                    newSection = document.getElementById('thread-template').cloneNode(true);
+                    newSection = threadTemplate.cloneNode(true);
                     newSection.querySelector('#threadDescription').value = trim.description || '';
                     newSection.querySelector('#threadContent').value = trim.content || '';
                     newSection.querySelector('#threadPlacement').value = trim.placement || '';
+
+                    newSection.querySelector('#threadDescription').disabled = true;
+                    newSection.querySelector('#threadContent').disabled = true;
+                    newSection.querySelector('#threadPlacement').disabled = true;
 
                     // Change the header text
                     const header = newSection.querySelector('h6');
@@ -711,9 +667,12 @@
 
                 } else if (trim.type === 3) {
                     // Clone the label template
-                    newSection = document.getElementById('label-template').cloneNode(true);
+                    newSection = labelTemplate.cloneNode(true);
                     newSection.querySelector('#label1Description').value = trim.description || '';
                     newSection.querySelector('#label1Placement').value = trim.placement || '';
+
+                    newSection.querySelector('#label1Description').disabled = true;
+                    newSection.querySelector('#label1Placement').disabled = true;
 
                     // Change the header text
                     const header = newSection.querySelector('h6');
@@ -722,6 +681,11 @@
                 }
             });
         }
+
+        // Call the initialize function after the DOM has fully loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            initializeTemplates();
+        });
 
     </script>
 </body>

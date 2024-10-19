@@ -377,6 +377,7 @@ router.get("/submitted-costing-enquiry-list", pathAuthorize, async (req: Extende
     let footer = await mainFooter();
 
     res.status(200).render(view + "submitted-costing-enquiry-list.html", {
+
       orders:orders.data,
       head: head,
       script: script,

@@ -32,9 +32,54 @@
 
       <%-script%>
         <script>
-
           $(document).ready(function () {
-          });
+            $.ajax({
+                url: '/api/v1/enquiry/list',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({ type: 2,status:1  }), // Ensure data is stringified
+                success: function (response) {
+                    if (response.status) {
+                        console.log("🚀 ~ response:", response.data);
+
+                        const tableBody = document.getElementById('tableBody');
+                        tableBody.innerHTML = ''; // Clear existing table data
+
+                        response.data.forEach(data => {
+                          const dateString = data.added_time;
+                          const dateObject = new Date(dateString);
+                          const formattedDate = `${dateObject.getMonth() + 1}/${dateObject.getDate()}/${dateObject.getFullYear()}`;
+                            tableBody.innerHTML += `
+                                <tr>
+                                    <td>${data.gsr_number}</td>
+                                    <td>${data.client_name}</td>
+                                    <td>${data.enq_number}</td>
+                                    <td>Sample Request</td>
+                                    <td>${formattedDate}</td>
+                                    <td>${data.file ? `<a href="${data.file}" target="_blank">View File</a>` : 'No File'}</td>
+                                    <td>
+                                        <div class="d-flex gap-3">
+                                            <a href="/enquiry-form-view/${data.id}"><i class="fa-solid fa-pen-to-square"></i></a>
+                                            
+                                        </div>
+                                    </td>
+                                </tr>
+                            `;
+                        });
+
+                    } else {
+                        showAlert({
+                            message: "ERROR: " + response.message,
+                            closeText: 'ok',
+                        });
+                    }
+                },
+                error: function (error) {
+                    console.log("AJAX Error:", error);
+                }
+            });
+        });
+
 
 
           $(document).ready(function () {

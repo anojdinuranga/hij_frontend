@@ -241,25 +241,25 @@
                         <h5 class="mt-4"><b>Value Added Process</b></h5>
                         <div class="col-md-6">
                             <div class="form-check">
-                                <input class="form-check-input larger-checkbox" type="checkbox" value="" id="">
+                                <input class="form-check-input larger-checkbox" type="checkbox" value="AOP" id="aop">
                                 <label class="form-check-label label-margin" for="aop">
                                     AOP
                                 </label>
                             </div>
                             <div class="form-check mt-2">
-                                <input class="form-check-input larger-checkbox" type="checkbox" value="" id="">
+                                <input class="form-check-input larger-checkbox" type="checkbox" value="Printing" id="printing">
                                 <label class="form-check-label label-margin" for="printing">
                                     Printing
                                 </label>
                             </div>
                             <div class="form-check mt-2">
-                                <input class="form-check-input larger-checkbox" type="checkbox" value="" id="">
+                                <input class="form-check-input larger-checkbox" type="checkbox" value="Embroidery" id="embroidery">
                                 <label class="form-check-label label-margin" for="embroidery">
                                     Embroidery
                                 </label>
                             </div>
                             <div class="form-check mt-2">
-                                <input class="form-check-input larger-checkbox" type="checkbox" value="" id="">
+                                <input class="form-check-input larger-checkbox" type="checkbox"  value="GMT Wash" id="gmtWash">
                                 <label class="form-check-label label-margin" for="gmtWash">
                                     GMT. Wash
                                 </label>
@@ -495,7 +495,11 @@
                 <!-- Rows will be appended here dynamically -->
             </tbody>
         </table>
-        
+        <div class="row justify-content-end"></div>
+            <div class="col-md-12 d-flex justify-content-end">
+                <button type="submit" class="btn btn-primary" id="submit-button">Submit</button>
+            </div>
+        </div>
         
     </div>
 
@@ -692,11 +696,9 @@
             const sizeL = document.getElementById('sizeL').value;
             const sizeXL = document.getElementById('sizeXL').value;
 
-            // Create a new row and append values
             const tableBody = document.querySelector('#dataTable tbody');
             const newRow = document.createElement('tr');
 
-            // Add each value to a table cell and append it to the row
             newRow.innerHTML = `
                 <td>${pointOfMeasure}</td>
                 <td>${code}</td>
@@ -710,10 +712,7 @@
                 <td>${sizeXL}</td>
             `;
 
-            // Append the new row to the table body
             tableBody.appendChild(newRow);
-
-            // Optionally, clear the input fields after adding the row
             document.querySelectorAll('input').forEach(input => input.value = '');
         });
 
@@ -723,32 +722,32 @@
                 
             if (file) {
                 const reader = new FileReader();
-                    
-                    // When file is loaded, display it in the img tag
                 reader.onload = function(e) {
-                    imagePreview.src = e.target.result; // Set the new image
+                    imagePreview.src = e.target.result; 
                 };
                     
-                reader.readAsDataURL(file); // Read the image file as a data URL
+                reader.readAsDataURL(file); 
             }
         }
 
         // Function to extract ID from the URL
+        let enq_id;
         function getIdFromUrl() {
-            const url = window.location.href; // Get the current URL
-            const id = url.substring(url.lastIndexOf('/') + 1); // Extract ID from URL
+            const url = window.location.href; 
+            const id = url.substring(url.lastIndexOf('/') + 1); 
+            enq_id = id;
             return id;
         }
 
         // Function to fetch data using the extracted ID
         function fetchData(id) {
-            const apiUrl = '/api/v1/enquiry/view'; // Your API endpoint
+            const apiUrl = '/api/v1/enquiry/view';
 
             $.ajax({
                 url: apiUrl,
                 type: 'POST',
-                contentType: 'application/json', // Set content type to JSON
-                data: JSON.stringify({ id: id }), // Send the ID as JSON
+                contentType: 'application/json',
+                data: JSON.stringify({ id: id }), 
                 success: function(response) {
                     if (response.status) {
                         const data = response.data;
@@ -789,6 +788,205 @@
             fetchData(id); // Fetch data using the extracted ID
         });
 
+
+        function gatherFabricData() {
+            const fabricData = [];
+            const fabricSections = document.querySelectorAll('.fabric-section'); // Get all fabric sections
+
+            fabricSections.forEach(section => {
+                const knitStructure = section.querySelector('#knitStructure');
+                const blend = section.querySelector('#blend');
+                const gsm = section.querySelector('#gsm');
+                const finish = section.querySelector('#finish');
+                const dryMethod = section.querySelector('#dryMethod');
+                const placement = section.querySelector('#placement');
+
+                // Ensure that the inputs exist before accessing their values
+                if (knitStructure && blend && gsm && finish && dryMethod && placement) {
+                    const fabricInfo = {
+                        knitStructure: knitStructure.value,
+                        blend: blend.value,
+                        gsm: gsm.value,
+                        finish: finish.value,
+                        dryMethod: dryMethod.value,
+                        placement: placement.value,
+                    };
+                    fabricData.push(fabricInfo); 
+                }
+            });
+
+            return fabricData; 
+        }
+
+        // Function to gather accessory fabric data
+        function gatherAccessoryFabricData() {
+            const accessoryData = [];
+            const accessorySections = document.querySelectorAll('.accessory-section'); // Get all accessory sections
+
+            accessorySections.forEach(section => {
+                const knitStructure = section.querySelector('#knitStructureAccessory');
+                const blend = section.querySelector('#blendAccessory');
+                const gsm = section.querySelector('#gsmAccessory');
+                const placement = section.querySelector('#placementAccessory');
+
+                // Ensure that the inputs exist before accessing their values
+                if (knitStructure && blend && gsm && placement) {
+                    const accessoryInfo = {
+                        knitStructure: knitStructure.value,
+                        blend: blend.value,
+                        gsm: gsm.value,
+                        placement: placement.value,
+                    };
+                    accessoryData.push(accessoryInfo); // Add the accessory info to the array
+                }
+            });
+
+            return accessoryData; // Return the collected data
+        }
+
+        function gatherComboFabricData() {
+            const comboData = [];
+            const comboSections = document.querySelectorAll('.accessory-section-combo'); // Get all combo sections
+
+            comboSections.forEach(section => {
+                const comboNo = section.querySelector('#comboNo');
+                const size = section.querySelector('#size');
+                const pieces = section.querySelector('#Pieces');
+
+                // Ensure that the inputs exist before accessing their values
+                if (comboNo && size && pieces) {
+                    const comboInfo = {
+                        comboNo: comboNo.value,
+                        size: size.value,
+                        pieces: pieces.value,
+                    };
+                    comboData.push(comboInfo); 
+                }
+            });
+
+            return comboData; 
+        }
+
+        function gatherTrimData() {
+            const trimsData = [];
+            const buttonSections = document.querySelectorAll('.trim-section'); 
+            const threadSections = document.querySelectorAll('.trim-section-thread'); 
+            const labelSections = document.querySelectorAll('.label-section');
+
+            // Gather button data
+            buttonSections.forEach(section => {
+                const description = section.querySelector('#buttonDescription');
+                const content = section.querySelector('#buttonContent');
+                const placement = section.querySelector('#buttonPlacement');
+
+                if (description && content && placement) {
+                    trimsData.push({
+                        type: 1,
+                        description: description.value,
+                        content: content.value,
+                        placement: placement.value
+                    });
+                }
+            });
+
+            // Gather thread data
+            threadSections.forEach(section => {
+                const description = section.querySelector('#threadDescription');
+                const content = section.querySelector('#threadContent');
+                const placement = section.querySelector('#threadPlacement');
+
+                if (description && content && placement) {
+                    trimsData.push({
+                        type: 2,
+                        description: description.value,
+                        content: content.value,
+                        placement: placement.value
+                    });
+                }
+            });
+
+            // Gather label data
+            labelSections.forEach(section => {
+                const description = section.querySelector('#label1Description');
+                const placement = section.querySelector('#label1Placement');
+
+                if (description && placement) {
+                    trimsData.push({
+                        type: 3,
+                        description: description.value,
+                        content: '', 
+                        placement: placement.value
+                    });
+                }
+            });
+
+            return trimsData; 
+        }
+
+        function gatherSpecSheetData() {
+            const specSheetsData = [];
+            const rows = document.querySelectorAll('#dataTable tbody tr'); 
+
+            rows.forEach(row => {
+                const pointOfMeasure = row.querySelector('td:nth-child(1)').innerText; 
+                const code = row.querySelector('td:nth-child(2)').innerText; 
+                const howToMeasure = row.querySelector('td:nth-child(3)').innerText;
+                const critical = parseInt(row.querySelector('td:nth-child(4)').innerText) || 0; 
+                const type = parseInt(row.querySelector('td:nth-child(5)').innerText) || 0; 
+                const tolerance = parseInt(row.querySelector('td:nth-child(6)').innerText) || 0; 
+                const s = parseInt(row.querySelector('td:nth-child(7)').innerText) || 0;
+                const m = parseInt(row.querySelector('td:nth-child(8)').innerText) || 0; 
+                const l = parseInt(row.querySelector('td:nth-child(9)').innerText) || 0; 
+                const xl = parseInt(row.querySelector('td:nth-child(10)').innerText) || 0; 
+
+                specSheetsData.push({
+                    pointOfMeasure,
+                    code,
+                    howToMeasure,
+                    critical,
+                    type,
+                    tolerance,
+                    s,
+                    m,
+                    l,
+                    xl
+                });
+            });
+
+            return specSheetsData; 
+        }
+
+        function getSelectedCheckboxes() {
+            const checkboxes = document.querySelectorAll('.form-check-input');
+            const selectedValues = [];
+
+            checkboxes.forEach(checkbox => {
+                if (checkbox.checked) {
+                    selectedValues.push(checkbox.value);
+                }
+            });
+
+            return selectedValues;
+        }
+
+        // Event listener for submit button
+        document.getElementById('submit-button').addEventListener('click', () => {
+            const enquiryMainFabrics = gatherFabricData(); 
+            const enquiryAccessoriesFabrics = gatherAccessoryFabricData();
+            const enquiryComboFabrics = gatherComboFabricData();
+            const enquiryTrims = gatherTrimData();
+            const enquirySpecSheets = gatherSpecSheetData();
+            const selectedValues = getSelectedCheckboxes();
+            const result = {
+                enquiryMainFabrics,
+                enquiryAccessoriesFabrics,
+                enquiryComboFabrics,
+                enquiryTrims,
+                enquirySpecSheets,
+                selectedValues
+            };
+            console.log('Result:', result); 
+        });
     </script>
 </body>
 

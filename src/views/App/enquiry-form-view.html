@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- head %>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.0/css/bootstrap.min.css">
+</head>
+
+<body>
+
+    <%- nav %>
+
+    <div class="mx-5 mt-5">
+        <div class="row mb-2">
+            <!-- First Column: Customer, Enquiry, File -->
+            <div class="col-md-3">
+                <div class="row">
+                    <div class="col-6">
+                        <h5>Customer:</h5>
+                    </div>
+                    <div class="col-6">
+                        <span id="customerName"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <h5>Enquiry:</h5>
+                    </div>
+                    <div class="col-6">
+                        <span id="enquiryType"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <h5>File:</h5>
+                    </div>
+                    <div class="col-6">
+                        <span><a href="#" id="fileLink"></a></span>
+                    </div>
+                </div> 
+            </div>
+        
+            <!-- Second Column: Enquiry No, Enquiry Date -->
+            <div class="col-md-3">
+                <div class="row">
+                    <div class="col-6">
+                        <h5>Enquiry No:</h5>
+                    </div>
+                    <div class="col-4">
+                        <span id="enquiryNo"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <h5>Enquiry Date:</h5>
+                    </div>
+                    <div class="col-4">
+                        <span id="enquiryDate"></span>
+                    </div>
+                </div>
+            </div>
+        
+            <!-- Third Column: GSR No, Garment Sketch -->
+            <div class="col-md-6">
+                <div class="row">
+                    <div class="col-2 offset-md-2">
+                        <h5>GSR No:</h5>
+                    </div>
+                    <div class="col-2">
+                        <span id="gsrNo"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-md-10 offset-md-7 d-flex justify-content-start align-items-center">
+                <h5>Garment Sketch:</h5>
+            </div>
+            <div class="col-md-4">
+                <h5 class="mb-5"><b>Main Body Fabric</b></h5>
+                <div id="fabric-container">
+                    <div class="fabric-section" id="fabric-section-template">
+                        <div class="row mb-3 align-items-center">
+                            <div class="col-md-3">
+                                <label for="knitStructure" class="col-form-label">Knit Structure:</label>
+                            </div>
+                            <div class="col-md-5">
+                                <input type="text" class="form-control" id="knitStructure" value="">
+                            </div>
+                        </div>
+                    
+                        <div class="row mb-3 align-items-center">
+                            <div class="col-md-3">
+                                <label for="blend" class="col-form-label">Blend:</label>
+                            </div>
+                            <div class="col-md-5">
+                                <input type="text" class="form-control" id="blend" value="">
+                            </div>
+                        </div>
+                    
+                        <div class="row mb-3 align-items-center">
+                            <div class="col-md-3">
+                                <label for="gsm" class="col-form-label">GSM:</label>
+                            </div>
+                            <div class="col-md-5">
+                                <input type="text" class="form-control" id="gsm" value="">
+                            </div>
+                        </div>
+                    
+                        <div class="row mb-3 align-items-center">
+                            <div class="col-md-3">
+                                <label for="finish" class="col-form-label">Finish:</label>
+                            </div>
+                            <div class="col-md-5">
+                                <input type="text" class="form-control" id="finish" value="">
+                            </div>
+                        </div>
+                        
+                        <div class="row mb-3 align-items-center">
+                            <div class="col-md-3">
+                                <label for="dryMethod" class="col-form-label">Dry Method:</label>
+                            </div>
+                            <div class="col-md-5">
+                                <input type="text" class="form-control" id="dryMethod" value="">
+                            </div>
+                        </div>
+                    
+                        <div class="row mb-3 align-items-center">
+                            <div class="col-md-3">
+                                <label for="placement" class="col-form-label">Placement:</label>
+                            </div>
+                            <div class="col-md-5">
+                                <input type="text" class="form-control" id="placement" value="">
+                            </div>
+                        </div>
+                      
+                    </div>
+                </div>
+                
+                <h5 class="mb-5 mt-5"><b>Accessory Fabric</b></h5>
+                <div id="fabric-container-accessory">
+                    <div class="accessory-section" id="accessory-section-template">
+                        <div class="row mb-3 align-items-center">
+                            <div class="col-md-3">
+                                <label for="knitStructure" class="col-form-label">Knit Structure:</label>
+                            </div>
+                            <div class="col-md-5">
+                                <input type="text" class="form-control" id="knitStructureAccessory" value="">
+                            </div>
+                        </div>
+                    
+                        <div class="row mb-3 align-items-center">
+                            <div class="col-md-3">
+                                <label for="blend" class="col-form-label">Blend:</label>
+                            </div>
+                            <div class="col-md-5">
+                                <input type="text" class="form-control" id="blendAccessory" value="">
+                            </div>
+                        </div>
+                    
+                        <div class="row mb-3 align-items-center">
+                            <div class="col-md-3">
+                                <label for="gsm" class="col-form-label">GSM:</label>
+                            </div>
+                            <div class="col-md-5">
+                                <input type="text" class="form-control" id="gsmAccessory" value="">
+                            </div>
+                        </div>
+                    
+                        <div class="row mb-3 align-items-center">
+                            <div class="col-md-3">
+                                <label for="placement" class="col-form-label">Placement:</label>
+                            </div>
+                            <div class="col-md-5">
+                                <input type="text" class="form-control" id="placementAccessory" value="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mt-5" id="fabric-container-combo">
+                    <div class="accessory-section-combo" id="combo-section-template">
+                        <div class="row mb-3 align-items-center">
+                            <div class="col-md-3">
+                                <label for="comboNo" class="col-form-label">Combo No:</label>
+                            </div>
+                            <div class="col-md-5">
+                                <input type="text" class="form-control" id="comboNo" value="">
+                            </div>
+                        </div>
+                        <div class="row mb-3 align-items-center">
+                            <div class="col-md-3">
+                                <label for="comboNo" class="col-form-label">Size & Pieces:</label>
+                            </div>
+                            <div class="col-md-3">
+                                <input type="select" class="form-control" id="size" value="">
+                            </div>
+                            <div class="col-md-2">
+                                <input type="text" class="form-control" id="Pieces" value="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                
+            </div>
+            <div class="col-md-8">
+                <div class="row">
+                    <div class="col-md-3 d-flex flex-column align-items-center mt-5">
+                        <h5 class="mt-4"><b>Value Added Process</b></h5>
+                        <div class="col-md-6">
+                            <div class="form-check">
+                                <input class="form-check-input larger-checkbox" type="checkbox" value="AOP" id="aop">
+                                <label class="form-check-label label-margin" for="aop">
+                                    AOP
+                                </label>
+                            </div>
+                            <div class="form-check mt-2">
+                                <input class="form-check-input larger-checkbox" type="checkbox" value="Printing" id="printing">
+                                <label class="form-check-label label-margin" for="printing">
+                                    Printing
+                                </label>
+                            </div>
+                            <div class="form-check mt-2">
+                                <input class="form-check-input larger-checkbox" type="checkbox" value="Embroidery" id="embroidery">
+                                <label class="form-check-label label-margin" for="embroidery">
+                                    Embroidery
+                                </label>
+                            </div>
+                            <div class="form-check mt-2">
+                                <input class="form-check-input larger-checkbox" type="checkbox"  value="GMT Wash" id="gmtWash">
+                                <label class="form-check-label label-margin" for="gmtWash">
+                                    GMT. Wash
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-9 d-flex justify-content-end align-items-center">
+                        <!-- Default Image / Image Preview -->
+                        <img src="assets/images/1594466867group-339-png.png" alt="Value Added Process Image" id="imagePreview" class="img-fluid" style="max-width: 600px; height: 350px; cursor: pointer;" onclick="document.getElementById('imageUpload').click()">
+                        <!-- File Upload Input (Hidden) -->
+                        <input type="file" id="imageUpload" accept="image/*" style="display:none" onchange="previewImage(event)">
+                    </div>
+                </div>
+                
+                <div class="row mt-5">
+                    <h5 class="mt-4"><b>Trims</b></h5>
+                    <hr style="border: 3px solid #000;">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div id="trim-container">
+                                <div class="trim-section" id="trim-template">
+                                    <h6><b>Button 1:</b></h6>
+                                    <div class="ml-2">
+                                        <div class="row mb-3 align-items-center">
+                                            <div class="col-md-3">
+                                                <label for="buttonDescription" class="col-form-label">Description:</label>
+                                            </div>
+                                            <div class="col-md-5">
+                                                <input type="text" class="form-control" id="buttonDescription" value="">
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="row mb-3 align-items-center">
+                                            <div class="col-md-3">
+                                                <label for="buttonContent" class="col-form-label">Content:</label>
+                                            </div>
+                                            <div class="col-md-5">
+                                                <input type="text" class="form-control" id="buttonContent" value="">
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="row mb-3 align-items-center">
+                                            <div class="col-md-3">
+                                                <label for="buttonPlacement" class="col-form-label">Placement:</label>
+                                            </div>
+                                            <div class="col-md-5">
+                                                <input type="text" class="form-control" id="buttonPlacement" value="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                           
+
+                            <div id="thread-container">
+                                <div class="mt-5 trim-section-thread" id="thread-template">
+                                    <h6><b>Thread 1:</b></h6>
+                                    <div class="row mb-3 align-items-center">
+                                        <div class="col-md-3">
+                                            <label for="thread1Description" class="col-form-label">Description:</label>
+                                        </div>
+                                        <div class="col-md-5">
+                                            <input type="text" class="form-control" id="threadDescription" value="">
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="row mb-3 align-items-center">
+                                        <div class="col-md-3">
+                                            <label for="thread1Content" class="col-form-label">Content:</label>
+                                        </div>
+                                        <div class="col-md-5">
+                                            <input type="text" class="form-control" id="threadContent" value="">
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="row mb-3 align-items-center">
+                                        <div class="col-md-3">
+                                            <label for="thread1Placement" class="col-form-label">Placement:</label>
+                                        </div>
+                                        <div class="col-md-5">
+                                            <input type="text" class="form-control" id="threadPlacement" value="">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Add Button with Plus Icon -->
+                            
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <div id="label-container">
+                                <div class="label-section" id="label-template">
+                                    <h6><b>Label 1:</b></h6>
+                                    <div class="row mb-3 align-items-center">
+                                        <div class="col-md-3">
+                                            <label for="label1Description" class="col-form-label">Description:</label>
+                                        </div>
+                                        <div class="col-md-5">
+                                            <input type="text" class="form-control" id="label1Description" value="">
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="row mb-3 align-items-center">
+                                        <div class="col-md-3">
+                                            <label for="label1Placement" class="col-form-label">Placement:</label>
+                                        </div>
+                                        <div class="col-md-5">
+                                            <input type="text" class="form-control" id="label1Placement" value="">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mb-2 mt-5">
+            <!-- Point of Measure -->
+            <div class="col-md-2">
+                <label for="pointOfMeasure">Po.Of Measure</label>
+                <input type="text" class="form-control" id="pointOfMeasure">
+            </div>
+        
+            <!-- Code -->
+            <div class="col-md-1">
+                <label for="code">Code</label>
+                <input type="text" class="form-control" id="code">
+            </div>
+        
+            <!-- How to Measure -->
+            <div class="col-md-2">
+                <label for="howToMeasure">How to Measure</label>
+                <input type="text" class="form-control" id="howToMeasure">
+            </div>
+        
+            <!-- Critical -->
+            <div class="col-md-1">
+                <label for="critical">Critical</label>
+                <input type="text" class="form-control" id="critical">
+            </div>
+        
+            <!-- Type -->
+            <div class="col-md-1">
+                <label for="type">Type</label>
+                <input type="text" class="form-control" id="type">
+            </div>
+        
+            <!-- Tolerance -->
+            <div class="col-md-1">
+                <label for="tolerance">Tolerance</label>
+                <input type="text" class="form-control" id="tolerance">
+            </div>
+        
+            <!-- S -->
+            <div class="col-md-1">
+                <label for="sizeS">S</label>
+                <input type="text" class="form-control" id="sizeS">
+            </div>
+        
+            <!-- M -->
+            <div class="col-md-1">
+                <label for="sizeM">M</label>
+                <input type="text" class="form-control" id="sizeM">
+            </div>
+        
+            <!-- L -->
+            <div class="col-md-1">
+                <label for="sizeL">L</label>
+                <input type="text" class="form-control" id="sizeL">
+            </div>
+        
+            <!-- XL -->
+            <div class="col-md-1">
+                <label for="sizeXL">XL</label>
+                <input type="text" class="form-control" id="sizeXL">
+            </div>
+        </div>
+       
+        <table class="table table-bordered mt-4" id="dataTable">
+            <thead>
+                <tr>
+                    <th>Point of Measure</th>
+                    <th>Code</th>
+                    <th>How to Measure</th>
+                    <th>Critical</th>
+                    <th>Type</th>
+                    <th>Tolerance</th>
+                    <th>S</th>
+                    <th>M</th>
+                    <th>L</th>
+                    <th>XL</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Rows will be appended here dynamically -->
+            </tbody>
+        </table>
+        
+    </div>
+
+    <%- script %>
+    <script>
+       
+        function previewImage(event) {
+            const imagePreview = document.getElementById('imagePreview');
+            const file = event.target.files[0];
+                
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    imagePreview.src = e.target.result; 
+                };
+                    
+                reader.readAsDataURL(file); 
+            }
+        }
+
+        // Function to extract ID from the URL
+        let enq_id;
+        function getIdFromUrl() {
+            const url = window.location.href; 
+            const id = url.substring(url.lastIndexOf('/') + 1); 
+            enq_id = id;
+            return id;
+        }
+
+        // Function to fetch data using the extracted ID
+        function fetchData(id) {
+            const apiUrl = '/api/v1/enquiry/view';
+
+            $.ajax({
+                url: apiUrl,
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({ id: id }), 
+                success: function(response) {
+                    if (response.status) {
+                        const data = response.data;
+                        function formatDate(date) {
+                            const options = { year: 'numeric', month: 'short', day: '2-digit' };
+                            return new Date(date).toLocaleDateString('en-GB', options).replace(/ /g, '-');
+                        }
+                        const today = new Date();
+                        document.getElementById('customerName').textContent = data.client_name;
+                
+                        document.getElementById('enquiryType').textContent = data.type === 1 ? 'Coasting Request' : 'Sample Request';
+                        
+                        if (data.file) {
+                            document.getElementById('fileLink').textContent = data.file;
+                        } else {
+                            document.getElementById('fileLink').textContent = 'No file';
+                        }
+
+                        document.getElementById('enquiryNo').textContent = data.enq_number;  
+                        document.getElementById('enquiryDate').textContent = formatDate(today); 
+                        document.getElementById('gsrNo').textContent = data.gsr_number;  
+                        console.log('Data retrieved successfully:', response.data);
+
+                        // Populate Main Fabric Data
+                        if (data.mainFabric) {
+                            populateFabricSections(data.mainFabric);
+                        }
+                        if (data.accessoryFabric) {
+                            populateAccessoryFabricSections(data.accessoryFabric);
+                        }
+                        if (data.combos && data.combos.length > 0) {
+                            populateComboSections(data.combos);
+                        }
+                        populateValueAddedCheckboxes(data.valueAdded);
+                        populateSpecSheetTable(data.specSheets);
+                        populateTrims(data.trims);
+                    } else {
+                        alert('Failed to retrieve data.');
+                    }
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    console.error('Error fetching data:', textStatus, errorThrown);
+                    alert('Error occurred while fetching data.');
+                }
+            });
+        }
+
+        // Main function to execute on DOM content loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            const id = getIdFromUrl(); // Get ID from URL
+            fetchData(id); // Fetch data using the extracted ID
+        });
+
+        function populateFabricSections(mainFabrics) {
+            const fabricContainer = document.getElementById('fabric-container');
+            const fabricSectionTemplate = document.getElementById('fabric-section-template');
+            
+            // Clear previous sections if needed
+            fabricContainer.innerHTML = '';
+
+            // Loop through the main fabric array and create sections
+            mainFabrics.forEach(mainFabric => {
+                const fabricSection = fabricSectionTemplate.cloneNode(true); // Clone the template
+                
+                // Populate the fields with the main fabric data
+                fabricSection.querySelector('#knitStructure').value = mainFabric.knitStructure || '';
+                fabricSection.querySelector('#blend').value = mainFabric.blend || '';
+                fabricSection.querySelector('#gsm').value = mainFabric.gsm || '';
+                fabricSection.querySelector('#finish').value = mainFabric.finish || '';
+                fabricSection.querySelector('#dryMethod').value = mainFabric.dryMethod || '';
+                fabricSection.querySelector('#placement').value = mainFabric.placement || '';
+
+                // Remove the 'id' from the cloned element to avoid ID conflicts
+                fabricSection.removeAttribute('id');
+
+                // Make the cloned section visible
+                fabricSection.style.display = 'block';
+
+                // Disable inputs to make them read-only (optional)
+                fabricSection.querySelector('#knitStructure').disabled = true;
+                fabricSection.querySelector('#blend').disabled = true;
+                fabricSection.querySelector('#gsm').disabled = true;
+                fabricSection.querySelector('#finish').disabled = true;
+                fabricSection.querySelector('#dryMethod').disabled = true;
+                fabricSection.querySelector('#placement').disabled = true;
+
+                // Append the populated fabric section to the container
+                fabricContainer.appendChild(fabricSection);
+            });
+        }
+
+        function populateAccessoryFabricSections(accessoryFabrics) {
+            const fabricContainer = document.getElementById('fabric-container-accessory');
+            const accessorySectionTemplate = document.getElementById('accessory-section-template');
+            
+            // Clear previous sections if needed
+            fabricContainer.innerHTML = '';
+
+            // Loop through the accessory fabric array and create sections
+            accessoryFabrics.forEach(accessoryFabric => {
+                const accessorySection = accessorySectionTemplate.cloneNode(true); // Clone the template
+                
+                // Populate the fields with the accessory fabric data
+                accessorySection.querySelector('#knitStructureAccessory').value = accessoryFabric.knitStructure || '';
+                accessorySection.querySelector('#blendAccessory').value = accessoryFabric.blend || '';
+                accessorySection.querySelector('#gsmAccessory').value = accessoryFabric.gsm || '';
+                accessorySection.querySelector('#placementAccessory').value = accessoryFabric.placement || '';
+
+                // Remove the 'id' from the cloned element to avoid ID conflicts
+                accessorySection.removeAttribute('id');
+
+                // Make the cloned section visible
+                accessorySection.style.display = 'block';
+
+                // Disable inputs to make them read-only (optional)
+                accessorySection.querySelector('#knitStructureAccessory').disabled = true;
+                accessorySection.querySelector('#blendAccessory').disabled = true;
+                accessorySection.querySelector('#gsmAccessory').disabled = true;
+                accessorySection.querySelector('#placementAccessory').disabled = true;
+
+                // Append the populated accessory section to the container
+                fabricContainer.appendChild(accessorySection);
+            });
+        }
+
+        function populateComboSections(combos) {
+            const comboContainer = document.getElementById('fabric-container-combo');
+            const comboTemplate = document.getElementById('combo-section-template');
+            
+            // Clear any existing combo sections
+            comboContainer.innerHTML = '';
+
+            // Loop through the combo array and create sections
+            combos.forEach(combo => {
+                const comboSection = comboTemplate.cloneNode(true); // Clone the template
+                
+                // Populate the fields with the combo data
+                comboSection.querySelector('#comboNo').value = combo.comboNo || '';
+                comboSection.querySelector('#size').value = combo.size || '';
+                comboSection.querySelector('#Pieces').value = combo.pieces || '';
+
+                // Remove the 'id' from the cloned element to avoid ID conflicts
+                comboSection.removeAttribute('id');
+                
+                // Make the cloned section visible
+                comboSection.style.display = 'block';
+
+                // Disable inputs to make them read-only (optional)
+                comboSection.querySelector('#comboNo').disabled = true;
+                comboSection.querySelector('#size').disabled = true;
+                comboSection.querySelector('#Pieces').disabled = true;
+
+                // Append the populated combo section to the container
+                comboContainer.appendChild(comboSection);
+            });
+        }
+
+        function populateValueAddedCheckboxes(valueAdded) {
+            // Get all checkboxes in the container
+            const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+
+            // Loop through each checkbox
+            checkboxes.forEach(checkbox => {
+                // Disable the checkbox
+                checkbox.disabled = true;
+
+                // Check if the checkbox value matches any value in the valueAdded array
+                if (valueAdded.includes(checkbox.value)) {
+                    checkbox.checked = true; // Check the checkbox if it matches
+                } else {
+                    checkbox.checked = false; // Ensure it is unchecked if it does not match
+                }
+            });
+        }
+
+        function populateSpecSheetTable(specSheets) {
+            const tableBody = document.querySelector('#dataTable tbody'); // Select the tbody of the table
+
+            // Clear existing rows in case of multiple calls
+            tableBody.innerHTML = '';
+
+            // Loop through each spec sheet and create a new row
+            specSheets.forEach(sheet => {
+                const row = document.createElement('tr'); // Create a new table row
+
+                // Create and append cells for each property in the spec sheet
+                row.innerHTML = `
+                    <td>${sheet.pointOfMeasure || ''}</td>
+                    <td>${sheet.code || ''}</td>
+                    <td>${sheet.howToMeasure || ''}</td>
+                    <td>${sheet.critical || ''}</td>
+                    <td>${sheet.type || ''}</td>
+                    <td>${sheet.tolerance || ''}</td>
+                    <td>${sheet.sizes.s || ''}</td>
+                    <td>${sheet.sizes.m || ''}</td>
+                    <td>${sheet.sizes.l || ''}</td>
+                    <td>${sheet.sizes.xl || ''}</td>
+                `;
+
+                tableBody.appendChild(row); // Append the row to the table body
+            });
+        }
+
+        function populateTrims(trims) {
+            const buttonContainer = document.getElementById('trim-container');
+            const threadContainer = document.getElementById('thread-container');
+            const labelContainer = document.getElementById('label-container');
+
+            // Clear previous sections if needed
+            buttonContainer.innerHTML = '';
+            threadContainer.innerHTML = '';
+            labelContainer.innerHTML = '';
+
+            trims.forEach(trim => {
+                let newSection;
+
+                if (trim.type === 1) {
+                    // Clone the button template
+                    newSection = document.getElementById('trim-template').cloneNode(true);
+                    newSection.querySelector('#buttonDescription').value = trim.description || '';
+                    newSection.querySelector('#buttonContent').value = trim.content || '';
+                    newSection.querySelector('#buttonPlacement').value = trim.placement || '';
+
+                    // Change the header text
+                    const header = newSection.querySelector('h6');
+                    header.innerHTML = `<b>Button ${buttonContainer.children.length + 1}:</b>`;
+                    buttonContainer.appendChild(newSection); // Append to button container
+
+                } else if (trim.type === 2) {
+                    // Clone the thread template
+                    newSection = document.getElementById('thread-template').cloneNode(true);
+                    newSection.querySelector('#threadDescription').value = trim.description || '';
+                    newSection.querySelector('#threadContent').value = trim.content || '';
+                    newSection.querySelector('#threadPlacement').value = trim.placement || '';
+
+                    // Change the header text
+                    const header = newSection.querySelector('h6');
+                    header.innerHTML = `<b>Thread ${threadContainer.children.length + 1}:</b>`;
+                    threadContainer.appendChild(newSection); // Append to thread container
+
+                } else if (trim.type === 3) {
+                    // Clone the label template
+                    newSection = document.getElementById('label-template').cloneNode(true);
+                    newSection.querySelector('#label1Description').value = trim.description || '';
+                    newSection.querySelector('#label1Placement').value = trim.placement || '';
+
+                    // Change the header text
+                    const header = newSection.querySelector('h6');
+                    header.innerHTML = `<b>Label ${labelContainer.children.length + 1}:</b>`;
+                    labelContainer.appendChild(newSection); // Append to label container
+                }
+            });
+        }
+
+    </script>
+</body>
+
+</html>

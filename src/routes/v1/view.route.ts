@@ -220,6 +220,28 @@ router.get("/enquiry-form/:id", pathAuthorize, async (req: ExtendedRequest, res)
   }
 });
 
+router.get("/enquiry-form-view/:id", pathAuthorize, async (req: ExtendedRequest, res) => {
+
+  try {
+
+    // Components to render
+    let head = await mainHead();
+    let script = await mainScript();
+    let nav = await mainNav.mainNav(req?.authToken==undefined?'':req?.authToken, "Enquiry View");
+    let footer = await mainFooter();
+
+    res.status(200).render(view + "enquiry-form-view.html", {
+      head: head,
+      script: script,
+      footer: footer,
+      nav: nav,
+    });
+  } catch (err) {
+    //console.log(err);
+    res.status(500);
+  }
+});
+
 router.get("/add-department", pathAuthorize, async (req: ExtendedRequest, res) => {
   try {
 
@@ -354,7 +376,7 @@ router.get("/submitted-costing-enquiry-list", pathAuthorize, async (req: Extende
     let nav = await mainNav.mainNav(req?.authToken==undefined?'':req?.authToken, "Submitted Costing Enquiry List");
     let footer = await mainFooter();
 
-    res.status(200).render(view + "submitted-sample-enquiry-list.html", {
+    res.status(200).render(view + "submitted-costing-enquiry-list.html", {
       orders:orders.data,
       head: head,
       script: script,
@@ -382,7 +404,7 @@ router.get("/approved-costing-enquiry-list", pathAuthorize, async (req: Extended
     let nav = await mainNav.mainNav(req?.authToken==undefined?'':req?.authToken, "Approved Costing Enquiry List");
     let footer = await mainFooter();
 
-    res.status(200).render(view + "approved-sample-enquiry-list.html", {
+    res.status(200).render(view + "approved-costing-enquiry-list.html", {
       orders:orders.data,
       head: head,
       script: script,

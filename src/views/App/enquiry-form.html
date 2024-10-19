@@ -214,10 +214,10 @@
                                 <label for="comboNo" class="col-form-label">Size & Pieces:</label>
                             </div>
                             <div class="col-md-3">
-                                <input type="select" class="form-control" id="size" value="Body">
+                                <input type="select" class="form-control" id="size" value="">
                             </div>
                             <div class="col-md-2">
-                                <input type="text" class="form-control" id="Pieces" value="Body">
+                                <input type="text" class="form-control" id="Pieces" value="">
                             </div>
                         </div>
                     </div>
@@ -713,7 +713,11 @@
             `;
 
             tableBody.appendChild(newRow);
-            document.querySelectorAll('input').forEach(input => input.value = '');
+            const inputsToClear = ['pointOfMeasure', 'code', 'howToMeasure', 'critical', 'type', 'tolerance', 'sizeS', 'sizeM', 'sizeL', 'sizeXL'];
+    
+            inputsToClear.forEach(id => {
+                document.getElementById(id).value = '';
+            });
         });
 
         function previewImage(event) {
@@ -973,19 +977,49 @@
         document.getElementById('submit-button').addEventListener('click', () => {
             const enquiryMainFabrics = gatherFabricData(); 
             const enquiryAccessoriesFabrics = gatherAccessoryFabricData();
-            const enquiryComboFabrics = gatherComboFabricData();
+            const enquiryCombo = gatherComboFabricData();
             const enquiryTrims = gatherTrimData();
             const enquirySpecSheets = gatherSpecSheetData();
-            const selectedValues = getSelectedCheckboxes();
+            const values = getSelectedCheckboxes();
             const result = {
+                enquiryId: enq_id,
                 enquiryMainFabrics,
                 enquiryAccessoriesFabrics,
-                enquiryComboFabrics,
+                enquiryCombo,
                 enquiryTrims,
                 enquirySpecSheets,
-                selectedValues
+                values
             };
             console.log('Result:', result); 
+
+            $.ajax({
+                url: '/api/v1/enquiry_data/add',
+                type: 'POST',
+                contentType: 'application/json', 
+                data: JSON.stringify(result), 
+                success: function(enquiryResult) {
+                    if (enquiryResult.status) {
+                        showAlert({
+                            message: "Success: Enquiry added successfully",
+                            closeText: 'ok',
+                            closeFunction: function () {
+                                window.location.href = `/dashboard`;
+                            },
+                        });
+                    } else {
+                        showAlert({
+                            message: ("Failed to submit enquiry.",enquiryResult.message),
+                            closeText: 'ok',
+                            closeFunction: function () {
+                            },
+                        });
+                    }
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    console.error('Error submitting enquiry:', textStatus, errorThrown);
+                    alert('Error occurred while submitting enquiry.');
+                }
+            });
         });
     </script>
 </body>

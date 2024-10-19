@@ -760,19 +760,19 @@
                             return new Date(date).toLocaleDateString('en-GB', options).replace(/ /g, '-');
                         }
                         const today = new Date();
-                        document.getElementById('customerName').textContent = data.client_name;
+                        document.getElementById('customerName').textContent = data.enquiry.client_name;
                 
-                        document.getElementById('enquiryType').textContent = data.type === 1 ? 'Coasting Request' : 'Sample Request';
+                        document.getElementById('enquiryType').textContent = data.enquiry.type === 1 ? 'Coasting Request' : 'Sample Request';
                         
                         if (data.file) {
-                            document.getElementById('fileLink').textContent = data.file;
+                            document.getElementById('fileLink').textContent = data.enquiry.file;
                         } else {
                             document.getElementById('fileLink').textContent = 'No file';
                         }
 
-                        document.getElementById('enquiryNo').textContent = data.enq_number;  
+                        document.getElementById('enquiryNo').textContent = data.enquiry.enq_number;  
                         document.getElementById('enquiryDate').textContent = formatDate(today); 
-                        document.getElementById('gsrNo').textContent = data.gsr_number;  
+                        document.getElementById('gsrNo').textContent = data.enquiry.gsr_number;  
                         console.log('Data retrieved successfully:', response.data);
                       
                     } else {

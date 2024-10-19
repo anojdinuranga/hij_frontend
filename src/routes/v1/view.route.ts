@@ -241,6 +241,26 @@ router.get("/add-department", pathAuthorize, async (req: ExtendedRequest, res) =
   }
 });
 
+router.get("/department-edit/:id", pathAuthorize, async (req: ExtendedRequest, res) => {
+  try {
+
+    // Components to render
+    let head = await mainHead();
+    let script = await mainScript();
+    let nav = await mainNav.mainNav(req?.authToken==undefined?'':req?.authToken, "Department-Edit");
+    let footer = await mainFooter();
+
+    res.status(200).render(view + "department-edit.html", {
+      head: head,
+      script: script,
+      footer: footer,
+      nav: nav,
+    });
+  } catch (err) {
+    //console.log(err);
+    res.status(500);
+  }
+});
 
 router.get("/department-list", pathAuthorize, async (req: ExtendedRequest, res) => {
   try {

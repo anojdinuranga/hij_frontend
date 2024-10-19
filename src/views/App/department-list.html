@@ -50,8 +50,8 @@
                         <td>${data.department_name}</td>
                         <td>
                             <div class="d-flex gap-3">
-                                <i class="fa-solid fa-pen-to-square"></i>
-                                <i class="fa-solid fa-trash text-danger" onclick=(deleteUser(${data.id}))></i>
+                                <a href="/department-edit/${data.id}"><i class="fa-solid fa-pen-to-square"></i></a>
+                                <i class="fa-solid fa-trash text-danger mt-1" style="cursor:pointer;" onclick="deleteDepartment(${data.id})"></i>
                             </div>
                             
                         </td>
@@ -72,7 +72,33 @@
             });
           });
 
-          
+          function deleteDepartment(id){
+            showAlert({
+                message:"Are you sure you want to delete this Department ?",
+                closeText:'no',
+                acceptText:'yes',
+                acceptFunction: ()=>{
+                  $.ajax({
+                    url: '/api/v1/department/delete',
+                    type: 'POST',
+                    data: {departmentId:id},
+                    success: function(response){
+                      if(response.status){
+                        location.reload();
+                      }else{
+                        showAlert({
+                          message:"ERROR: "+response.message,
+                          closeText:'ok',
+                        });
+                      }
+                    },
+                    error: function(err){
+                      console.log(err);
+                    }
+                  });
+                },
+            });
+          }
         </script>
 
 </body>

@@ -483,65 +483,82 @@
         document.addEventListener('DOMContentLoaded', () => {
             const submitButton = document.querySelector('.es-btn');
 
-            submitButton.addEventListener('click', () => {
+            submitButton.addEventListener('click', async (event) => {
+                event.preventDefault(); // Prevent the default form submission
+
                 // Get form field values
                 const customer = document.getElementById('selectCustomer').value;
                 const enquiryType = document.getElementById('enquiryType').value;
-                const fileInput1 = document.getElementById('fileInput1').files[0];
+                const fileInput1 = document.getElementById('fileInput1').files[0]; 
                 const developmentType = document.getElementById('developmentType').value;
                 const orderType = document.getElementById('ordType').value;
                 const sampleType = document.getElementById('sampleType').value;
-                const fileInput2 = document.getElementById('fileInput2').files[0];
+                const fileInput2 = document.getElementById('fileInput2').files[0]; 
 
-                // Define max file size in bytes (e.g., 5MB = 5 * 1024 * 1024 bytes)
-                const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB limit
-
-                // Check if the files exceed the size limit
-                if (fileInput1 && fileInput1.size > MAX_FILE_SIZE) {
-                    alert('File 1 exceeds the 5MB size limit.');
-                    return; // Stop submission
-                }
-                if (fileInput2 && fileInput2.size > MAX_FILE_SIZE) {
-                    alert('File 2 exceeds the 5MB size limit.');
-                    return; // Stop submission
-                }
-
-                // Function to convert file to base64 string
-                const getFileBase64 = (file) => {
+                // Function to upload a single file using jQuery AJAX
+                const uploadFile = (file) => {
+                    const formData = new FormData(); 
+                    data = {
+                        file:file
+                    };
                     return new Promise((resolve, reject) => {
-                        const reader = new FileReader();
-                        reader.readAsDataURL(file);
-                        reader.onload = () => resolve(reader.result);
-                        reader.onerror = error => reject(error);
+                        $.ajax({
+                            url: '/api/v1/file/single',
+                            type: 'POST',
+                            data: data, 
+                            contentType: 'application/json',
+                            processData: false,
+                            success: (response) => {
+                                if (response.status) {
+                                    resolve(response.data.file); 
+                                } else {
+                                    reject(new Error(response.message)); 
+                                }
+                            },
+                            error: (jqXHR, textStatus, errorThrown) => {
+                                console.error('Error during file upload:', textStatus, errorThrown);
+                                reject(new Error('Error occurred while uploading file: ' + errorThrown)); 
+                            }
+                        });
                     });
                 };
 
-                // Process the data and send the request
+                // Process and send data
                 const processAndSendData = async () => {
                     try {
-                        let base64File1 = fileInput1 ? await getFileBase64(fileInput1) : null;
-                        let base64File2 = fileInput2 ? await getFileBase64(fileInput2) : null;
+                        let fileName1 = null;
+                        let fileName2 = null;
 
-                        // Prepare JSON object with base64-encoded files
-                        let data = {
+                        // Upload files if they exist
+                        if (fileInput1) {
+                            fileName1 = await uploadFile(fileInput1);
+                            if (!fileName1) return; 
+                        }
+                        if (fileInput2) {
+                            fileName2 = await uploadFile(fileInput2);
+                            if (!fileName2) return; 
+                        }
+
+                        // Prepare data for the enquiry API
+                        const data = {
                             client: customer,
-                            type: enquiryType, 
-                            file: "",  
+                            type: enquiryType,
+                            file: fileName1 || "",  
                             developmentType: enquiryType === '2' ? developmentType : null,  
                             orderType: enquiryType === '2' ? orderType : null,  
                             sampleType: enquiryType === '2' ? sampleType : null,  
-                            file2: enquiryType === '2' ? base64File2 : null 
+                            file2: enquiryType === '2' ? fileName2 : null
                         };
 
-                        // Send the API request via AJAX
+                        // Send the enquiry creation request
                         $.ajax({
                             url: '/api/v1/enquiry/add',
                             type: 'POST',
-                            data: JSON.stringify(data),  // Send the JSON object
-                            contentType: 'application/json',  // Set content type to application/json
-                            success: function(response) {
-                                if (response.status) {
-                                    rId = response.data.enquiryId;
+                            contentType: 'application/json', 
+                            data: JSON.stringify(data), 
+                            success: function(enquiryResult) {
+                                if (enquiryResult.status) {
+                                    const rId = enquiryResult.data.enquiryId; // Ensure `rId` is defined
                                     showAlert({
                                         message: "Success: Enquiry added successfully",
                                         closeText: 'ok',
@@ -558,15 +575,15 @@
                                 alert('Error occurred while submitting enquiry.');
                             }
                         });
+
                     } catch (error) {
                         console.error('Error processing files:', error);
                         alert('Failed to process files.');
                     }
                 };
 
-                processAndSendData();  // Call the async function to process and send the data
+                processAndSendData(); // Initiate the file processing and submission
             });
-
         });
 
 

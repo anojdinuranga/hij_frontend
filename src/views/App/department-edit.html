@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%-head%>
+</head>
+
+<body>
+
+    <%-nav%>
+
+    <div class="container">
+        <div class="row mt-5">
+            <div class="col-md-12">
+                <div class="form-group w-100 mb-5">
+                    <label class="form-label mb-3" for="departmentName">Department name</label>
+                    <input type="text" class="form-control w-full" id="departmentName">
+                </div>
+            </div>
+        </div>
+
+        <!-- Designation Inputs -->
+        <div class="col-md-12">
+            <div id="designationInputs" class="mb-3">
+                <label class="form-label mb-3">Department Designations</label>
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="Enter designation" id="designationInput0">
+                    <button class="btn btn-outline-secondary" type="button" onclick="removeDesignation(this)">Remove</button>
+                </div>
+            </div>
+        </div>
+        <button class="btn btn-secondary mb-4" onclick="addDesignation()">Add Designation</button>
+
+        <div class="footer">
+            <button class="btn btn-primary mb-4 theme-primary-btn" id="submit-button" onclick="addDepartment()">Save</button>
+        </div>
+
+        <%-script%>
+        <script>
+            let dId;
+            function getIdFromUrl() {
+                const url = window.location.href; 
+                const id = url.substring(url.lastIndexOf('/') + 1); 
+                dId = id;
+                return id;
+            }
+
+            let designationCount = 1;
+
+            // Modify addDesignation to accept a value
+            function addDesignation(value = '') {
+                const designationInputs = document.getElementById('designationInputs');
+                const newInput = document.createElement('div');
+                newInput.className = 'input-group mb-3';
+                newInput.innerHTML = `
+                    <input type="text" class="form-control" placeholder="Enter designation" id="designationInput${designationCount}" value="${value}">
+                    <button class="btn btn-outline-secondary" type="button" onclick="removeDesignation(this)">Remove</button>
+                `;
+                designationInputs.appendChild(newInput);
+                designationCount++;
+            }
+
+            // Function to remove a designation input field
+            function removeDesignation(button) {
+                const inputGroup = button.parentElement;
+                inputGroup.remove();
+            }
+
+            function addDepartment(id) {
+                const submitButton = $("#submit-button");
+                submitButton.prop("disabled", true);
+                const departmentName = $("#departmentName").val();
+                const designations = [];
+                
+                // Collect all designations
+                for (let i = 0; i < designationCount; i++) {
+                    const designationValue = $(`#designationInput${i}`).val();
+                    if (designationValue) {
+                        designations.push(designationValue);
+                    }
+                }
+
+                $.ajax({
+                    url: '/api/v1/department/edit',
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify({
+                        "id": dId,
+                        "departmentName": departmentName,
+                        "designations": designations 
+                    }),
+                    success: function (response) {
+                        if (response.status) {
+                            showAlert({
+                                message: "Success: Department Updated Successfully",
+                                closeText: 'ok',
+                                closeFunction: function () {
+                                    window.location.href = '/department-list';
+                                    submitButton.prop("disabled", false);
+                                },
+                            });
+                        } else {
+                            showAlert({
+                                message: "ERROR: " + response.message,
+                                closeText: 'ok',
+                            });
+                        }
+                    },
+                    error: function (error) {
+                        console.log(error);
+                    }
+                });
+            };
+
+            // Function to load department data from the API and prefill the form
+            const loadDepartmentData = (id) => {
+                const departmentId = id;
+
+                $.ajax({
+                    url: '/api/v1/department/view',
+                    type: 'POST', // Using POST method
+                    contentType: 'application/json',
+                    data: JSON.stringify({ id: departmentId }), // Send the ID in the request body
+                    success: function (response) {
+                        if (response.status) {
+                            const data = response.data;
+
+                            // Prefill department name
+                            $("#departmentName").val(data.department_name);
+
+                            // Clear existing designation inputs
+                            $("#designationInputs").empty();
+                            designationCount = 0;
+
+                            // Add designations from API
+                            if (data.designations) {
+                                const designationsArray = data.designations.split(','); // Split by comma
+
+                                designationsArray.forEach(designation => {
+                                    designation = designation.trim(); // Remove any leading/trailing whitespace
+                                    addDesignation(designation); // Pass the designation value to prefill the input
+                                });
+                            } else {
+                                addDesignation(); // If no designations, add at least one empty input
+                            }
+                        } else {
+                            showAlert({
+                                message: "ERROR: " + response.message,
+                                closeText: 'ok',
+                            });
+                        }
+                    },
+                    error: function (error) {
+                        console.log(error);
+                        showAlert({
+                            message: "ERROR: Unable to load department data.",
+                            closeText: 'ok',
+                        });
+                    }
+                });
+            };
+
+            document.addEventListener('DOMContentLoaded', () => {
+                const id = getIdFromUrl(); // Get ID from URL
+                loadDepartmentData(id); // Fetch data using the extracted ID
+            });
+        </script>
+    </div>
+
+</body>
+
+</html>

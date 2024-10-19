@@ -286,8 +286,9 @@ router.get("/department-list", pathAuthorize, async (req: ExtendedRequest, res) 
 router.get("/submitted-sample-enquiry-list", pathAuthorize, async (req: ExtendedRequest, res) => {
   try {
 
-    var orders = await renderData.render_data_post('/api/v1/order/list' , req?.authToken==undefined?'':req?.authToken, {});
-    if(!orders.status){
+    var enquiry = await renderData.render_data_post('/api/v1/enquiry/list' , req?.authToken==undefined?'':req?.authToken, {});
+    console.log("🚀 ~ router.get ~ enquiry:", enquiry)
+    if(!enquiry.status){
       res.redirect('/');
       return;
     }
@@ -299,7 +300,7 @@ router.get("/submitted-sample-enquiry-list", pathAuthorize, async (req: Extended
     let footer = await mainFooter();
 
     res.status(200).render(view + "submitted-sample-enquiry-list.html", {
-      orders:orders.data,
+      enquiry:enquiry.data,
       head: head,
       script: script,
       footer: footer,
@@ -342,8 +343,8 @@ router.get("/approved-sample-enquiry-list", pathAuthorize, async (req: ExtendedR
 router.get("/submitted-costing-enquiry-list", pathAuthorize, async (req: ExtendedRequest, res) => {
   try {
 
-    var orders = await renderData.render_data_post('/api/v1/order/list' , req?.authToken==undefined?'':req?.authToken, {});
-    if(!orders.status){
+    var enquiry = await renderData.render_data_post('/api/v1/enquiry/list' , req?.authToken==undefined?'':req?.authToken, {});
+    if(!enquiry.status){
       res.redirect('/');
       return;
     }
@@ -354,8 +355,8 @@ router.get("/submitted-costing-enquiry-list", pathAuthorize, async (req: Extende
     let nav = await mainNav.mainNav(req?.authToken==undefined?'':req?.authToken, "Submitted Costing Enquiry List");
     let footer = await mainFooter();
 
-    res.status(200).render(view + "submitted-sample-enquiry-list.html", {
-      orders:orders.data,
+    res.status(200).render(view + "submitted-costing-enquiry-list.html", {
+      enquiry:enquiry.data,
       head: head,
       script: script,
       footer: footer,
